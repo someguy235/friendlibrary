@@ -2,7 +2,7 @@ package com.friendlibrary
 
 class Item {
 		
-		String itemId
+		String itemDescription
 		String title
 		String author
 		String platform
@@ -17,7 +17,7 @@ class Item {
 //		User ownedBy
 
     static constraints = {
-		  itemId(nullable:false, unique:true)
+		  itemDescription(nullable:false, unique:true)
 			mediaType(nullable:false) 
 			format(nullable:true)
 			title(nullable:false)
@@ -38,6 +38,6 @@ class Item {
 		}
 
 		String toString(){
-			"${title} (${id})"
+			"${itemDescription} (${id})"
 		}
 }

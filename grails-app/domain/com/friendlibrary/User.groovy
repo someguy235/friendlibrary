@@ -1,7 +1,7 @@
 package com.friendlibrary
 
 class User {
-		String userId
+		String username
 		String password
 		String homepage
 		Date dateCreated
@@ -9,7 +9,7 @@ class User {
     static hasMany = [ items : Item, friends : User ]		
 
     static constraints = {
-			userId(size:3..20, unique:true)
+			username(size:3..20, unique:true)
 			password(size:6..64)
 			homepage(url: true, nullable: true)
 			profile(nullable:true)
@@ -20,6 +20,6 @@ class User {
 		}
 
 		String toString(){
-			"${userId} (${id})"
+			"${username} (${id})"
 		}
 }

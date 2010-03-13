@@ -7,8 +7,8 @@ class UserController {
 		}
 
 		def results = {
-			def users = User.findAllByUserIdLike(params.userId)
-			return [users: users, term: params.userId]
+			def users = User.findAllByUserIdLike(params.username)
+			return [users: users, term: params.username]
 		}
 
 //    def index = { }
