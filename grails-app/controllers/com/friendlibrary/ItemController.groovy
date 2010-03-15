@@ -17,6 +17,24 @@ class ItemController {
 			[ user : user ]
 		}
     
+		def addItem = {
+			def user = User.findByUsername(params.id)
+			if(user){
+				def item = new Item(params)
+				user.addToItems(item)
+				if (user.save()){
+					flash.message="Item added"
+				}else{
+					user.discard()
+					flash.message="Invalid or empty item"
+				}
+			}else{
+				flash.message="Invalid username"
+			}
+			redirect (action:'library', id:params.id)
+			[user:user]
+		}
+
 		def index = {
 			if (!params.id)
 				params.id="claptrap"

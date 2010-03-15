@@ -50,6 +50,10 @@ img {
     
 }
 
+#newItem {
+    margin-left: 1em;
+}
+
 #newItem h3 {
     font-size: x-large;
     font-weight: bold;
