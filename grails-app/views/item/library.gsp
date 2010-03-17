@@ -14,6 +14,8 @@
 					<g:textField id="itemDescription" name="itemDescription"/> 
 					<label for="mediaType">Media Type</label>
 					<g:textField id="mediaType" name="mediaType"/>
+					<label for="platform">Platform</label>
+					<g:textField id="platform" name="platform"/>
 					<label for="format">Format</label>
 					<g:textField id="format" name="format"/> 
 					<label for="title">Title</label>

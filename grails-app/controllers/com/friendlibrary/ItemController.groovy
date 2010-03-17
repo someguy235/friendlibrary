@@ -2,6 +2,7 @@ package com.friendlibrary
 
 class ItemController {
 //		def defaultAction = 'library'
+		def itemService
 		def scaffold = true
 		
 		def search = {
@@ -18,21 +19,13 @@ class ItemController {
 		}
     
 		def addItem = {
-			def user = User.findByUsername(params.id)
-			if(user){
-				def item = new Item(params)
-				user.addToItems(item)
-				if (user.save()){
-					flash.message="Item added"
-				}else{
-					user.discard()
-					flash.message="Invalid or empty item"
-				}
-			}else{
-				flash.message="Invalid username"
+			try{
+				def newItem = itemService.addItem(params.username, params.itemDescription, params.mediaType, params.title, params.format, params.author, params.platform)
+				flash.message="Added new item: ${newItem.itemDescription}"
+			}catch(ItemException ie){
+				flash.message = ie.message
 			}
-			redirect (action:'library', id:params.id)
-			[user:user]
+			redirect(action: 'library', username:params.username)
 		}
 
 		def index = {
