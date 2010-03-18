@@ -92,13 +92,35 @@
 	        click on each to execute its default action:</p>
 
 	        <div id="controllerList" class="dialog">
-				<h2>Available Controllers:</h2>
+				  <h2>Available Controllers:</h2>
 	            <ul>
 	              <g:each var="c" in="${grailsApplication.controllerClasses}">
 	                    <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
 	              </g:each>
 	            </ul>
 	        </div>
+	        <div id="otherLinks" class="dialog">
+				  <h2>Other internal links:</h2>
+					<h3>User</h3>
+					<ul>
+						<li class="controller"><a href="/friendlibrary/user/list">list</a></li>
+						<li class="controller"><a href="/friendlibrary/user/create">create</a></li>
+						<li class="controller"><a href="/friendlibrary/user/search">search</a></li>
+					</ul>
+					<h3>Profile</h3>
+					<ul>
+						<li class="controller"><a href="/friendlibrary/profile/list">list</a></li>
+						<li class="controller"><a href="/friendlibrary/profile/create">create</a></li>
+						<li class="controller"><a href="/friendlibrary/profile/show/1">show/1</a></li>
+					</ul>
+					<h3>Item</h3>
+					<ul>
+						<li class="controller"><a href="/friendlibrary/item/list">list</a></li>
+						<li class="controller"><a href="/friendlibrary/item/create">create</a></li>
+						<li class="controller"><a href="/friendlibrary/item/library/claptrap">library/claptrap</a></li>
+					</ul>
+					</div>
+				
 		</div>
     </body>
 </html>
