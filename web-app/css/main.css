@@ -268,3 +268,34 @@ th.desc a {
     background: transparent url(../images/skin/database_save.png) 5px 50% no-repeat;
     padding-left: 28px;
 }
+
+#newItem {
+	margin-left: 1em;
+}
+#newItem h3 {
+	font-size: x-large;
+	font-weight: bold;
+	border-bottom: 1px solid lightslategray;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.itemImage {
+	margin: 0.5em;
+	float: left;
+}
+.itemEntry {
+	padding-top: 1em;
+	padding-bottom: 1em;
+	margin-left: 3em;
+	font-size: larger;
+	border-top: 1px solid lightslategray;
+}
+.itemText a {
+	font-weight: bold;
+	text-decoration: none;
+}
+.itemDate {
+	font-size: smaller;
+}
+
