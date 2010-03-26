@@ -1,5 +1,6 @@
 html * {
-    margin: 0;
+		/*margin-left: .5em;
+		margin-right: .5em;*/
     /*padding: 0; SELECT NOT DISPLAYED CORRECTLY IN FIREFOX */
 }
 
@@ -31,6 +32,11 @@ h1 {
     font-weight: normal;
     font-size: 16px;
     margin: .8em 0 .3em 1em;
+}
+
+legend {
+		color: #5686BA;
+		font-size: 16px;
 }
 
 ul {
@@ -270,7 +276,9 @@ th.desc a {
 }
 
 #newItem {
-	margin-left: 1em;
+	margin-left: 1.5em;
+	padding: 5px;
+	width: 25%;
 }
 #newItem h3 {
 	font-size: x-large;
@@ -278,6 +286,9 @@ th.desc a {
 	border-bottom: 1px solid lightslategray;
 	margin-top: 1em;
 	margin-bottom: 1em;
+}
+#newItem table {
+	border: 1px solid #5686BA;
 }
 
 .itemImage {

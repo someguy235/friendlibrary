@@ -106,6 +106,7 @@
 						<li class="controller"><a href="/friendlibrary/user/list">list</a></li>
 						<li class="controller"><a href="/friendlibrary/user/create">create</a></li>
 						<li class="controller"><a href="/friendlibrary/user/search">search</a></li>
+						<li class="controller"><a href="/friendlibrary/user/registration">registration</a></li>
 					</ul>
 					<h3>Profile</h3>
 					<ul>

@@ -1,4 +1,4 @@
-<html
+<html>
   <head>
     <title>Search Results</title>
     <meta name="layout" content="main"/>
