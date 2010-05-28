@@ -20,12 +20,16 @@ class ItemController {
     
 		def addItem = {
 			try{
-				def newItem = itemService.addItem(params.username, params.itemDescription, params.mediaType, params.title, params.format, params.author, params.platform)
-				flash.message="Added new item: ${newItem.itemDescription}"
+				//render (params)
+				//def newItem = itemService.addItem(params.id, params.itemDescription, params.mediaType, params.title, params.format, params.author, params.platform)
+				//def newItem = itemService.addItem(params)
+				itemService.addItem(params)
+				//render newItem.toString() 
+				//flash.message="Added new item: ${newItem.itemDescription}"
 			}catch(ItemException ie){
 				flash.message = ie.message
 			}
-			redirect(action: 'library', username:params.username)
+			redirect(action: 'library', id:params.id)
 		}
 
 		def index = {
