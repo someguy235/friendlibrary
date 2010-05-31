@@ -2,16 +2,34 @@
     <head>
         <title><g:layoutTitle default="Grails" /></title>
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
-        <link rel="stylesheet" href="${resource(dir:'css',file:'friendlibrary.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css/eggplant',file:'jquery-ui-1.8.1.custom.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-        <g:layoutHead />
+        <g:javascript library="jquery" />
         <g:javascript library="application" />
+        <g:javascript library="resize" />
+        <jq:plugin name="ui" />
+        <g:layoutHead />
     </head>
     <body>
-        <div id="spinner" class="spinner" style="display:none;">
-            <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
-        </div>
-        <div id="grailsLogo" class="logo"><a href="http://grails.org"><img src="${resource(dir:'images',file:'grails_logo.png')}" alt="Grails" border="0" /></a></div>
-        <g:layoutBody />
+    	<div id="spinner" class="spinner" style="display:none;">
+      	<img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
+      </div>
+      <br />
+      <h1 class="ui-widget-header">FreindlyLibrary</h1>
+      <br />
+      <g:layoutBody />
+      <h3>
+      	All: &copy 2010, Ethan Shepherd
+      </h3>
+      <g:javascript>
+				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			</g:javascript>
+			<g:javascript type="text/javascript">
+				try {
+					var pageTracker = _gat._getTracker("UA-16289542-1");
+					pageTracker._trackPageview();
+				} catch(err) {}
+			</g:javascript>
     </body>
 </html>
