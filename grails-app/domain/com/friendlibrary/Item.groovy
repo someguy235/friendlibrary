@@ -2,42 +2,49 @@ package com.friendlibrary
 
 class Item {
 		
-		String itemDescription
+		/*General Attributes*/
 		String title
-		String author
-		String platform
-		String format
+		String mediaType //game, book, movie, etc.
 
-		String mediaType
-		Boolean loanedOut
-		Boolean reserved
-		Integer rating
 		Boolean requested
+		Boolean reserved
+		Boolean loanedOut
+		Integer rating
 		User requestedBy
-//		User ownedBy
-
+		
+		/*Game Attributes*/
+		String platform
+		
+		/*Movie Attributes*/
+		String format
+		
+		/*Book Attributes*/
+		String author
+		
     static constraints = {
-		  itemDescription(nullable:false, unique:true)
-			mediaType(nullable:false) 
-			format(nullable:true)
 			title(nullable:false)
-			author(nullable:true)
-			platform(nullable:true)
-			rating(size:1..5, nullable:true)
+			mediaType(nullable:false) 
+			
 			requested(nullable:true)
-			requestedBy(nullable:true)
 			reserved(nullable:true)
 			loanedOut(nullable:true)
-//			ownedBy(nullable:false)
+			rating(size:1..5, nullable:true)
+			requestedBy(nullable:true)
+			
+			platform(nullable:true)
+
+			format(nullable:true)
+			
+			author(nullable:true)
     }
 
-		static belongsTo = [ user : User ] 
+	static belongsTo = [ user : User ] 
 
-		static mapping = {
-			sort title:"asc"
-		}
+	static mapping = {
+	  sort title:"asc"
+	}
 
-		String toString(){
-			"${itemDescription} (${id})"
-		}
+	String toString(){
+	  "${itemDescription} (${id})"
+	}
 }
