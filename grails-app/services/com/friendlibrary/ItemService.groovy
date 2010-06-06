@@ -19,6 +19,8 @@ class ItemService{
 					format:params.format, 
 					author:params.author, 
 					platform:params.platform,
+					artist:params.artist,
+					genre:params.genre,
 					user:user).save(failOnError:true)
 			if(user.save(failOnError:true)){
 				return

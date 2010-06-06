@@ -21,6 +21,11 @@ class Item {
 		/*Book Attributes*/
 		String author
 		
+		/*Music Attributes*/
+		String artist
+		String genre
+		
+		
     static constraints = {
 			title(nullable:false)
 			mediaType(nullable:false) 
@@ -36,6 +41,9 @@ class Item {
 			format(nullable:true)
 			
 			author(nullable:true)
+			
+			artist(nullable:true)
+			genre(nullable:true)
     }
 
 	static belongsTo = [ user : User ] 
