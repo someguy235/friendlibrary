@@ -3,10 +3,12 @@
         <title><g:layoutTitle default="Grails" /></title>
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css/custom-theme',file:'jquery-ui-1.8.1.custom.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'tablesorter-style.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <g:javascript library="jquery" />
         <g:javascript library="application" />
         <g:javascript library="resize" />
+        <jq:plugin name="tablesorter" />
         <jq:plugin name="ui" />
         <g:layoutHead />
     </head>

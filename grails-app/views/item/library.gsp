@@ -11,6 +11,13 @@
 			$(function() {
 				$("#libTabs").tabs({ selected: 0 });
 			});
+			$(document).ready(function(){ 
+      	$("#libTabs-all-content").tablesorter( {sortList: [[0,0],[1,0]]} ); 
+      	$("#libTabs-games-content").tablesorter( {sortList: [[0,0],[1,0]]} );
+      	$("#libTabs-books-content").tablesorter( {sortList: [[0,0],[1,0]]} );
+      	$("#libTabs-movies-content").tablesorter( {sortList: [[0,0],[1,0]]} );
+      	$("#libTabs-music-content").tablesorter( {sortList: [[0,0],[1,0]]} );
+    	}); 
 		</g:javascript>
 	</head>
 	<body>
@@ -184,90 +191,111 @@
 					<li class="ui-state-default ui-corner-top"><a href="#libTabs-music">Music</a></li>
 				</ul>
 				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-all">
-					<table>
-						<g:each in="${user.items}" var="item">
-							<div class="itemEntry">
+					<table id="libTabs-all-content" class="tablesorter">
+						<thead>
+							<tr>
+								<th>Media</th>
+								<th>Title</th>
+								<th>Artist</th>
+								<th>Author</th>
+								<th>Format</th>
+								<th>Platform</th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:each in="${user.items}" var="item">
 								<tr>
-									<td>${item.mediaType}&nbsp&nbsp</td>
-									<td>${item.title}&nbsp&nbsp</td>
+									<td>${item.mediaType}</td>
+									<td>${item.title}</td>
+									<td>${item.artist}</td>
+									<td>${item.author}</td>
+									<td>${item.format}</td>
 									<td>${item.platform}</td>
 								</tr>
-							</div>
-						</g:each>
+							</g:each>
+						</tbody>
 					</table>
 				</div>
 				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="libTabs-games">
-					<table>
-						<tr>
-							<td><h2>Title&nbsp&nbsp</h2></td>
-							<td><h2>Platform</h2></td>
-						</tr>
-						<g:each in="${user.items}" var="item">
-							<g:if test="${item.mediaType == 'game'}">
-								<div class="itemEntry">
+					<table id="libTabs-games-content" class="tablesorter">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Platform</th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:each in="${user.items}" var="item">
+								<g:if test="${item.mediaType == 'game'}">
 									<tr>
-										<td>${item.title}&nbsp&nbsp</td>
+										<td>${item.title}</td>
 										<td>${item.platform}</td>
 									</tr>
-								</div>
-							</g:if>
-						</g:each>
+								</g:if>
+							</g:each>
+						</tbody>
 					</table>
 				</div>
 				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-books">
-					<table>
-						<tr>
-							<td><h2>Title&nbsp&nbsp</h2></td>
-							<td><h2>Author</h2></td>
-						</tr>
-						<g:each in="${user.items}" var="item">
-							<g:if test="${item.mediaType == 'book'}">
-								<div class="itemEntry">
-									<tr>
-										<td>${item.title}&nbsp&nbsp</td>
-										<td>${item.author}</td>
-									</tr>
-								</div>
-							</g:if>
-						</g:each>
+					<table id="libTabs-books-content" class="tablesorter">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Author</th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:each in="${user.items}" var="item">
+								<g:if test="${item.mediaType == 'book'}">
+										<tr>
+											<td>${item.title}</td>
+											<td>${item.author}</td>
+										</tr>
+								</g:if>
+							</g:each>
+						</tbody>					
 					</table>
 				</div>
 				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-movies">
-					<table>
-						<tr>
-							<td><h2>Title&nbsp&nbsp</h2></td>
-							<td><h2>Format</h2></td>
-						</tr>
-						<g:each in="${user.items}" var="item">
-							<g:if test="${item.mediaType == 'movie'}">
-								<div class="itemEntry">
+					<table id="libTabs-movies-content" class="tablesorter">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Format</th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:each in="${user.items}" var="item">
+								<g:if test="${item.mediaType == 'movie'}">
 									<tr>
-										<td>${item.title}&nbsp&nbsp</td>
+										<td>${item.title}</td>
 										<td>${item.format}</td>
 									</tr>
-								</div>
-							</g:if>
-						</g:each>
+								</g:if>
+							</g:each>
+						</tbody>
 					</table>
 				</div>
 				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-music">
-					<table>
-						<tr>
-							<td><h2>Title&nbsp&nbsp</h2></td>
-							<td><h2>Artist&nbsp&nbsp</h2></td>
-							<td><h2>Format</h2></td>
-						</tr>
-						<g:each in="${user.items}" var="item">
-							<g:if test="${item.mediaType == 'music'}">
-								<div class="itemEntry">
+					<table id="libTabs-music-content" class="tablesorter">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Artist</th>
+								<th>Format</th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:each in="${user.items}" var="item">
+								<g:if test="${item.mediaType == 'music'}">
 									<tr>
-										<td>${item.title}&nbsp&nbsp</td>
-										<td>${item.artist}&nbsp&nbsp</td>
+										<td>${item.title}</td>
+										<td>${item.artist}</td>
 										<td>${item.format}</td>
 									</tr>
-								</div>
-							</g:if>
-						</g:each>
+								</g:if>
+							</g:each>
+						</tbody>
 					</table>
 				</div>
 			</div>
