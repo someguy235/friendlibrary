@@ -1,9 +1,22 @@
 <html>
 	<head>
+	
+	<g:set var="loggedUser" value="${2}" />
+	
 		<title>
 			Library for ${user.profile.fullName}
 		</title>
 		<meta name="layout" content="main"/>
+		<g:if test="${user.profile.id == loggedUser}">
+			<g:set var="sortOrder" value="${[[0,0],[1,0]]}" />
+		</g:if>
+		<g:else>
+			<g:set var="sortOrder" value="${[[1,0],[2,0]]}" />
+		</g:else>
+		
+		
+		
+		
 		<g:javascript>
 			$(function() {
 				$("#newTabs").tabs({ selected: 0 });
@@ -12,16 +25,18 @@
 				$("#libTabs").tabs({ selected: 0 });
 			});
 			$(document).ready(function(){ 
-      	$("#libTabs-all-content").tablesorter( {sortList: [[0,0],[1,0]]} ); 
-      	$("#libTabs-games-content").tablesorter( {sortList: [[0,0],[1,0]]} );
-      	$("#libTabs-books-content").tablesorter( {sortList: [[0,0],[1,0]]} );
-      	$("#libTabs-movies-content").tablesorter( {sortList: [[0,0],[1,0]]} );
-      	$("#libTabs-music-content").tablesorter( {sortList: [[0,0],[1,0]]} );
+      	$("#libTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]      } ); 
+      	$("#libTabs-games-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#libTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#libTabs-movies-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#libTabs-music-content").tablesorter( {sortList: [[1,0],[2,0]]} );
     	}); 
 		</g:javascript>
 	</head>
 	<body>
+	
 		<div >
+		<g:if test="${user.profile.id == loggedUser}">
   	<div id="newItem" class="main centered">
 			<h2>Have something to add to your library?</h2>
 				<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newTabs">
@@ -172,7 +187,10 @@
 			</g:form>
 		
 		</div>
+		</g:if>
 		</div>
+		
+		
 		<div class="clear"></div>
 		<br />
 		<h1>Library for ${user.profile.fullName}</h1>
@@ -181,6 +199,8 @@
 				${flash.message}
 			</div>
 		</g:if>
+		
+		
 		<div id="allItems" class="main">
 			<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="libTabs">
 				<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
@@ -190,114 +210,231 @@
 					<li class="ui-state-default ui-corner-top"><a href="#libTabs-movies">Movies</a></li>
 					<li class="ui-state-default ui-corner-top"><a href="#libTabs-music">Music</a></li>
 				</ul>
-				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-all">
-					<table id="libTabs-all-content" class="tablesorter">
-						<thead>
-							<tr>
-								<th>Media</th>
-								<th>Title</th>
-								<th>Artist</th>
-								<th>Author</th>
-								<th>Format</th>
-								<th>Platform</th>
-							</tr>
-						</thead>
-						<tbody>
-							<g:each in="${user.items}" var="item">
+				<g:form action="requestitem" id="${params.id}">
+					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-all">
+						<table id="libTabs-all-content" class="tablesorter">
+							<thead>
 								<tr>
-									<td>${item.mediaType}</td>
-									<td>${item.title}</td>
-									<td>${item.artist}</td>
-									<td>${item.author}</td>
-									<td>${item.format}</td>
-									<td>${item.platform}</td>
+									<g:if test="${user.profile.id != loggedUser}">
+										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
+									</g:if>
+									<g:else>
+										<th>Loaned Out &nbsp&nbsp&nbsp&nbsp</th>
+									</g:else>
+									<th>Media &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Title &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Artist &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Author &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Format &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Platform &nbsp&nbsp&nbsp&nbsp</th>
 								</tr>
-							</g:each>
-						</tbody>
-					</table>
-				</div>
-				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="libTabs-games">
-					<table id="libTabs-games-content" class="tablesorter">
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Platform</th>
-							</tr>
-						</thead>
-						<tbody>
-							<g:each in="${user.items}" var="item">
-								<g:if test="${item.mediaType == 'game'}">
+							</thead>
+							<tbody>
+								<g:each in="${user.items}" var="item">
 									<tr>
+										<g:if test="${user.profile.id != loggedUser}">
+											<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+										</g:if>
+										<g:else>
+											<td align="center">	
+												<g:if test="${item.loanedOut == null}">
+													<g:link title="Request this item be returned">
+														<span class="ui-icon ui-icon-mail-closed"></span>
+													</g:link>
+												</g:if>
+											</td>
+										</g:else>
+										<td>${item.mediaType}</td>
 										<td>${item.title}</td>
+										<td>${item.artist}</td>
+										<td>${item.author}</td>
+										<td>${item.format}</td>
 										<td>${item.platform}</td>
 									</tr>
-								</g:if>
-							</g:each>
-						</tbody>
-					</table>
-				</div>
-				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-books">
-					<table id="libTabs-books-content" class="tablesorter">
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Author</th>
-							</tr>
-						</thead>
-						<tbody>
-							<g:each in="${user.items}" var="item">
-								<g:if test="${item.mediaType == 'book'}">
+								</g:each>
+							</tbody>
+						</table>
+						<g:if test="${user.profile.id != loggedUser}">
+							<div align="left">
+								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
+							</div>
+						</g:if>
+					</div>
+					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="libTabs-games">
+						<table id="libTabs-games-content" class="tablesorter">
+							<thead>
+								<tr>
+									<g:if test="${user.profile.id != loggedUser}">
+										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
+									</g:if>
+									<g:else>
+										<th>Loaned Out &nbsp&nbsp&nbsp&nbsp</th>
+									</g:else>
+									<th>Title &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Platform &nbsp&nbsp&nbsp&nbsp</th>
+								</tr>
+							</thead>
+							<tbody>
+								<g:each in="${user.items}" var="item">
+									<g:if test="${item.mediaType == 'game'}">
 										<tr>
+											<g:if test="${user.profile.id != loggedUser}">
+												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+											</g:if>
+											<g:else>
+												<td align="center">	
+													<g:if test="${item.loanedOut == null}">
+														<g:link title="Request this item be returned">
+															<span class="ui-icon ui-icon-mail-closed"></span>
+														</g:link>
+													</g:if>
+												</td>
+											</g:else>
+											<td>${item.title}</td>
+											<td>${item.platform}</td>
+										</tr>
+									</g:if>
+								</g:each>
+							</tbody>
+						</table>
+						<g:if test="${user.profile.id != loggedUser}">
+							<div align="left">
+								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
+							</div>
+						</g:if>
+					</div>
+					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-books">
+						<table id="libTabs-books-content" class="tablesorter">
+							<thead>
+								<tr>
+									<g:if test="${user.profile.id != loggedUser}">
+										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
+									</g:if>
+									<g:else>
+										<th>Loaned Out &nbsp&nbsp&nbsp&nbsp</th>
+									</g:else>
+									<th>Title &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Author &nbsp&nbsp&nbsp&nbsp</th>
+								</tr>
+							</thead>
+							<tbody>
+								<g:each in="${user.items}" var="item">
+									<g:if test="${item.mediaType == 'book'}">
+										<tr>
+											<g:if test="${user.profile.id != loggedUser}">
+												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+											</g:if>
+											<g:else>
+												<td align="center">	
+													<g:if test="${item.loanedOut == null}">
+														<g:link title="Request this item be returned">
+															<span class="ui-icon ui-icon-mail-closed"></span>
+														</g:link>
+													</g:if>
+												</td>
+											</g:else>
 											<td>${item.title}</td>
 											<td>${item.author}</td>
 										</tr>
-								</g:if>
-							</g:each>
-						</tbody>					
-					</table>
-				</div>
-				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-movies">
-					<table id="libTabs-movies-content" class="tablesorter">
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Format</th>
-							</tr>
-						</thead>
-						<tbody>
-							<g:each in="${user.items}" var="item">
-								<g:if test="${item.mediaType == 'movie'}">
-									<tr>
-										<td>${item.title}</td>
-										<td>${item.format}</td>
-									</tr>
-								</g:if>
-							</g:each>
-						</tbody>
-					</table>
-				</div>
-				<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-music">
-					<table id="libTabs-music-content" class="tablesorter">
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Artist</th>
-								<th>Format</th>
-							</tr>
-						</thead>
-						<tbody>
-							<g:each in="${user.items}" var="item">
-								<g:if test="${item.mediaType == 'music'}">
-									<tr>
-										<td>${item.title}</td>
-										<td>${item.artist}</td>
-										<td>${item.format}</td>
-									</tr>
-								</g:if>
-							</g:each>
-						</tbody>
-					</table>
-				</div>
+									</g:if>
+								</g:each>
+							</tbody>					
+						</table>
+						<g:if test="${user.profile.id != loggedUser}">
+							<div align="left">
+								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
+							</div>
+						</g:if>
+					</div>
+					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-movies">
+						<table id="libTabs-movies-content" class="tablesorter">
+							<thead>
+								<tr>
+								<g:if test="${user.profile.id != loggedUser}">
+										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
+									</g:if>
+									<g:else>
+										<th>Loaned Out &nbsp&nbsp&nbsp&nbsp</th>
+									</g:else>
+									<th>Title &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Format &nbsp&nbsp&nbsp&nbsp</th>
+								</tr>
+							</thead>
+							<tbody>
+								<g:each in="${user.items}" var="item">
+									<g:if test="${item.mediaType == 'movie'}">
+										<tr>
+											<g:if test="${user.profile.id != loggedUser}">
+												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+											</g:if>
+											<g:else>
+												<td align="center">	
+													<g:if test="${item.loanedOut == null}">
+														<g:link title="Request this item be returned">
+															<span class="ui-icon ui-icon-mail-closed"></span>
+														</g:link>
+													</g:if>
+												</td>
+											</g:else>
+											<td>${item.title}</td>
+											<td>${item.format}</td>
+										</tr>
+									</g:if>
+								</g:each>
+							</tbody>
+						</table>
+						<g:if test="${user.profile.id != loggedUser}">
+							<div align="left">
+								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
+							</div>
+						</g:if>
+					</div>
+					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-music">
+						<table id="libTabs-music-content" class="tablesorter">
+							<thead>
+								<tr>
+									<g:if test="${user.profile.id != loggedUser}">
+										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
+									</g:if>
+									<g:else>
+										<th>Loaned Out &nbsp&nbsp&nbsp&nbsp</th>
+									</g:else>
+									<th>Title &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Artist &nbsp&nbsp&nbsp&nbsp</th>
+									<th>Format &nbsp&nbsp&nbsp&nbsp</th>
+								</tr>
+							</thead>
+							<tbody>
+								<g:each in="${user.items}" var="item">
+									<g:if test="${item.mediaType == 'music'}">
+										<tr>
+											<g:if test="${user.profile.id != loggedUser}">
+												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+											</g:if>
+											<g:else>
+												<td align="center">	
+													<g:if test="${item.loanedOut == null}">
+														<g:link title="Request this item be returned">
+															<span class="ui-icon ui-icon-mail-closed"></span>
+														</g:link>
+													</g:if>
+												</td>
+											</g:else>
+											<td>${item.title}</td>
+											<td>${item.artist}</td>
+											<td>${item.format}</td>
+										</tr>
+									</g:if>
+								</g:each>
+							</tbody>
+						</table>
+						<g:if test="${user.profile.id != loggedUser}">
+							<div align="left">
+								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
+							</div>
+						</g:if>
+					</div>
+				</g:form>
 			</div>
 		</div>
 	</body>

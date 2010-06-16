@@ -29,7 +29,9 @@ a:link, a:visited, a:hover {
 h1{
 	text-align: center;	
 	background: #D4D1BF;
-	width: 900px;
+	/*width: 900px;*/
+	width: 100%;
+	/*height: 60px;*/
 	
 }
 
