@@ -2,6 +2,7 @@ package com.friendlibrary
 
 class ItemController {
 //		def defaultAction = 'library'
+		def authenticateService
 		def itemService
 		def scaffold = true
 		
@@ -14,7 +15,9 @@ class ItemController {
 		}
 
 		def library = {
-			def user = User.findByUsername(params.id)
+			//def user = User.findByUsername(params.id)
+			def user = authenticateService.userDomain()
+			user = User.get(user.id)
 			[ user : user ]
 		}
     

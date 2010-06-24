@@ -4,10 +4,10 @@
 	<g:set var="loggedUser" value="${2}" />
 	
 		<title>
-			Library for ${user.profile.fullName}
+			Library for ${user.userFullName}
 		</title>
 		<meta name="layout" content="main"/>
-		<g:if test="${user.profile.id == loggedUser}">
+		<g:if test="${user.id == loggedUser}">
 			<g:set var="sortOrder" value="${[[0,0],[1,0]]}" />
 		</g:if>
 		<g:else>
@@ -36,7 +36,7 @@
 	<body>
 	
 		<div >
-		<g:if test="${user.profile.id == loggedUser}">
+		<g:if test="${user.id == loggedUser}">
   	<div id="newItem" class="main centered">
 			<h2>Have something to add to your library?</h2>
 				<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newTabs">
@@ -193,7 +193,7 @@
 		
 		<div class="clear"></div>
 		<br />
-		<h1>Library for ${user.profile.fullName}</h1>
+		<h1>Library for ${user.userFullName}</h1>
 		<g:if test="${flash.message}">
 			<div class="flash">
 				${flash.message}
@@ -215,7 +215,7 @@
 						<table id="libTabs-all-content" class="tablesorter">
 							<thead>
 								<tr>
-									<g:if test="${user.profile.id != loggedUser}">
+									<g:if test="${user.id != loggedUser}">
 										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
 									</g:if>
 									<g:else>
@@ -232,7 +232,7 @@
 							<tbody>
 								<g:each in="${user.items}" var="item">
 									<tr>
-										<g:if test="${user.profile.id != loggedUser}">
+										<g:if test="${user.id != loggedUser}">
 											<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
 										</g:if>
 										<g:else>
@@ -254,7 +254,7 @@
 								</g:each>
 							</tbody>
 						</table>
-						<g:if test="${user.profile.id != loggedUser}">
+						<g:if test="${user.id != loggedUser}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
 							</div>
@@ -264,7 +264,7 @@
 						<table id="libTabs-games-content" class="tablesorter">
 							<thead>
 								<tr>
-									<g:if test="${user.profile.id != loggedUser}">
+									<g:if test="${user.id != loggedUser}">
 										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
 									</g:if>
 									<g:else>
@@ -278,7 +278,7 @@
 								<g:each in="${user.items}" var="item">
 									<g:if test="${item.mediaType == 'game'}">
 										<tr>
-											<g:if test="${user.profile.id != loggedUser}">
+											<g:if test="${user.id != loggedUser}">
 												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
 											</g:if>
 											<g:else>
@@ -297,7 +297,7 @@
 								</g:each>
 							</tbody>
 						</table>
-						<g:if test="${user.profile.id != loggedUser}">
+						<g:if test="${user.id != loggedUser}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
 							</div>
@@ -307,7 +307,7 @@
 						<table id="libTabs-books-content" class="tablesorter">
 							<thead>
 								<tr>
-									<g:if test="${user.profile.id != loggedUser}">
+									<g:if test="${user.id != loggedUser}">
 										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
 									</g:if>
 									<g:else>
@@ -321,7 +321,7 @@
 								<g:each in="${user.items}" var="item">
 									<g:if test="${item.mediaType == 'book'}">
 										<tr>
-											<g:if test="${user.profile.id != loggedUser}">
+											<g:if test="${user.id != loggedUser}">
 												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
 											</g:if>
 											<g:else>
@@ -340,7 +340,7 @@
 								</g:each>
 							</tbody>					
 						</table>
-						<g:if test="${user.profile.id != loggedUser}">
+						<g:if test="${user.id != loggedUser}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
 							</div>
@@ -350,7 +350,7 @@
 						<table id="libTabs-movies-content" class="tablesorter">
 							<thead>
 								<tr>
-								<g:if test="${user.profile.id != loggedUser}">
+								<g:if test="${user.id != loggedUser}">
 										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
 									</g:if>
 									<g:else>
@@ -364,7 +364,7 @@
 								<g:each in="${user.items}" var="item">
 									<g:if test="${item.mediaType == 'movie'}">
 										<tr>
-											<g:if test="${user.profile.id != loggedUser}">
+											<g:if test="${user.id != loggedUser}">
 												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
 											</g:if>
 											<g:else>
@@ -383,7 +383,7 @@
 								</g:each>
 							</tbody>
 						</table>
-						<g:if test="${user.profile.id != loggedUser}">
+						<g:if test="${user.id != loggedUser}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
 							</div>
@@ -393,7 +393,7 @@
 						<table id="libTabs-music-content" class="tablesorter">
 							<thead>
 								<tr>
-									<g:if test="${user.profile.id != loggedUser}">
+									<g:if test="${user.id != loggedUser}">
 										<th>Request Item &nbsp&nbsp&nbsp&nbsp</th>
 									</g:if>
 									<g:else>
@@ -408,7 +408,7 @@
 								<g:each in="${user.items}" var="item">
 									<g:if test="${item.mediaType == 'music'}">
 										<tr>
-											<g:if test="${user.profile.id != loggedUser}">
+											<g:if test="${user.id != loggedUser}">
 												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
 											</g:if>
 											<g:else>
@@ -428,7 +428,7 @@
 								</g:each>
 							</tbody>
 						</table>
-						<g:if test="${user.profile.id != loggedUser}">
+						<g:if test="${user.id != loggedUser}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
 							</div>
