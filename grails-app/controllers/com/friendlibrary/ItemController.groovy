@@ -15,10 +15,11 @@ class ItemController {
 		}
 
 		def library = {
-			//def user = User.findByUsername(params.id)
-			def user = authenticateService.userDomain()
-			user = User.get(user.id)
-			[ user : user ]
+			def libUser = User.findByUsername(params.id)
+			def viewUser = authenticateService.userDomain()
+			viewUser = User.get(viewUser.id)
+			def boolean viewingSelf = (libUser == viewUser) 
+			[ user : libUser, viewingSelf : viewingSelf ]
 		}
     
 		def addItem = {

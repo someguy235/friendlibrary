@@ -21,6 +21,9 @@ class ItemService{
 					platform:params.platform,
 					artist:params.artist,
 					genre:params.genre,
+					requested:false,
+					reserved:false,
+					loanedOut:false,
 					user:user).save(failOnError:true)
 			if(user.save(failOnError:true)){
 				return
