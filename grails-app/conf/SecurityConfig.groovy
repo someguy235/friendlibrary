@@ -10,7 +10,7 @@ security {
 	//requestMapClass = "Requestmap"
 		
 	userName = "username"
-	password = "password"
+	password = "passwd"
 		
 	useRequestMapDomainClass = false
 	
@@ -26,6 +26,8 @@ security {
 	/user/create=IS_AUTHENTICATED_ANONYMOUSLY
 	/user/**=IS_AUTHENTICATED_ANONYMOUSLY
 	/profile/**=IS_AUTHENTICATED_ANONYMOUSLY
+	/captcha/**=IS_AUTHENTICATED_ANONYMOUSLY
+	/register/**=IS_AUTHENTICATED_ANONYMOUSLY
 	/js/**=IS_AUTHENTICATED_ANONYMOUSLY
 	/css/**=IS_AUTHENTICATED_ANONYMOUSLY
 	/images/**=IS_AUTHENTICATED_ANONYMOUSLY

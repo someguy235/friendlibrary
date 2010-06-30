@@ -104,21 +104,22 @@
 					<h3>User</h3>
 					<ul>
 						<li class="controller"><a href="/friendlibrary/user/list">list</a></li>
-						<li class="controller"><a href="/friendlibrary/user/create">create</a></li>
-						<li class="controller"><a href="/friendlibrary/user/search">search</a></li>
-						<li class="controller"><a href="/friendlibrary/user/registration">registration</a></li>
-					</ul>
-					<h3>Profile</h3>
-					<ul>
-						<li class="controller"><a href="/friendlibrary/profile/list">list</a></li>
-						<li class="controller"><a href="/friendlibrary/profile/create">create</a></li>
-						<li class="controller"><a href="/friendlibrary/profile/show/1">show/1</a></li>
+						<li class="controller"><a href="/friendlibrary/register">register</a></li>
+						<!-- <li class="controller"><a href="/friendlibrary/user/create">create</a></li> -->
+						<!-- <li class="controller"><a href="/friendlibrary/user/search">search</a></li> -->
+						<!-- <li class="controller"><a href="/friendlibrary/user/registration">registration</a></li> -->
 					</ul>
 					<h3>Item</h3>
 					<ul>
 						<li class="controller"><a href="/friendlibrary/item/list">list</a></li>
 						<li class="controller"><a href="/friendlibrary/item/create">create</a></li>
 						<li class="controller"><a href="/friendlibrary/item/library/claptrap">library/claptrap</a></li>
+					</ul>
+					<h3>Profile</h3>
+					<ul>
+						<li class="controller"><a href="/friendlibrary/profile/list">list</a></li>
+						<li class="controller"><a href="/friendlibrary/profile/create">create</a></li>
+						<li class="controller"><a href="/friendlibrary/profile/show/1">show/1</a></li>
 					</ul>
 					</div>
 				

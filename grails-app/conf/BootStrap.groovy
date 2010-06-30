@@ -9,7 +9,7 @@ class BootStrap {
 		    def superadmin = new com.friendlibrary.User(
 		    		username:"admin",
 		    		userFullName:"Administrator",
-		    		password:password,
+		    		passwd:password,
 		    		enabled:true,
 		    	).save()
 		

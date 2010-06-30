@@ -4,7 +4,7 @@
 	<g:set var="loggedUser" value="${2}" />
 	
 		<title>
-			Library for ${user.userFullName}
+			Library for ${user.username}
 		</title>
 		<meta name="layout" content="main"/>
 		<g:if test="${user.id == loggedUser}">
@@ -193,7 +193,7 @@
 		
 		<div class="clear"></div>
 		<br />
-		<h1>Library for ${user.userFullName}</h1>
+		<h1>Library for ${user.username}</h1>
 		<g:if test="${flash.message}">
 			<div class="flash">
 				${flash.message}
