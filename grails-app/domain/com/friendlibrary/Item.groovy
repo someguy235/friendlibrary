@@ -53,6 +53,6 @@ class Item {
 	}
 
 	String toString(){
-	  "${itemDescription} (${id})"
+	  "${mediaType}: ${title} (${id})"
 	}
 }
