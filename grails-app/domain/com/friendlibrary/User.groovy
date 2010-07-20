@@ -30,6 +30,6 @@ class User {
 	}
 
 	String toString(){
-		"${username} (${id})"
+		"${username}"
 	}
 }

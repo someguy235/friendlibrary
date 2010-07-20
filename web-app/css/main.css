@@ -93,15 +93,6 @@ input:focus, select:focus, textarea:focus {
     border: 1px solid #F6AE38;
 }	
 
-.footer{
-	position: fixed;
-	bottom: 0px;
-	left: 0px;
-	width: 100%;
-	text-align: center;
-	color: #F6AE38;	
-	padding: 5px;
-}
 .clear {
     clear: both;
 	height: 0;
@@ -116,6 +107,19 @@ input:focus, select:focus, textarea:focus {
 	padding: .3em;
     margin: .8em 0 .3em 0;
 	
+}
+.footer{
+	color: #b83400;
+    font-weight: normal;
+    font-size: 18px;
+    margin: .8em 0 .8em 0;
+    padding-top: .3em;
+    padding-bottom: .3em;
+    
+    text-align: center;	
+	background: #D4D1BF;
+	width: 100%;
+	/*color: #fff;*/	
 }
 #newItem{
 	width: 47%;	

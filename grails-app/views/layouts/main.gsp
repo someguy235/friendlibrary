@@ -17,9 +17,17 @@
       	<img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
       </div>
       <!-- <br /> -->
-      <h1 class="ui-widget-header">FriendlyLibrary</h1>
+      <h1>FriendlyLibrary</h1>
       <br />
       <g:layoutBody />
+      <g:if test="${user}">
+	      <div class="footer">
+	      	<g:link controller="item" action="library" id="${user}">library</g:link> | 
+	      	<g:link controller="profile" action="show" id="${user}">profile</g:link> | 
+	      	<g:link controller="user" action="friends" id="${user}">friends</g:link> | 
+	      	<g:link controller="item" action="search">search</g:link>
+	      </div>
+      </g:if>
       <h3>
       	All: &copy 2010, Ethan Shepherd
       </h3>
