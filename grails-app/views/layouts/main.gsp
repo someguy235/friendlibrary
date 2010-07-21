@@ -27,10 +27,12 @@
 	      	<g:link controller="item" action="library" id="${user}">library</g:link> | 
 	      	<g:link controller="profile" action="show" id="${user}">profile</g:link> | 
 	      	<g:link controller="user" action="friends" id="${user}">friends</g:link> | 
-	      	<g:link controller="item" action="search">search</g:link>
+	      	<g:link controller="item" action="search">search</g:link> | 
+	      	<g:link controller="logout">logout</g:link>
 	  	</g:if>
       	<g:else>
-      		<g:link controller="login">login</g:link>
+      		<g:link controller="login">log in</g:link> | 
+      		<g:link controller="register">sign up</g:link>
       	</g:else>
       </div>
       <h3>

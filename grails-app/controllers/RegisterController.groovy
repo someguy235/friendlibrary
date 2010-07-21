@@ -105,15 +105,10 @@ class RegisterController {
 			}
 		}
 
-		person.userRealName = params.userRealName
+		person.userFirstName = params.userFirstName
+		person.userLastName = params.userLastName
 		person.email = params.email
-		if (params.emailShow) {
-			person.emailShow = true
-		}
-		else {
-			person.emailShow = false
-		}
-
+		
 		if (person.save()) {
 			redirect action: show, id: person.id
 		}
@@ -164,7 +159,6 @@ class RegisterController {
 		def pass = authenticateService.encodePassword(params.passwd)
 		person.passwd = pass
 		person.enabled = true
-		person.emailShow = true
 		//person.description = ''
 		if (person.save()) {
 			role.addToPeople(person)
@@ -177,7 +171,7 @@ class RegisterController {
  -------------------------------------
  LoginName: ${person.username}
  Email: ${person.email}
- Full Name: ${person.userRealName}
+ Full Name: ${person.userFirstName} ${person.userLastName}
  Password: ${params.passwd}
 """
 

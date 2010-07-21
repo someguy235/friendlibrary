@@ -6,8 +6,8 @@ class UserController {
 		def search = {
 		}
 
-		def registration = {
-		}
+		//def registration = {
+		//}
 
 		def results = {
 			def users = User.findAllByUserIdLike(params.username)

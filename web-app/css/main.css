@@ -121,6 +121,22 @@ input:focus, select:focus, textarea:focus {
 	width: 100%;
 	/*color: #fff;*/	
 }
+.highlight-box{
+	background-color:#D4D1BF;
+	border: 1px solid #b83400;	
+	margin-left:25%;
+	width:50%;
+	padding: 5px;
+}
+.message{
+	margin-left:25%;
+	padding: 5px;
+	width:50%;
+	font-weight:600;
+	font-size:150%;
+	background: #CF7491;
+	border: 1px dotted #b83400;	
+}
 #newItem{
 	width: 47%;	
 	min-width: 200px;

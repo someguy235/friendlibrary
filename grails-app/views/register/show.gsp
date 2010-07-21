@@ -24,24 +24,19 @@
 
 			<tr class="prop">
 				<td valign="top" class="name">Full Name:</td>
-				<td valign="top" class="value">${person.userRealName?.encodeAsHTML()}</td>
-			</tr>
-
-			<tr class="prop">
-				<td valign="top" class="name">Enabled:</td>
-				<td valign="top" class="value">${person.enabled}</td>
+				<td valign="top" class="value">${person.userFirstName?.encodeAsHTML()} ${person.userLastName?.encodeAsHTML()}</td>
 			</tr>
 
 			<tr class="prop">
 				<td valign="top" class="name">Email:</td>
 				<td valign="top" class="value">${person.email?.encodeAsHTML()}</td>
 			</tr>
-
+			
 			<tr class="prop">
-				<td valign="top" class="name">Show Email:</td>
-				<td valign="top" class="value">${person.emailShow}</td>
+				<td valign="top" class="name">Enabled:</td>
+				<td valign="top" class="value">${person.enabled}</td>
 			</tr>
-
+			
 			<tr class="prop">
 				<td valign="top" class="name">Roles:</td>
 				<td valign="top" class="value">

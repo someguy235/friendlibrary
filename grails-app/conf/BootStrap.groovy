@@ -8,7 +8,9 @@ class BootStrap {
 	    //if (null == User.findByUsername("admin").id){
 		    def superadmin = new com.friendlibrary.User(
 		    		username:"admin",
-		    		userRealName:"Administrator",
+		    		email:"email@example.com",
+		    		userFirstName:"Ad",
+		    		userLastName:"ministrator",
 		    		passwd:password,
 		    		enabled:true,
 		    	).save()
