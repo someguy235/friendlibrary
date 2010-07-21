@@ -23,7 +23,7 @@
 	
 		<div >
 			<g:if test="${viewingSelf}">
-	  	<div id="newItem" class="main centered">
+	  			<div id="newItem" class="main centered">
 				<h2>Add an item to your library.</h2>
 					<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newTabs">
 						<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
@@ -127,7 +127,7 @@
 			</div>
 			
 			<div id="importItems" class="main centered">
-				<h2>Import a list of items.</h2>
+				<h2>Import a list of items. (placeholder)</h2>
 				<g:form action="addItem" id="${params.id}">
 					<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newTabs">
 						<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">

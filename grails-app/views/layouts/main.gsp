@@ -20,14 +20,19 @@
       <h1>FriendlyLibrary</h1>
       <br />
       <g:layoutBody />
-      <g:if test="${user}">
-	      <div class="footer">
+      <div class="footer">
+      	<g:if test="${user}">
+	      	Welcome, ${user}
+	      	<br />
 	      	<g:link controller="item" action="library" id="${user}">library</g:link> | 
 	      	<g:link controller="profile" action="show" id="${user}">profile</g:link> | 
 	      	<g:link controller="user" action="friends" id="${user}">friends</g:link> | 
 	      	<g:link controller="item" action="search">search</g:link>
-	      </div>
-      </g:if>
+	  	</g:if>
+      	<g:else>
+      		<g:link controller="login">login</g:link>
+      	</g:else>
+      </div>
       <h3>
       	All: &copy 2010, Ethan Shepherd
       </h3>

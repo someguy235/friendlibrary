@@ -7,7 +7,7 @@ class IndexController {
     def index = { 
 		//def libUser = User.findByUsername(params.id)
 		def viewUser = authenticateService.userDomain()
-		viewUser = User?.get(viewUser.id)
+		viewUser = User.get(viewUser?.id)
 		//def boolean viewingSelf = (libUser == viewUser) 
 		[ user : viewUser ]
 	}
