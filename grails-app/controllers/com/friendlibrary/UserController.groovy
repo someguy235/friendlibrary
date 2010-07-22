@@ -13,7 +13,8 @@ class UserController {
 			def users = User.findAllByUserIdLike(params.username)
 			return [users: users, term: params.username]
 		}
-
+		
+		/*
 		def register = {
 			def user = new User(params)
 			if (user.validate()){
@@ -25,4 +26,5 @@ class UserController {
 				return [ user: user ]
 			}
 		}
+		*/
 }

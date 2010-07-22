@@ -17,13 +17,15 @@ class BootStrap {
 		
 		    //create admin role
 		    def sudo = new com.friendlibrary.Role(authority:"ROLE_ADMIN",description:"Site Administrator")
-		    // now add the User to the role
+			// now add the User to the role
 	    	if (null != superadmin){
 	    		sudo.addToPeople(superadmin)
 	    		sudo.save()
-	    		new com.friendlibrary.Role(authority:"ROLE_USER",description:"User").save()
 	    	}
-		//}
+			def role_user = new com.friendlibrary.Role(authority:"ROLE_USER",description:"User").save()
+			def defaultRole = role_user
+		
+			//}
 	
 	 }
 	 def destroy = {
