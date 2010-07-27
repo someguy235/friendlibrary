@@ -16,7 +16,6 @@ body {
     font: 11px verdana, arial, helvetica, sans-serif;
 	margin:0 auto;
     padding:header-<length> 0 footer-<length> 0;
-	
 }
 
 a:link, a:visited, a:hover {
@@ -94,7 +93,7 @@ input:focus, select:focus, textarea:focus {
 }	
 
 .clear {
-    clear: both;
+  clear: both;
 	height: 0;
 	visibility: hidden;
 }
@@ -136,6 +135,25 @@ input:focus, select:focus, textarea:focus {
 	font-size:150%;
 	background: #CF7491;
 	border: 1px dotted #b83400;	
+}
+.profile_column{
+	width:32%;
+	float:left;
+	color:#000;
+	font: 14px verdana, arial, helvetica, sans-serif;
+	text-align:left;
+	padding: 3px 0px 2px 10px;
+}
+.profile_column_left{
+	float:left;
+	/*background-color:#F00;*/
+}
+.profile_column_center{
+	/*background-color:#0F0;*/
+}
+.profile_column_right{
+	float:right;
+	/*background-color:#00F;*/
 }
 #newItem{
 	width: 47%;	

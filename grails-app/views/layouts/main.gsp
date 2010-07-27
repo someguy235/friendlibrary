@@ -26,7 +26,7 @@
           	Welcome, ${loggedInUsername}
 	      	<br />
 	      	<g:link controller="item" action="library" id="${loggedInUsername}">library</g:link> | 
-	      	<g:link controller="profile" action="show" id="${loggedInUsername}">profile</g:link> | 
+	      	<g:link controller="user" action="profile" id="${loggedInUsername}">profile</g:link> | 
 	      	<g:link controller="user" action="friends" id="${loggedInUsername}">friends</g:link> | 
 	      	<g:link controller="item" action="search">search</g:link> | 
 	      	<g:link controller="logout">logout</g:link>
