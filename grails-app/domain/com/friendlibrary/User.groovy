@@ -10,7 +10,8 @@ class User {
 		
 	String userFirstName
 	String userLastName
-	//Profile profile
+	
+	//int libraryBooks
 	
 	static hasMany = [ authorities:Role, items:Item, friends:User ]
     static belongsTo = Role
@@ -21,11 +22,9 @@ class User {
 		email(nullable:false, blank:true)
 		userFirstName(size:0..64, nullable:true, blank:true)
 		userLastName(size:0..64, nullable:true, blank:true)
-		//profile(nullable:true)
     }
 
 	static mapping = {
-		//profile lazy:false
 	}
 
 	String toString(){
