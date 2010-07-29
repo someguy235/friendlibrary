@@ -11,9 +11,11 @@ class User {
 	String userFirstName
 	String userLastName
 	
+	Library library
 	//int libraryBooks
 	
-	static hasMany = [ authorities:Role, items:Item, friends:User ]
+	//static hasMany = [ authorities:Role, items:Item, friends:User ]
+	static hasMany = [ authorities:Role, friends:User ]
     static belongsTo = Role
 
     static constraints = {

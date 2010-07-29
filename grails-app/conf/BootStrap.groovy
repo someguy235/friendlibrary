@@ -6,19 +6,21 @@ class BootStrap {
 		//create admin user
 	    def password = authenticateService.encodePassword("password") 
 	    //if (null == User.findByUsername("admin").id){
-		    def superadmin = new com.friendlibrary.User(
+	    	def superadmin = new com.friendlibrary.User(
 		    		username:"admin",
 		    		email:"email@example.com",
 		    		userFirstName:"Ad",
 		    		userLastName:"ministrator",
 		    		passwd:password,
 		    		enabled:true,
+		    		library:new com.friendlibrary.Library()
 		    	).save()
-		
-		    //create admin role
+	    	//create admin role
 		    def sudo = new com.friendlibrary.Role(authority:"ROLE_ADMIN",description:"Site Administrator")
 			// now add the User to the role
 	    	if (null != superadmin){
+	    		//superadmin.library = library
+			    
 	    		sudo.addToPeople(superadmin)
 	    		sudo.save()
 	    	}

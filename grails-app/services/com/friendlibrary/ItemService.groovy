@@ -11,8 +11,9 @@ class ItemService{
 	void addItem(params){
 		assert params.title != null
 		def user = User.findByUsername(params.id)
+		def library = user.library
 		assert user != null
-		if(user){
+		if(library){
 			def item = new Item(itemDescription:params.itemDescription, 
 					mediaType:params.mediaType, 
 					title:params.title, 
@@ -24,8 +25,8 @@ class ItemService{
 					requested:false,
 					reserved:false,
 					loanedOut:false,
-					user:user).save(failOnError:true)
-			if(user.save(failOnError:true)){
+					library:library).save(failOnError:true)
+			if(library.save(failOnError:true)){
 				return
 			}else{
 				throw new ItemException(message: "Invalid or empty item", item:item)

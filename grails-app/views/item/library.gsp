@@ -179,7 +179,7 @@
 		
 		<div class="clear"></div>
 		<br />
-		<h1>Library for <a href="#">${user.username}</a></h1>
+		<h1>Library for <g:link controller="user" action="profile" id="${user.username}">${user.username}</g:link></h1>
 		<br />
 		<g:if test="${flash.message}">
 			<div class="flash">

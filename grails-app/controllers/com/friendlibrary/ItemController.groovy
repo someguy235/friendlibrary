@@ -24,12 +24,7 @@ class ItemController {
     
 		def addItem = {
 			try{
-				//render (params)
-				//def newItem = itemService.addItem(params.id, params.itemDescription, params.mediaType, params.title, params.format, params.author, params.platform)
-				//def newItem = itemService.addItem(params)
 				itemService.addItem(params)
-				//render newItem.toString() 
-				//flash.message="Added new item: ${newItem.itemDescription}"
 			}catch(ItemException ie){
 				flash.message = ie.message
 			}
@@ -37,8 +32,6 @@ class ItemController {
 		}
 
 		def index = {
-			if (!params.id)
-				params.id="claptrap"
-		redirect(action: 'library', params:params)
+			redirect(action: 'library', params:params)
 		}
 }
