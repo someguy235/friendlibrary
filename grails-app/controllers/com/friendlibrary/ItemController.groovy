@@ -1,10 +1,10 @@
 package com.friendlibrary
 
-class ItemController {
+abstract class ItemController {
 //		def defaultAction = 'library'
 		def authenticateService
 		def itemService
-		def scaffold = true
+		//def scaffold = false
 		
 		def search = {
 		}
@@ -14,13 +14,13 @@ class ItemController {
 			return [ items: items, term: params.itemDescription]
 		}
 
-		def library = {
-			def libUser = User.findByUsername(params.id)
-			def viewUser = authenticateService.userDomain()
-			viewUser = User.get(viewUser.id)
-			def boolean viewingSelf = (libUser == viewUser) 
-			[ user : libUser, viewingSelf : viewingSelf ]
-		}
+		//def library = {
+		//	def libUser = User.findByUsername(params.id)
+		//	def viewUser = authenticateService.userDomain()
+		//	viewUser = User.get(viewUser.id)
+		//	def boolean viewingSelf = (libUser == viewUser) 
+		//	[ user : libUser, viewingSelf : viewingSelf ]
+		//}
     
 		def addItem = {
 			try{
@@ -35,3 +35,6 @@ class ItemController {
 			redirect(action: 'library', params:params)
 		}
 }
+
+
+

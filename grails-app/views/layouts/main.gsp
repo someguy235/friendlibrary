@@ -25,7 +25,7 @@
 	  		<g:set var="loggedInUsername" value="${loggedInUserInfo(field:'username')}" />
           	Welcome, ${loggedInUsername}
 	      	<br />
-	      	<g:link controller="item" action="library" id="${loggedInUsername}">library</g:link> | 
+	      	<g:link controller="library" action="index" id="${loggedInUsername}">library</g:link> | 
 	      	<g:link controller="user" action="profile" id="${loggedInUsername}">profile</g:link> | 
 	      	<g:link controller="user" action="friends" id="${loggedInUsername}">friends</g:link> | 
 	      	<g:link controller="item" action="search">search</g:link> | 

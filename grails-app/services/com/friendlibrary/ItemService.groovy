@@ -11,21 +11,28 @@ class ItemService{
 	void addItem(params){
 		assert params.title != null
 		def user = User.findByUsername(params.id)
-		def library = user.library
-		assert user != null
+		def library = user?.library
 		if(library){
-			def item = new Item(itemDescription:params.itemDescription, 
-					mediaType:params.mediaType, 
-					title:params.title, 
-					format:params.format, 
-					author:params.author, 
-					platform:params.platform,
-					artist:params.artist,
-					genre:params.genre,
-					requested:false,
-					reserved:false,
-					loanedOut:false,
-					library:library).save(failOnError:true)
+			def item
+			switch(params.mediaType){
+				case "album":
+					item = new Album(artist:params.artist, genre:params.genre)
+					break
+				case "book":
+					item = new Book(title:params.title)
+					break
+				case "game":
+					item = new Game(platform:params.platform)
+					break
+				case "movie":
+					item = new Movie(format:params.format)
+					break
+				default:
+					throw new ItemException(message: "Invalid item type", item:item)
+			}
+			item.title = params.title 
+			item.library = library
+			item.save(failOnError:true)
 			if(library.save(failOnError:true)){
 				return
 			}else{

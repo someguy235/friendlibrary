@@ -29,10 +29,10 @@
 				Joined: ${user.dateCreated.format('MM/dd/yy') }
 			</div>
 			<div class="profile_column profile_column_center">
-				1 of 1 games available<br />
-				1 of 1 books available<br />
-				1 of 1 movies available<br />
-				1 of 1 albums available<br />
+				${user.library.games.size()} games<br />
+				${user.library.books.size()} books<br />
+				${user.library.movies.size()} movies<br />
+				${user.library.albums.size()} albums<br />
 			</div>
 			<div class="profile_column profile_column_right">
 				3 contacts:<br />
