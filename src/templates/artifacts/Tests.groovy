@@ -1,8 +1,6 @@
-package com.friendlibrary
+@artifact.package@import grails.test.*
 
-import grails.test.*
-
-class BookControllerTests extends ControllerUnitTestCase {
+class @artifact.name@ extends @artifact.superclass@ {
     protected void setUp() {
         super.setUp()
     }

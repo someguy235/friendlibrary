@@ -14,7 +14,7 @@ abstract class Item {
 		
     static constraints = {
 			title(nullable:false)
-			mediaType(nullable:false) 
+			mediaType(nullable:true) 
 			
 			requested(nullable:true)
 			reserved(nullable:true)

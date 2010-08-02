@@ -20,11 +20,10 @@
 		</g:javascript>
 	</head>
 	<body>
-	
-		<div >
+		<div > <!-- interface for adding items -->
 			<g:if test="${viewingSelf}">
-	  			<div id="newItem" class="main centered">
-				<h2>Add an item to your library.</h2>
+	  		<div id="newItem" class="main centered">
+					<h2>Add an item to your library.</h2>
 					<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newTabs">
 						<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 							<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#newTabs-game">Game</a></li>
@@ -34,7 +33,7 @@
 						</ul>
 	
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="newTabs-game">
-							<g:form url="[controller:'item', action:'addItem'] id="${params.id}" mediaType="game">
+							<g:form controller="item" action="addItem" id="${user.username}">
 								<table>
 									<tr>
 										<td><label for="title">Title&nbsp;</label></td>
@@ -57,7 +56,7 @@
 						</div>
 	
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newTabs-book">
-							<g:form action="addItem" id="${params.id}" mediaType="book">
+							<g:form controller="item" action="addItem" id="${user.username}">
 								<table>
 									<tr>
 										<td><label for="title">Title&nbsp;</label></td>
@@ -75,7 +74,7 @@
 						</div>
 	
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newTabs-movie">
-							<g:form action="addItem" id="${params.id}" mediaType="movie">
+							<g:form controller="item" action="addItem" id="${user.username}">
 								<table>
 									<tr>
 										<td><label for="title">Title&nbsp;</label></td>
@@ -98,7 +97,7 @@
 						</div>
 						
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newTabs-music">
-							<g:form action="addItem" id="${params.id}" mediaType="music">
+							<g:form controller="item" action="addItem" id="${user.username}">
 								<table>
 									<tr>
 										<td><label for="title">Title&nbsp;</label></td>
@@ -113,13 +112,13 @@
 										<td><label for="format">Format&nbsp;</label></td>
 										<td>
 											<div class="ui-widget">
-												<g:select from="${formats}" value="DVD" name="format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
+												<g:select from="${formats}" value="File" name="format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
 											</div>
 										</td>
 									</tr>
 								</table>
 								<br />
-								<input type="hidden" id="mediaType" name="mediaType" value="music" />
+								<input type="hidden" id="mediaType" name="mediaType" value="album" />
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
 							</g:form>
 						</div>
@@ -176,17 +175,19 @@
 			</g:if>
 		</div>
 		
-		
 		<div class="clear"></div>
+		
 		<br />
+		
 		<h1>Library for <g:link controller="user" action="profile" id="${user.username}">${user.username}</g:link></h1>
+		
 		<br />
+		
 		<g:if test="${flash.message}">
 			<div class="flash">
 				${flash.message}
 			</div>
 		</g:if>
-		
 		
 		<div id="allItems" class="main">
 			<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="libTabs">

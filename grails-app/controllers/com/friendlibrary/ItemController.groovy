@@ -1,10 +1,9 @@
 package com.friendlibrary
 
-abstract class ItemController {
-//		def defaultAction = 'library'
+class ItemController {
 		def authenticateService
 		def itemService
-		//def scaffold = false
+		//def scaffold = true
 		
 		def search = {
 		}
@@ -14,21 +13,13 @@ abstract class ItemController {
 			return [ items: items, term: params.itemDescription]
 		}
 
-		//def library = {
-		//	def libUser = User.findByUsername(params.id)
-		//	def viewUser = authenticateService.userDomain()
-		//	viewUser = User.get(viewUser.id)
-		//	def boolean viewingSelf = (libUser == viewUser) 
-		//	[ user : libUser, viewingSelf : viewingSelf ]
-		//}
-    
 		def addItem = {
 			try{
 				itemService.addItem(params)
 			}catch(ItemException ie){
 				flash.message = ie.message
 			}
-			redirect(action: 'library', id:params.id)
+			redirect(controller: 'library', action: 'index', id:params.id)
 		}
 
 		def index = {

@@ -1,6 +1,5 @@
 package com.friendlibrary
 
-
 class ItemException extends RuntimeException{
 	String message
 	Item item
@@ -9,17 +8,16 @@ class ItemException extends RuntimeException{
 class ItemService{
 	boolean transactional = true
 	void addItem(params){
-		assert params.title != null
 		def user = User.findByUsername(params.id)
 		def library = user?.library
 		if(library){
 			def item
 			switch(params.mediaType){
 				case "album":
-					item = new Album(artist:params.artist, genre:params.genre)
+					item = new Album(artist:params.artist, genre:params.genre, format:params.format)
 					break
 				case "book":
-					item = new Book(title:params.title)
+					item = new Book(title:params.title, author:params.author)
 					break
 				case "game":
 					item = new Game(platform:params.platform)

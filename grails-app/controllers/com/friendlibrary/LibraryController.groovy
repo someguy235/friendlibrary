@@ -15,6 +15,10 @@ class LibraryController {
 	 }
 	
 	def show = {
-		
+		def library = Library.findById(params.id)
+		render library.albums.toString()
+		render library.books.toString()
+		render library.games.toString()
+		render library.movies.toString()
 	}
 }
