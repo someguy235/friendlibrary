@@ -12,9 +12,7 @@ class User {
 	String userLastName
 	
 	Library library
-	//int libraryBooks
 	
-	//static hasMany = [ authorities:Role, items:Item, friends:User ]
 	static hasMany = [ authorities:Role, friends:User ]
     static belongsTo = Role
 

@@ -218,7 +218,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<g:each in="${user.library.items}" var="itemCategory">
+								<g:each in="${allItems}" var="itemCategory">
+									<tr><td>${itemCategory.toString()}</td></tr>
 									<g:each in="${itemCategory}" var="item">
 										<tr>
 											<g:if test="${!viewingSelf}">

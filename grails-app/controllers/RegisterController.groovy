@@ -161,6 +161,7 @@ class RegisterController {
 		person.enabled = true
 		//person.description = ''
 		if (person.save()) {
+			
 			role.addToPeople(person)
 			if (config.security.useMail) {
 				String emailContent = """You have signed up for an account at:
@@ -189,7 +190,19 @@ class RegisterController {
 			def authtoken = daoAuthenticationProvider.authenticate(auth)
 			SCH.context.authentication = authtoken
 			redirect uri: '/'
+			
+			person.library.items.add("wtf")
+			System.out.println("wtf")
+			// = [
+				//"wtf"
+				//person.library.books.getMetaClass()
+				//person.library.games,
+				//person.library.albums,
+				//person.library.movies
+			//]
+			person.library.save()
 		}
+		
 		else {
 			person.passwd = ''
 			render view: 'index', model: [person: person]

@@ -4,7 +4,7 @@ abstract class Item {
 		
 		/*General Attributes*/
 		String title
-		String mediaType //game, book, movie, etc.
+		//String mediaType //game, book, movie, etc.
 
 		Boolean requested = false
 		Boolean reserved = false
@@ -14,7 +14,6 @@ abstract class Item {
 		
     static constraints = {
 			title(nullable:false)
-			mediaType(nullable:true) 
 			
 			requested(nullable:true)
 			reserved(nullable:true)

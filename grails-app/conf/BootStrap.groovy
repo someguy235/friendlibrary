@@ -15,7 +15,17 @@ class BootStrap {
 		    		enabled:true,
 		    		library:new com.friendlibrary.Library()
 		    	).save()
-			//superadmin
+			
+			//superadmin.library.allItems = [1,2,3]
+			// = [
+				//"wtf"
+				//person.library.books.getMetaClass()
+				//person.library.games,
+				//person.library.albums,
+				//person.library.movies
+			//]
+			//superadmin.library.save()
+			//superadmin.save()
 	    	//create admin role
 		    def sudo = new com.friendlibrary.Role(authority:"ROLE_ADMIN",description:"Site Administrator")
 			// now add the User to the role
