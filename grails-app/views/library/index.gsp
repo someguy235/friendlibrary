@@ -219,7 +219,6 @@
 							</thead>
 							<tbody>
 								<g:each in="${allItems}" var="itemCategory">
-									<tr><td>${itemCategory.toString()}</td></tr>
 									<g:each in="${itemCategory}" var="item">
 										<tr>
 											<g:if test="${!viewingSelf}">
@@ -227,7 +226,7 @@
 											</g:if>
 											<g:else>
 												<td align="center">	
-													<g:if test="${item.loanedOut == null}">
+													<g:if test="${item.loanedOut == true}">
 														<g:link title="Request this item be returned">
 															<span class="ui-icon ui-icon-mail-closed"></span>
 														</g:link>
@@ -236,10 +235,30 @@
 											</g:else>
 											<td>${item.mediaType}</td>
 											<td>${item.title}</td>
-											<td>${item.artist}</td>
-											<td>${item.author}</td>
-											<td>${item.format}</td>
-											<td>${item.platform}</td>
+											<g:if test="${item.mediaType == 'album'}">
+												<td>${item.artist}</td>
+											</g:if>
+											<g:else>
+												<td>&nbsp;</td>
+											</g:else>
+											<g:if test="${item.mediaType == 'book'}">
+												<td>${item.author}</td>
+											</g:if>
+											<g:else>
+												<td>&nbsp;</td>
+											</g:else>
+											<g:if test="${(item.mediaType == 'album')||(item.mediaType == 'movie')}">
+												<td>${item.format}</td>
+											</g:if>
+											<g:else>
+												<td>&nbsp;</td>
+											</g:else>
+											<g:if test="${item.mediaType == 'game'}">
+												<td>${item.platform}</td>
+											</g:if>
+											<g:else>
+												<td>&nbsp;</td>
+											</g:else>
 										</tr>
 									</g:each>
 								</g:each>

@@ -10,7 +10,8 @@ class LibraryController {
 		def libUser = User.findByUsername(params.id)
 		def viewUser = authenticateService.userDomain()
 		viewUser = User.get(viewUser.id)
-		def allItems = [libUser.library.games]
+		def userLib = libUser.library
+		def allItems = [userLib.albums, userLib.books, userLib.games, userLib.movies]
 		def boolean viewingSelf = (libUser == viewUser)
 		[ user : libUser, viewingSelf : viewingSelf, allItems:allItems ]
 		
@@ -18,16 +19,15 @@ class LibraryController {
 	
 	def show = {
 		def library = Library.findById(params.id)
-		def allItems = [library.games]
-		render "Albums: <br />"
+		def allItems = [library.albums, library.books, library.games, library.movies]
+		render "Albums (${allItems[0].size()}): <br />"
 		library.albums.each(){render "${it} <br />"}
-		render "Books: <br />"
+		render "Books (${allItems[1].size()}): <br />"
 		library.books.each(){render "${it} <br />"}
-		render "Games: <br />"
+		render "Games (${allItems[2].size()}): <br />"
 		library.games.each(){render "${it} <br />"}
-		render "Movies: <br />"
+		render "Movies (${allItems[3].size()}): <br />"
 		library.movies.each(){render "${it} <br />"}
-		render "Items: <br />"
-		render allItems[0].size() + "<br />"
+		render "Items: ${allItems[0].size() + allItems[1].size() + allItems[2].size() + allItems[3].size()}"
 	}
 }
