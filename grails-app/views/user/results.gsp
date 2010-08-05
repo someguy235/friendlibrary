@@ -4,16 +4,18 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-    <h1>Results</h1>
-    <p>Searched ${com.friendlibrary.User.count()} records
-      for items matching <em>${term}</em>.
+    <h1>Search Results</h1>
+    <p>Searched 
+      for users matching <em><g:each in="${term}">${it} </g:each></em>.
       Found <strong>${users.size()}</strong> hits.
     </p>
+    <br />
     <ul>
       <g:each var="user" in="${users}">
-        <li>${user.userId}</li>
+        <li><g:link controller="user" action="profile" id="${user.username}">${user.username}</g:link></li>
       </g:each>
     </ul>
+    <br />
     <g:link action='search'>Search Again</g:link>
   </body>
 </html>

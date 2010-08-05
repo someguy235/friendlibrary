@@ -8,8 +8,18 @@ class UserController {
 		}
 
 		def results = {
-			def users = User.findAllByUserIdLike(params.username)
-			return [users: users, term: params.username]
+			if ((params.firstname != "")||(params.lastname != "")){
+				def users = User.findAllByUserFirstNameIlikeOrUserLastNameIlike(params.firstname, params.lastname)
+				return [users: users, term: [params.firstname, params.lastname]]
+			}
+			else{
+				def users = User.findAllByUsernameLike(params.username)
+				return [users: users, term: [params.username, ""]]
+			}
+				
+				
+				
+				
 		}
 		
 		def profile = {
