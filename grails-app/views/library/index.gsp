@@ -200,15 +200,21 @@
 				</ul>
 				<g:form action="requestitem" id="${params.id}">
 					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-all">
+						<g:if test="${(allItems[0].size()==0)&&(allItems[1].size()==0)&&(allItems[2].size()==0)&&(allItems[3].size()==0) }">
+							<div class="noItems">There are no items in this library.</div>
+						</g:if>
+						<g:else>
 						<table id="libTabs-all-content" class="tablesorter">
 							<thead>
 								<tr>
+									<th class="tableFirstCol">
 									<g:if test="${!viewingSelf}">
-										<th>Request Item &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										Request Item &nbsp;&nbsp;&nbsp;&nbsp;
 									</g:if>
 									<g:else>
-										<th>Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
 									</g:else>
+									</th>
 									<th>Media &nbsp;&nbsp;&nbsp;&nbsp;</th>
 									<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
 									<th>Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -264,47 +270,55 @@
 								</g:each>
 							</tbody>
 						</table>
+						</g:else>
 						<g:if test="${!viewingSelf}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
 							</div>
 						</g:if>
 					</div>
-					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="libTabs-games">
-						<table id="libTabs-games-content" class="tablesorter">
-							<thead>
-								<tr>
-									<g:if test="${!viewingSelf}">
-										<th>Request Item &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</g:if>
-									<g:else>
-										<th>Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</g:else>
-									<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									<th>Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>
-								<g:each in="${user.library.games}" var="item">
-										<tr>
-											<g:if test="${!viewingSelf}">
-												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
-											</g:if>
-											<g:else>
-												<td align="center">	
-													<g:if test="${item.loanedOut == null}">
-														<g:link title="Request this item be returned">
-															<span class="ui-icon ui-icon-mail-closed"></span>
-														</g:link>
-													</g:if>
-												</td>
-											</g:else>
-											<td>${item.title}</td>
-											<td>${item.platform}</td>
-										</tr>
-								</g:each>
-							</tbody>
-						</table>
+					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-games">
+						<g:if test="${user.library.games.size()==0 }">
+							<div class="noItems">There are no games in this library.</div>
+						</g:if>
+						<g:else>
+							<table id="libTabs-games-content" class="tablesorter">
+								<thead>
+									<tr>
+										<th class="tableFirstCol">
+										<g:if test="${!viewingSelf}">
+											Request Item &nbsp;&nbsp;&nbsp;&nbsp;
+										</g:if>
+										<g:else>
+											Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
+										</g:else>
+										</th>
+										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th style="width:10%;">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<g:each in="${user.library.games}" var="item">
+											<tr>
+												<g:if test="${!viewingSelf}">
+													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+												</g:if>
+												<g:else>
+													<td align="center">	
+														<g:if test="${item.loanedOut == null}">
+															<g:link title="Request this item be returned">
+																<span class="ui-icon ui-icon-mail-closed"></span>
+															</g:link>
+														</g:if>
+													</td>
+												</g:else>
+												<td>${item.title}</td>
+												<td>${item.platform}</td>
+											</tr>
+									</g:each>
+								</tbody>
+							</table>
+						</g:else>
 						<g:if test="${!viewingSelf}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
@@ -312,40 +326,47 @@
 						</g:if>
 					</div>
 					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-books">
-						<table id="libTabs-books-content" class="tablesorter">
-							<thead>
-								<tr>
-									<g:if test="${!viewingSelf}">
-										<th>Request Item &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</g:if>
-									<g:else>
-										<th>Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</g:else>
-									<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									<th>Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>
-								<g:each in="${user.library.books}" var="item">
-										<tr>
-											<g:if test="${!viewingSelf}">
-												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
-											</g:if>
-											<g:else>
-												<td align="center">	
-													<g:if test="${item.loanedOut == null}">
-														<g:link title="Request this item be returned">
-															<span class="ui-icon ui-icon-mail-closed"></span>
-														</g:link>
-													</g:if>
-												</td>
-											</g:else>
-											<td>${item.title}</td>
-											<td>${item.author}</td>
-										</tr>
-								</g:each>
-							</tbody>					
-						</table>
+						<g:if test="${user.library.books.size()==0 }">
+							<div class="noItems">There are no books in this library.</div>
+						</g:if>
+						<g:else>
+							<table id="libTabs-books-content" class="tablesorter">
+								<thead>
+									<tr>
+										<th class="tableFirstCol">
+										<g:if test="${!viewingSelf}">
+											Request Item &nbsp;&nbsp;&nbsp;&nbsp;
+										</g:if>
+										<g:else>
+											Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
+										</g:else>
+										</th>
+										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th>Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<g:each in="${user.library.books}" var="item">
+											<tr>
+												<g:if test="${!viewingSelf}">
+													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+												</g:if>
+												<g:else>
+													<td align="center">	
+														<g:if test="${item.loanedOut == null}">
+															<g:link title="Request this item be returned">
+																<span class="ui-icon ui-icon-mail-closed"></span>
+															</g:link>
+														</g:if>
+													</td>
+												</g:else>
+												<td>${item.title}</td>
+												<td>${item.author}</td>
+											</tr>
+									</g:each>
+								</tbody>					
+							</table>
+						</g:else>
 						<g:if test="${!viewingSelf}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
@@ -353,40 +374,47 @@
 						</g:if>
 					</div>
 					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-movies">
-						<table id="libTabs-movies-content" class="tablesorter">
-							<thead>
-								<tr>
-								<g:if test="${!viewingSelf}">
-										<th>Request Item &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</g:if>
-									<g:else>
-										<th>Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</g:else>
-									<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									<th>Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>
-								<g:each in="${user.library.movies}" var="item">
-										<tr>
-											<g:if test="${!viewingSelf}">
-												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
-											</g:if>
-											<g:else>
-												<td align="center">	
-													<g:if test="${item.loanedOut == null}">
-														<g:link title="Request this item be returned">
-															<span class="ui-icon ui-icon-mail-closed"></span>
-														</g:link>
-													</g:if>
-												</td>
-											</g:else>
-											<td>${item.title}</td>
-											<td>${item.format}</td>
-										</tr>
-								</g:each>
-							</tbody>
-						</table>
+						<g:if test="${user.library.movies.size()==0 }">
+							<div class="noItems">There are no movies in this library.</div>
+						</g:if>
+						<g:else>
+							<table id="libTabs-movies-content" class="tablesorter">
+								<thead>
+									<tr>
+										<th class="tableFirstCol">
+										<g:if test="${!viewingSelf}">
+											Request Item &nbsp;&nbsp;&nbsp;&nbsp;
+										</g:if>
+										<g:else>
+											Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
+										</g:else>
+										</th>
+										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th style="width:10%;">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<g:each in="${user.library.movies}" var="item">
+											<tr>
+												<g:if test="${!viewingSelf}">
+													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+												</g:if>
+												<g:else>
+													<td align="center">	
+														<g:if test="${item.loanedOut == null}">
+															<g:link title="Request this item be returned">
+																<span class="ui-icon ui-icon-mail-closed"></span>
+															</g:link>
+														</g:if>
+													</td>
+												</g:else>
+												<td>${item.title}</td>
+												<td>${item.format}</td>
+											</tr>
+									</g:each>
+								</tbody>
+							</table>
+						</g:else>
 						<g:if test="${!viewingSelf}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
@@ -394,42 +422,49 @@
 						</g:if>
 					</div>
 					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-music">
-						<table id="libTabs-music-content" class="tablesorter">
-							<thead>
-								<tr>
-									<g:if test="${!viewingSelf}">
-										<th>Request Item &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</g:if>
-									<g:else>
-										<th>Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</g:else>
-									<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									<th>Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									<th>Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>
-								<g:each in="${user.library.albums}" var="item">
-										<tr>
+						<g:if test="${user.library.albums.size()==0 }">
+							<div class="noItems">There are no albums in this library.</div>
+						</g:if>
+						<g:else>
+							<table id="libTabs-music-content" class="tablesorter">
+								<thead>
+									<tr>
+										<th class="tableFirstCol">
 											<g:if test="${!viewingSelf}">
-												<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+												Request Item &nbsp;&nbsp;&nbsp;&nbsp;
 											</g:if>
 											<g:else>
-												<td align="center">	
-													<g:if test="${item.loanedOut == null}">
-														<g:link title="Request this item be returned">
-															<span class="ui-icon ui-icon-mail-closed"></span>
-														</g:link>
-													</g:if>
-												</td>
+												Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
 											</g:else>
-											<td>${item.title}</td>
-											<td>${item.artist}</td>
-											<td>${item.format}</td>
-										</tr>
-								</g:each>
-							</tbody>
-						</table>
+										</th>
+										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th>Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th style="width:10%;">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<g:each in="${user.library.albums}" var="item">
+											<tr>
+												<g:if test="${!viewingSelf}">
+													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
+												</g:if>
+												<g:else>
+													<td align="center">	
+														<g:if test="${item.loanedOut == null}">
+															<g:link title="Request this item be returned">
+																<span class="ui-icon ui-icon-mail-closed"></span>
+															</g:link>
+														</g:if>
+													</td>
+												</g:else>
+												<td>${item.title}</td>
+												<td>${item.artist}</td>
+												<td>${item.format}</td>
+											</tr>
+									</g:each>
+								</tbody>
+							</table>
+						</g:else>
 						<g:if test="${!viewingSelf}">
 							<div align="left">
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>

@@ -6,20 +6,20 @@
 	<body>
 		<h1>Profile for ${params.id}</h1>
 		<div>
-		<br />
-		<hr></hr>
-			<div class="profile_column profile_column_left">
-			Info
-			</div>
-			<div class="profile_column profile_column_center">
-			Library
-			</div>
-			<div class="profile_column profile_column_right">
-			Social
-			</div>
-			<div class="clear"></div>
-		<hr></hr>
-		<br />
+			<br />
+			<hr></hr>
+				<div class="profile_column profile_column_left">
+				Info
+				</div>
+				<div class="profile_column profile_column_center">
+				Library
+				</div>
+				<div class="profile_column profile_column_right">
+				Social
+				</div>
+				<div class="clear"></div>
+			<hr></hr>
+			<br />
 		</div>
 		<div>
 			<div class="profile_column profile_column_left">
@@ -41,6 +41,34 @@
 				three<br />
 			</div>
 			<div class="clear"></div>
+		</div>
+		<!-- TODO: if viewingself check here -->
+		<br />
+		
+		<div class="ui-widget-content ui-corner-bottom" id="messages">
+			<table id="messages-table" class="tablesorter">
+				<thead>
+					<tr>
+						<th style="width:10%;">Type</th>
+						<th style="width:80%;">Message</th>
+						<th style="width:10%;">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<g:if test="${user.messages.size() == 0}">
+						<tr><td colspan="3">You have no messages</td></tr>
+					</g:if>
+					<g:else>
+						<g:each in="${user.messages}" var="message">
+							<tr>
+								<td>${message.type}</td>
+								<td>${message.body}</td>
+								<td>placeholder</td>
+							</tr>
+						</g:each>
+					</g:else>
+				</tbody>
+			</table>
 		</div>
 	</body>
 </html>

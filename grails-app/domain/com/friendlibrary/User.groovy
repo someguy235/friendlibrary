@@ -13,7 +13,7 @@ class User {
 	
 	Library library
 	
-	static hasMany = [ authorities:Role, friends:User ]
+	static hasMany = [ authorities:Role, friends:User, messages:Message ]
     static belongsTo = Role
 
     static constraints = {

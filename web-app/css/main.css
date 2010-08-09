@@ -171,5 +171,21 @@ input:focus, select:focus, textarea:focus {
 	/*text-align: left;*/
 	color: #000;
 }
+#messages{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+#messages-table{
+		width:100%;
+}
+.tableFirstCol{
+	width:12%;
+}
+.noItems{
+	padding:5px 0px 5px 0px;
+	width:100%;
+	background-color:#FFF;
+}
+	
 
 
