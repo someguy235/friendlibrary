@@ -6,6 +6,7 @@ class UrlMappings {
 		  }
 	  }
       "/"(controller:'index', action:'index')
+	  "/search"(controller:'search', action:'search')
 	  "/info"(view:'/info')
 	  "500"(view:'/error')
 	}

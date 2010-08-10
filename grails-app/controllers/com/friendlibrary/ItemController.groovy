@@ -9,10 +9,16 @@ class ItemController {
 		}
 
 		def results = {
-			def items = Item.findAllByItemIdLike(params.itemDescription)
-			return [ items: items, term: params.itemDescription]
+			if ((params.firstname != "")||(params.lastname != "")){
+				def users = User.findAllByUserFirstNameIlikeOrUserLastNameIlike(params.firstname, params.lastname)
+				return [users: users, term: [params.firstname, params.lastname]]
+			}
+			else{
+				def users = User.findAllByUsernameLike(params.username)
+				return [users: users, term: [params.username, ""]]
+			}
 		}
-
+		
 		def addItem = {
 			try{
 				itemService.addItem(params)

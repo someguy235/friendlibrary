@@ -17,7 +17,7 @@
       	<img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
       </div>
       <!-- <br /> -->
-      <h1>FriendlyLibrary</h1>
+      <h1><a href="/friendlibrary">FriendlyLibrary</a></h1>
       <br />
       <g:layoutBody />
       <div class="footer">
@@ -28,7 +28,7 @@
 	      	<g:link controller="library" action="index" id="${loggedInUsername}">library</g:link> | 
 	      	<g:link controller="user" action="profile" id="${loggedInUsername}">profile</g:link> | 
 	      	<g:link controller="user" action="friends" id="${loggedInUsername}">friends</g:link> | 
-	      	<g:link controller="item" action="search">search</g:link> | 
+	      	<g:link controller="search" action=" ">search</g:link> | 
 	      	<g:link controller="logout">logout</g:link>
 	  	</g:isLoggedIn>
       	<g:isNotLoggedIn>

@@ -160,6 +160,7 @@ class RegisterController {
 		person.passwd = pass
 		person.enabled = true
 		//person.description = ''
+		person.library = new com.friendlibrary.Library()
 		if (person.save()) {
 			
 			role.addToPeople(person)
@@ -191,8 +192,8 @@ class RegisterController {
 			SCH.context.authentication = authtoken
 			redirect uri: '/'
 			
-			person.library.items.add("wtf")
-			System.out.println("wtf")
+			//person.library.items.add("wtf")
+			//System.out.println("wtf")
 			// = [
 				//"wtf"
 				//person.library.books.getMetaClass()
@@ -200,7 +201,7 @@ class RegisterController {
 				//person.library.albums,
 				//person.library.movies
 			//]
-			person.library.save()
+			//person.library.save()
 		}
 		
 		else {
