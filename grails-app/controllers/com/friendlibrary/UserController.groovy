@@ -26,8 +26,25 @@ class UserController {
 			def user = User.findByUsername(params.id)
 			def viewUser = authenticateService.userDomain()
 			viewUser = User.get(viewUser.id)
-			def boolean viewingSelf = (user == viewUser) 
-			[ user : user, viewingSelf : viewingSelf ]
+			def boolean viewingSelf = (user == viewUser)
+			def boolean isFriend = true
+			def boolean isFriendRequested = true 
+			if (!viewingSelf){
+				isFriend = viewUser.friends.contains(user)
+			}
+			if((!viewingSelf)&&(!isFriend)){
+				//isFriendRequested = viewUser.outMessages.contains(Message.findBySentFromAndsentToAndType(viewUser, user, 'friendRequest'))
+				isFriendRequested = viewUser.outMessages.contains(Message.findAllBySentFromAndsentTo(viewUser, user))
+			}
+			
+				
+			[ 
+				user : user, 
+				viewUser : viewUser, 
+				viewingSelf : viewingSelf,
+				isFriend : isFriend,
+				isFriendRequested : isFriendRequested 
+			]
 		}
 		
 }
