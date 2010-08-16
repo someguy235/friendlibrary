@@ -3,12 +3,12 @@ package com.friendlibrary
 class Message {
 
 	static belongsTo = User
-	User sentFrom
-	User sentTo
+	String sentFrom
+	String sentTo
 	String body
 	String type
 	
     static constraints = {
-		type(inList:["itemRequest", "itemReturn", "friendRequest", "itemStatus", ])
+		type(inList:["itemRequest", "itemReturn", "Friend Request", "itemStatus", ])
     }
 }

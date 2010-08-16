@@ -33,8 +33,9 @@ class UserController {
 				isFriend = viewUser.friends.contains(user)
 			}
 			if((!viewingSelf)&&(!isFriend)){
-				//isFriendRequested = viewUser.outMessages.contains(Message.findBySentFromAndsentToAndType(viewUser, user, 'friendRequest'))
-				isFriendRequested = viewUser.outMessages.contains(Message.findAllBySentFromAndsentTo(viewUser, user))
+				System.out.println(viewUser.username)
+				System.out.println(user.messages.toString())
+				isFriendRequested = user.messages.find{(it.type == 'Friend Request')&&(it.sentFrom == viewUser.username)}
 			}
 			
 				
