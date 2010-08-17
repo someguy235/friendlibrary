@@ -19,7 +19,7 @@ class MessageController {
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:params.id)
+		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
 	}
 	def denyFriendRequest = {
 		try{
@@ -27,6 +27,14 @@ class MessageController {
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:params.id)
+		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
+	}
+	def removeFriend = {
+		try{
+			messageService.removeFriend(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
 	}
 }

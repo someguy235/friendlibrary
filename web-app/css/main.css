@@ -204,6 +204,11 @@ input:focus, select:focus, textarea:focus {
 	float:left;
 	padding: 3px 0px 2px 10px;
 }
-	
+#action_buttons{
+	font-size:8pt;
+}
+#messageTable tbody tr td{
+	vertical-align:middle;
+}
 
 

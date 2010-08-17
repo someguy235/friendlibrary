@@ -23,16 +23,48 @@ class MessageService {
 	
 	void confirmFriendRequest(params){
 		def requestedUser = User.findByUsername(params.requestedUser)
+		assert requestedUser != null 
 		def requestingUser = User.findByUsername(params.requestingUser)
+		assert requestingUser != null
 		requestedUser.addToFriends(requestingUser)
 		requestingUser.addToFriends(requestedUser)
-		for(message in requestedUser.messages){
-			if((message.type == 'Friend Request')&&(message.sentFrom == params.requestingUser)){
-				requestedUser.removeFromMessages(message)
-				//message.delete()
-			}
+		def message = requestedUser.messages.find{
+			(it.type == 'Friend Request')&&
+			(it.sentFrom == params.requestingUser)
 		}
+		assert message != null
+		requestedUser.removeFromMessages(message)
+		message.delete()
+	}
+	void denyFriendRequest(params){
+		def requestedUser = User.findByUsername(params.requestedUser)
+		assert requestedUser != null
+		def requestingUser = User.findByUsername(params.requestingUser)
+		assert requestingUser != null
+		//requestedUser.addToFriends(requestingUser)
+		//requestingUser.addToFriends(requestedUser)
+		def message = requestedUser.messages.find{
+			(it.type == 'Friend Request')&&
+			(it.sentFrom == params.requestingUser)
+		}
+		assert message != null
+		requestedUser.removeFromMessages(message)
+		message.delete()
 		
-		
+	}
+	void removeFriend(params){
+		def requestedUser = User.findByUsername(params.requestedUser)
+		assert requestedUser != null
+		def requestingUser = User.findByUsername(params.requestingUser)
+		assert requestingUser != null
+		requestedUser.removeFromFriends(requestingUser)
+		requestingUser.removeFromFriends(requestedUser)
+		//def message = requestedUser.messages.find{
+		//	(it.type == 'Friend Request')&&
+		//	(it.sentFrom == params.requestingUser)
+		//}
+		//assert message != null
+		//requestedUser.removeFromMessages(message)
+		//message.delete()
 	}
 }

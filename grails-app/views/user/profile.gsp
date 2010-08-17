@@ -5,7 +5,7 @@
 	   <g:javascript>
 			$(function() {
 				$("#messageTabs").tabs({ selected: 0 });
-      	$("#messageTable").tablesorter(  );
+      	$("#messageTable").tablesorter( {sortList: [[0,0]]}  );
     	}); 
 		</g:javascript>
 	</head>
@@ -43,10 +43,10 @@
 			<div class="profile_column profile_column_right">
 				${user.friends.size()} contacts:<br />
 				<g:each in="${user.friends}" var="friend">
-					<g:link controller="user" action="profile" id="${friend.id}">
+					<g:link controller="user" action="profile" id="${friend.username}">
 						${friend.userFirstName} ${friend.userLastName.getAt(0)}
 					</g:link>
-					<g:link controller="library" action="index" id="${friend.id}">
+					<g:link controller="library" action="index" id="${friend.username}">
 						(library)
 					</g:link>
 					<br />
@@ -67,8 +67,8 @@
 						<thead>
 							<tr>
 								<th style="width:10%;">From</th>
-								<th style="width:10%;">Type</th>
-								<th style="width:60%;">Message</th>
+								<th style="width:15%;">Type</th>
+								<th style="width:50%;">Message</th>
 								<th style="width:20%;">Action</th>
 							</tr>
 						</thead>
@@ -79,21 +79,27 @@
 							<g:else>
 								<g:each in="${user.messages}" var="message">
 									<tr>
-										<td>${message.sentFrom}</td>
+										<td><g:link controller="user" action="profile" id="${message.sentFrom}">${message.sentFrom}</g:link></td>
 										<td>${message.type}</td>
 										<td>${message.body}</td>
 										<td>
 										<g:if test="${message.type == 'Friend Request'}">
-											<g:form controller="message" action="confirmFriendRequest">
-												<input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
-												<input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
-												<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Confirm</span></button>
-											</g:form>
-											<g:form controller="message" action="denyFriendRequest">
-												<input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
-												<input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
-												<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Ignore</span></button>
-											</g:form>
+											<div id="action_buttons">
+												<div style="float:left;">
+													<g:form controller="message" action="confirmFriendRequest">
+														<input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
+														<input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
+														<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Confirm</span></button>
+													</g:form>
+												</div>
+												<div>
+													<g:form controller="message" action="denyFriendRequest">
+														<input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
+														<input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
+														<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Ignore</span></button>
+													</g:form>
+												</div>
+											</div>
 										</g:if>
 										</td>
 									</tr>
@@ -105,7 +111,12 @@
 			</div>
 		</g:if>
 		<g:elseif test="${isFriend}">
-			${user.userFirstName} is one of your contacts.
+			${user.userFirstName} is one of your contacts. 
+			<g:form controller="message" action="removeFriend">
+				<input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser}" />
+				<input type="hidden" id="requestedUser" name="requestedUser" value="${user}" />
+				<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Remove Contact</span></button>
+			</g:form>
 		</g:elseif>
 		<g:elseif test="${isFriendRequested}">
 			You have requested this person as a contact.
