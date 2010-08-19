@@ -239,7 +239,11 @@
 													</g:if>
 												</td>
 											</g:else>
-											<td>${item.mediaType}</td>
+											<td>
+												<g:set var="mediaImage" value="${item.mediaType}.png" />
+												<img height="20" width="20" src="${resource(dir:'images/icons',file:mediaImage)}" alt="${item.mediaType}" title="${item.mediaType}"/>
+												${item.mediaType}
+											</td>
 											<td>${item.title}</td>
 											<g:if test="${item.mediaType == 'album'}">
 												<td>${item.artist}</td>
