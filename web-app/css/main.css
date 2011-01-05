@@ -4,6 +4,7 @@ html {
 	text-align: center;
 	/*background: #1e1e1e;*/
 	background: #111;
+	height: 100%;
 	/* background-image: url("../images/stripe.png");*/
 }
 
@@ -11,12 +12,13 @@ html {
 
 body {
 	width: 900px;
+	height: 100%;
 	text-align: center;
-    background: #ddd;
+    background: #111;
     color: #453821;
     font: 11px verdana, arial, helvetica, sans-serif;
 	margin:0 auto;
-    padding:header-<length> 0 footer-<length> 0;
+    /*padding:header-<length> 0 footer-<length> 0;*/
 }
 
 a:link, a:visited, a:hover {
@@ -74,6 +76,10 @@ textarea {
 
 input:focus, select:focus, textarea:focus {
     border: 1px solid #994D53;
+}
+
+.content{
+	background:#ddd;
 }
 
 .main {
