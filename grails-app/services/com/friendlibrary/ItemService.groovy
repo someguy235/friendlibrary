@@ -15,15 +15,19 @@ class ItemService{
 			switch(params.mediaType){
 				case "album":
 					item = new Album(artist:params.artist, genre:params.genre, format:params.format)
+					library.availableAlbums+=1
 					break
 				case "book":
 					item = new Book(title:params.title, author:params.author)
+					library.availableBooks+=1
 					break
 				case "game":
 					item = new Game(platform:params.platform)
+					library.availableGames+=1
 					break
 				case "movie":
 					item = new Movie(format:params.format)
+					library.availableMovies+=1
 					break
 				default:
 					throw new ItemException(message: "Invalid item type", item:item)

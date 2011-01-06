@@ -5,6 +5,11 @@ class Library {
     static belongsTo = [ user:User ]
     
     static hasMany = [ books:Book, games:Game, albums:Album, movies:Movie ]
+    int availableBooks=0
+    int availableGames=0
+    int availableAlbums=0
+    int availableMovies=0
+    
 	//Set books = []
 	//Set games = []
 	//Set albums = []
