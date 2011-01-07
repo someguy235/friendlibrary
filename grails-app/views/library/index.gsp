@@ -198,7 +198,6 @@
 					<li class="ui-state-default ui-corner-top"><a href="#libTabs-movies">Movies</a></li>
 					<li class="ui-state-default ui-corner-top"><a href="#libTabs-music">Music</a></li>
 				</ul>
-				<g:form action="requestitem" id="${params.id}">
 					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-all">
 						<g:if test="${(allItems[0].size()==0)&&(allItems[1].size()==0)&&(allItems[2].size()==0)&&(allItems[3].size()==0) }">
 							<div class="noItems">There are no items in this library.</div>
@@ -212,7 +211,7 @@
 											Request Item &nbsp;&nbsp;&nbsp;&nbsp;
 										</g:if>
 										<g:else>
-											Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
+											Available &nbsp;&nbsp;&nbsp;&nbsp;
 										</g:else>
 										</th>
 										<th>Media &nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -227,18 +226,33 @@
 									<g:each in="${allItems}" var="itemCategory">
 										<g:each in="${itemCategory}" var="item">
 											<tr>
-												<g:if test="${!viewingSelf}">
-													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
-												</g:if>
-												<g:else>
 													<td align="center">	
 														<g:if test="${item.loanedOut == true}">
 															<g:link title="Request this item be returned">
-																<span class="ui-icon ui-icon-mail-closed"></span>
+																<img height="20" width="20" src="${resource(dir:'images/icons',file:'redlight.png')}" alt="redlight.png"/>
 															</g:link>
 														</g:if>
+														<g:elseif test="${item.reserved == true}">
+															<g:link title="Request this item be returned">
+																<img height="20" width="20" src="${resource(dir:'images/icons',file:'yellowlight.png')}" alt="yellowlight.png"/>
+															</g:link>
+														</g:elseif>
+														<g:elseif test="${item.requested == true}">
+															<g:link title="Request this item be returned">
+																<img height="20" width="20" src="${resource(dir:'images/icons',file:'yellowlight.png')}" alt="yellowlight.png"/>
+															</g:link>
+														</g:elseif>
+														<g:else>
+															<g:form controller="message" action="itemRequest">
+																<input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser}" />
+																<input type="hidden" id="requestedUser" name="requestedUser" value="${user}" />
+																<input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
+																<button aria-disabled="false" role="button" id="button">
+																	<img height="15" width="15" src="${resource(dir:'images/icons',file:'greenlight.png')}" alt="greenlight.png" title="request this item"/>
+																</button>
+															</g:form>
+														</g:else>
 													</td>
-												</g:else>
 												<td align="center">
 													<g:set var="mediaImage" value="${item.mediaType}.png" />
 													<img height="20" width="20" src="${resource(dir:'images/icons',file:mediaImage)}" alt="${item.mediaType}" title="${item.mediaType}"/>
@@ -474,7 +488,6 @@
 							</g:if>
 						</g:else>
 					</div>
-				</g:form>
 			</div>
 		</div>
 	</body>

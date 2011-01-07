@@ -97,7 +97,7 @@
 						</thead>
 						<tbody>
 							<g:if test="${user.messages.size() == 0}">
-								<tr><td colspan="4">You have no messages</td></tr>
+								<tr><td align="center" colspan="4">You have no messages</td></tr>
 							</g:if>
 							<g:else>
 								<g:each in="${user.messages}" var="message">

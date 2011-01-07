@@ -9,6 +9,6 @@ class Message {
 	String type
 	
     static constraints = {
-		type(inList:["itemRequest", "itemReturn", "Friend Request", "itemStatus", ])
+		type(inList:["Item Request", "itemReturn", "Friend Request", "itemStatus", ])
     }
 }

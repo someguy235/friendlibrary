@@ -1,6 +1,6 @@
 package com.friendlibrary
 
-abstract class Item {
+class Item {
 	
 	def searchable = true
 		

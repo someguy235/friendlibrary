@@ -13,7 +13,7 @@ class LibraryController {
 		def userLib = libUser.library
 		def allItems = [userLib.albums, userLib.books, userLib.games, userLib.movies]
 		def boolean viewingSelf = (libUser == viewUser)
-		[ user : libUser, viewingSelf : viewingSelf, allItems:allItems ]
+		[ user : libUser, viewUser:viewUser, viewingSelf : viewingSelf, allItems:allItems ]
 		
 	 }
 	

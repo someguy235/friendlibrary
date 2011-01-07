@@ -67,4 +67,24 @@ class MessageService {
 		//requestedUser.removeFromMessages(message)
 		//message.delete()
 	}
+	void itemRequest(params){
+		def requestedUser = User.findByUsername(params.requestedUser)
+		assert requestedUser != null
+		def requestingUser = User.findByUsername(params.requestingUser)
+		assert requestingUser != null
+		def requestedItem = Item.get(1)
+		assert requestedItem != null
+		def requestMessage = new Message(
+			sentFrom:params.requestingUser, 
+			sentTo:params.requestedUser, 
+			body:"${params.requestingUser} has asked to borrow the ${requestedItem.mediaType} \"${requestedItem.title}\" ", 
+			type:"Item Request"
+		)
+		requestMessage.save(failOnError:true)
+		def user = User.findByUsername(params.requestedUser)
+		user.addToMessages(requestMessage)
+		requestedItem.requested = true
+		requestedItem.save(failOnError:true)
+		
+	}
 }
