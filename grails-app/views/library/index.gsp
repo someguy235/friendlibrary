@@ -228,27 +228,37 @@
 											<tr>
 													<td align="center">	
 														<g:if test="${item.loanedOut == true}">
-															<g:link title="Request this item be returned">
-																<img height="20" width="20" src="${resource(dir:'images/icons',file:'redlight.png')}" alt="redlight.png"/>
-															</g:link>
+															<button aria-disabled="false" role="button" id="button">
+																<img height="15" width="15" src="${resource(dir:'images/icons',file:'redlight.png')}" alt="redlight.png"/>
+															</button>
 														</g:if>
 														<g:elseif test="${item.reserved == true}">
-															<g:link title="Request this item be returned">
-																<img height="20" width="20" src="${resource(dir:'images/icons',file:'yellowlight.png')}" alt="yellowlight.png"/>
-															</g:link>
+															<button aria-disabled="false" role="button" id="button">
+																<img height="15" width="15" src="${resource(dir:'images/icons',file:'yellowlight.png')}" alt="yellowlight.png"/>
+															</button>
 														</g:elseif>
 														<g:elseif test="${item.requested == true}">
-															<g:link title="Request this item be returned">
-																<img height="20" width="20" src="${resource(dir:'images/icons',file:'yellowlight.png')}" alt="yellowlight.png"/>
-															</g:link>
+															<button aria-disabled="false" role="button" id="button">
+																<img height="15" width="15" src="${resource(dir:'images/icons',file:'yellowlight.png')}" alt="yellowlight.png"/>
+															</button>
 														</g:elseif>
-														<g:else>
+														<g:else> <!--  item is available -->
+														  <g:if test="${viewingSelf}">
+														    <g:set var="formController" value="" />
+														    <g:set var="formAction" value="" />
+														    <g:set var="buttonTitle" value="place a hold on this item" />
+														  </g:if>
+														  <g:else>
+														    <g:set var="formController" value="message" />
+														    <g:set var="formAction" value="itemRequest" />
+														    <g:set var="buttonTitle" value="request this item" />
+														  </g:else>
 															<g:form controller="message" action="itemRequest">
 																<input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser}" />
 																<input type="hidden" id="requestedUser" name="requestedUser" value="${user}" />
 																<input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
-																<button aria-disabled="false" role="button" id="button">
-																	<img height="15" width="15" src="${resource(dir:'images/icons',file:'greenlight.png')}" alt="greenlight.png" title="request this item"/>
+																<button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
+																	<img height="15" width="15" src="${resource(dir:'images/icons',file:'greenlight.png')}" alt="greenlight.png"/>
 																</button>
 															</g:form>
 														</g:else>

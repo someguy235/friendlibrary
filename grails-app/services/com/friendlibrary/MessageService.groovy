@@ -72,7 +72,7 @@ class MessageService {
 		assert requestedUser != null
 		def requestingUser = User.findByUsername(params.requestingUser)
 		assert requestingUser != null
-		def requestedItem = Item.get(1)
+		def requestedItem = Item.get(params.requestedMedia)
 		assert requestedItem != null
 		def requestMessage = new Message(
 			sentFrom:params.requestingUser, 
