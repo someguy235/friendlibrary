@@ -13,6 +13,7 @@ class Item {
 	Boolean loanedOut = false
 	Integer rating
 	User requestedBy
+	User loanedTo
 		
     static constraints = {
 		title(nullable:false)

@@ -85,6 +85,13 @@ class MessageService {
 		user.addToMessages(requestMessage)
 		requestedItem.requested = true
 		requestedItem.save(failOnError:true)
+	}
+	void requestReturn(params){
+		
+	}
+	void removeRequest(params){
+		def requestedItem = Item.get(params.requestedMedia)
+		assert requestedItem != null
 		
 	}
 }

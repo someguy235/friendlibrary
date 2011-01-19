@@ -45,4 +45,20 @@ class MessageController {
 		}
 		redirect(controller: 'library', action: 'index', id:params.requestedUser)
 	}
+	def requestReturn = {
+		try{
+			messageService.requestReturn(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'library', action: 'index', id:params.requestedUser)
+	}
+	def removeRequest = {
+		try{
+			messageService.removeRequest(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'library', action: 'index', id:params.requestedUser)
+	}
 }
