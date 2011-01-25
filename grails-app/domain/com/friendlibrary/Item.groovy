@@ -16,13 +16,13 @@ class Item {
 	User loanedTo
 		
     static constraints = {
-		title(nullable:false)
-		
-		requested(nullable:true)
-		reserved(nullable:true)
-		loanedOut(nullable:true)
-		rating(size:1..5, nullable:true)
-		requestedBy(nullable:true)
+      title(nullable:false)
+      requested(nullable:true)
+      reserved(nullable:true)
+      loanedOut(nullable:true)
+      rating(size:1..5, nullable:true)
+      requestedBy(nullable:true)
+      loanedTo(nullable:true)
     }
 
 	//static belongsTo = [ user : User ]

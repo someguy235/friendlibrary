@@ -236,7 +236,7 @@
 													<g:elseif test="${item.reserved == true}">
 													  <g:set var="buttonColor" value="yellow" />
 													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="removeRequest" />
+													    <g:set var="formAction" value="removeAllRequests" />
 													    <g:set var="buttonTitle" value="remove all requests from this item" />
 													  </g:if>
 													  <g:else>
@@ -247,7 +247,7 @@
 													<g:elseif test="${item.requested == true}">
 													  <g:set var="buttonColor" value="yellow" />
 													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="removeRequest" />
+													    <g:set var="formAction" value="removeAllRequests" />
 													    <g:set var="buttonTitle" value="remove all requests from this item" />
 													  </g:if>
 													  <g:else>

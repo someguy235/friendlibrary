@@ -7,8 +7,10 @@ class Message {
 	String sentTo
 	String body
 	String type
+  Item item
 	
     static constraints = {
-		type(inList:["Item Request", "itemReturn", "Friend Request", "itemStatus", ])
+      type(inList:["Item Request", "Item Return", "Friend Request", "Item Status", ])
+      item(nullable:true)
     }
 }

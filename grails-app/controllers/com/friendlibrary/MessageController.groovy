@@ -61,4 +61,12 @@ class MessageController {
 		}
 		redirect(controller: 'library', action: 'index', id:params.requestedUser)
 	}
+  def removeAllRequests = {
+		try{
+			messageService.removeAllRequests(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'library', action: 'index', id:params.requestedUser)
+	}
 }
