@@ -310,11 +310,6 @@
 									</g:each>
 								</tbody>
 							</table>
-							<g:if test="${!viewingSelf}">
-								<div align="left">
-									<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
-								</div>
-							</g:if>
 						</g:else>
 					</div>
 					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-games">
