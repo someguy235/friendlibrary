@@ -6,7 +6,7 @@ class LibraryController {
 	def scaffold = true
 	
 	
-    def index = {
+  def index = {
 		def libUser = User.findByUsername(params.id)
 		def viewUser = authenticateService.userDomain()
 		viewUser = User.get(viewUser.id)
@@ -14,8 +14,7 @@ class LibraryController {
 		def allItems = [userLib.albums, userLib.books, userLib.games, userLib.movies]
 		def boolean viewingSelf = (libUser == viewUser)
 		[ user : libUser, viewUser:viewUser, viewingSelf : viewingSelf, allItems:allItems ]
-		
-	 }
+	}
 	
 	def show = {
 		def library = Library.findById(params.id)

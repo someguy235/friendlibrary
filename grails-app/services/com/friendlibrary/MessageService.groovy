@@ -97,7 +97,7 @@ class MessageService {
 		def requestedItem = Item.get(params.requestedMedia)
 		assert requestedItem != null
     def alreadyRequested = false
-    Message.findBySentToAndSentFrom(requestedUser.username, requestingUser.username).each{
+    Message.findAllBySentToAndSentFrom(requestedUser.username, requestingUser.username).each{
       if ((it.item == requestedItem)&&(it.type=="Item Request")){
         alreadyRequested = true
       }
@@ -130,9 +130,9 @@ class MessageService {
 	}
 
   /*
-  //Remove a specific request for an item, leaving all others intact
+  // Remove a specific request for an item, leaving all others intact
   */
- //TODO: does this work at all?
+ //TODO: not tested, does this work at all?
 	void removeRequest(params){
 		def requestedItem = Item.get(params.requestedMedia)
     assert requestedItem != null
@@ -140,15 +140,16 @@ class MessageService {
     assert requestedUser != null
     def requestingUser = User.findByUsername(params.requestingUser)
     assert requestingUser != null
-    //assume that the item will be un-requested afterwards, but check as we walk through the messages
+    // Assume that the item will be un-requested afterwards,
+    //  but check as we walk through the messages
     def stillRequested = false
     (Message.findAllBySentToAndItem(requestedUser.username, requestedItem)).each{
-      if(it.requestingUser == requestingUser.username){
+      if(it.sentFrom == requestingUser.username){
         requestedUser.removeFromMessages(it)
         it.delete()
       }
       else{
-        //if any request message exists from another user
+        // If any request message exists from another user
         stillRequested = true
       }
       requestedItem.requested = stillRequested
@@ -171,4 +172,32 @@ class MessageService {
       requestedItem.requested = false
     }
   }
+
+  /*
+  //Confirm a request to borrow an item
+  */
+ void confirmItemRequest(params){
+   def requestedItem = Item.get(params.requestedMedia)
+   assert requestedItem != null
+   def requestedUser = User.findByUsername(params.requestedUser)
+   assert requestedUser != null
+   def requestingUser = User.findByUsername(params.requestingUser)
+   assert requestingUser != null
+   def confirmMessage = new Message(
+     sentFrom:requestedUser.username,
+     sentTo:requestingUser.username,
+     body:"${requestedUser.username} has agreed to laon you the ${requestedItem.mediaType} \
+       \"${requestedItem.title}\", and will bring it to you soon",
+      type:"Item Request Confirm",
+      item:requestedItem
+    )
+    confirmMessage.save(failOnError:true)
+    requestingUser.addToMessages(confirmMessage)
+    requestedItem.loanedOut = true
+    requestedItem.loanedTo = requestingUser
+    requestedItem.save(failOnError:true)
+
+    removeRequest(params)
+  }
+
 }

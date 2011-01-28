@@ -106,24 +106,32 @@
 										<td>${message.type}</td>
 										<td>${message.body}</td>
 										<td>
-										<g:if test="${message.type == 'Friend Request'}">
-											<div id="action_buttons">
-												<div style="float:left;">
-													<g:form controller="message" action="confirmFriendRequest">
-														<input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
-														<input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
-														<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Confirm</span></button>
-													</g:form>
-												</div>
-												<div>
-													<g:form controller="message" action="denyFriendRequest">
-														<input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
-														<input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
-														<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Ignore</span></button>
-													</g:form>
-												</div>
-											</div>
-										</g:if>
+                      <g:if test="${message.type == 'Friend Request'}">
+                        <g:set var="confirmAction" value="confirmFriendRequest" />
+                        <g:set var="denyAction" value="denyFriendRequest" />
+                      </g:if>
+                      <g:else>
+                        <g:set var="confirmAction" value="confirmItemRequest" />
+                        <g:set var="denyAction" value="removeRequest" />
+                      </g:else>
+                      <div id="action_buttons">
+                        <div style="float:left;">
+                          <g:form controller="message" action="${confirmAction}">
+                            <input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
+                            <input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
+                            <input type="hidden" id="requestedMedia" name="requestedMedia" value="${message.item.id}" />
+                            <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Confirm</span></button>
+                          </g:form>
+                        </div>
+                        <div>
+                          <g:form controller="message" action="${denyRequest}">
+                            <input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
+                            <input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
+                            <input type="hidden" id="requestedMedia" name="requestedMedia" value="${message.item.id}" />
+                            <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Ignore</span></button>
+                          </g:form>
+                        </div>
+                      </div>
 										</td>
 									</tr>
 								</g:each>

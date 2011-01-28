@@ -79,4 +79,14 @@ class MessageController {
 		}
 		redirect(controller: 'library', action: 'index', id:params.requestedUser)
 	}
+
+  def confirmItemRequest = {
+		try{
+			messageService.confirmItemRequest(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'library', action: 'index', id:params.requestedUser)
+	}
+
 }
