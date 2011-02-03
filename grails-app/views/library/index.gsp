@@ -229,8 +229,14 @@
 													    <g:set var="buttonTitle" value="request this item be returned" />
 													  </g:if>
 													  <g:else>
-													    <g:set var="formAction" value="itemRequest" />
-													    <g:set var="buttonTitle" value="request this item when it is returned" />
+                              <g:if test="${item.loanedTo.id == viewUser.id}">
+                                <g:set var="formAction" value="" />
+                                <g:set var="buttonTitle" value="you have this item" />
+                              </g:if>
+                              <g:else>
+                                <g:set var="formAction" value="itemRequest" />
+                                <g:set var="buttonTitle" value="request this item when it is returned" />
+                              </g:else>
 													  </g:else>
 													</g:if>
 													<g:elseif test="${item.reserved == true}">

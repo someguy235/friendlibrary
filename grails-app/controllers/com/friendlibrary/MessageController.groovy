@@ -3,7 +3,8 @@ package com.friendlibrary
 class MessageController {
 	def messageService
 	def scaffold = true
-    def index = { }
+
+  def index = { }
 	
 	def friendRequest = {
 		try{
@@ -11,7 +12,7 @@ class MessageController {
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
+		redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
 	}
 
 	def confirmFriendRequest = {
@@ -20,7 +21,7 @@ class MessageController {
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
+		redirect(controller: 'user', action: 'profile', id:params.user)
 	}
 
 	def denyFriendRequest = {
@@ -38,7 +39,7 @@ class MessageController {
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
+		redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
 	}
 
 	def itemRequest = {
@@ -64,6 +65,7 @@ class MessageController {
 
 	def removeRequest = {
 		try{
+      System.out.println(params)
 			messageService.removeRequest(params)
 		}catch(ItemException ie){
 			flash.message = ie.message
@@ -86,7 +88,15 @@ class MessageController {
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'library', action: 'index', id:params.requestedUser)
+		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
 	}
 
+  def dismissMessage = {
+		try{
+			messageService.dismissMessage(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
+	}
 }

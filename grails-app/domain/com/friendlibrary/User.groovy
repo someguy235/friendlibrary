@@ -13,11 +13,12 @@ class User {
 	
 	Library library
 	
-	//Message[] inMessages
+	//Message[] messages
 	//Message[] outMessages
 	
-	static hasMany = [ authorities:Role, friends:User, messages:Message ]
-	//static mappedBy = [inMessages:"sentTo", outMessages:"sentFrom"]
+	static hasMany = [ authorities:Role, friends:User, inMessages:Message, outMessages:Message ]
+  //static hasMany = [ authorities:Role, friends:User ]
+	static mappedBy = [inMessages:"sentTo", outMessages:"sentFrom"]
     static belongsTo = Role
 
     static constraints = {

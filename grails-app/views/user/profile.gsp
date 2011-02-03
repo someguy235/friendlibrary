@@ -1,6 +1,6 @@
 <html>
 	<head>
-	   <title>FriendlyLibrary - Profile for ${params.id}</title>
+	   <title>FriendlyLibrary - Profile for ${user.username}</title>
 	   <meta name="layout" content="main"/>
 	   <g:javascript>
 			$(function() {
@@ -10,7 +10,7 @@
 		</g:javascript>
 	</head>
 	<body>
-		<h1>Profile for ${params.id}</h1>
+		<h1>Profile for ${user.username}</h1>
 		<div>
 			<br />
 			<hr></hr>
@@ -96,41 +96,53 @@
 							</tr>
 						</thead>
 						<tbody>
-							<g:if test="${user.messages.size() == 0}">
+							<g:if test="${user.inMessages.size() == 0}">
 								<tr><td align="center" colspan="4">You have no messages</td></tr>
 							</g:if>
 							<g:else>
-								<g:each in="${user.messages}" var="message">
+								<g:each in="${user.inMessages}" var="message">
 									<tr>
-										<td><g:link controller="user" action="profile" id="${message.sentFrom}">${message.sentFrom}</g:link></td>
+										<td><g:link controller="user" action="profile" id="${message.sentFrom.username}">${message.sentFrom.username}</g:link></td>
 										<td>${message.type}</td>
 										<td>${message.body}</td>
 										<td>
-                      <g:if test="${message.type == 'Friend Request'}">
-                        <g:set var="confirmAction" value="confirmFriendRequest" />
-                        <g:set var="denyAction" value="denyFriendRequest" />
-                      </g:if>
-                      <g:else>
+                      <g:if test="${message.type == 'Item Request'}">
                         <g:set var="confirmAction" value="confirmItemRequest" />
+                        <g:set var="confirmButtonText" value="Confirm" />
                         <g:set var="denyAction" value="removeRequest" />
-                      </g:else>
+                        <g:set var="denyButtonText" value="Deny" />
+                      </g:if>
+                      <g:elseif test="${message.type == 'Item Return Request'}">
+                      </g:elseif>
+                      <g:elseif test="${message.type == 'Friend Request'}">
+                        <g:set var="confirmAction" value="confirmFriendRequest" />
+                        <g:set var="confirmButtonText" value="Confirm" />
+                        <g:set var="denyAction" value="denyFriendRequest" />
+                        <g:set var="denyButtonText" value="Deny" />
+                      </g:elseif>
+                      <g:elseif test="${message.type == 'Item Request Confirm'}">
+                        <g:set var="confirmAction" value="dismissMessage" />
+                        <g:set var="confirmButtonText" value="Ok" />
+                        <g:set var="denyAction" value="" />
+                      </g:elseif>
+
                       <div id="action_buttons">
                         <div style="float:left;">
                           <g:form controller="message" action="${confirmAction}">
-                            <input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
-                            <input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
-                            <input type="hidden" id="requestedMedia" name="requestedMedia" value="${message.item.id}" />
-                            <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Confirm</span></button>
+                            <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
+                            <input type="hidden" id="user" name="user" value="${user.id}" />
+                            <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">${confirmButtonText}</span></button>
                           </g:form>
                         </div>
-                        <div>
-                          <g:form controller="message" action="${denyRequest}">
-                            <input type="hidden" id="requestingUser" name="requestingUser" value="${message.sentFrom}" />
-                            <input type="hidden" id="requestedUser" name="requestedUser" value="${message.sentTo}" />
-                            <input type="hidden" id="requestedMedia" name="requestedMedia" value="${message.item.id}" />
-                            <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Ignore</span></button>
-                          </g:form>
-                        </div>
+                        <g:if test="${denyAction != ''}">
+                          <div>
+                            <g:form controller="message" action="${denyRequest}">
+                              <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
+                              <input type="hidden" id="user" name="user" value="${user.id}" />
+                              <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">${denyButtonText}</span></button>
+                            </g:form>
+                          </div>
+                        </g:if>
                       </div>
 										</td>
 									</tr>
@@ -144,18 +156,19 @@
 		<g:elseif test="${isFriend}">
 			${user.userFirstName} is one of your contacts. 
 			<g:form controller="message" action="removeFriend">
-				<input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser}" />
-				<input type="hidden" id="requestedUser" name="requestedUser" value="${user}" />
+				<input type="hidden" id="requestingUserId" name="requestingUserId" value="${viewUser.id}" />
+				<input type="hidden" id="requestedUserId" name="requestedUserId" value="${user.id}" />
 				<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Remove Contact</span></button>
 			</g:form>
 		</g:elseif>
 		<g:elseif test="${isFriendRequested}">
-			You have requested this person as a contact.
+      <!--TODO: this doesn't work, need a new controller action-->
+			You have requested ${user.userFirstName} as a contact (<g:link controller="message" action="removeRequest" requestedUser="${user.id}">cancel</g:link>).
 		</g:elseif>
 		<g:else>
 			<g:form controller="message" action="friendRequest">
-				<input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser}" />
-				<input type="hidden" id="requestedUser" name="requestedUser" value="${user}" />
+				<input type="hidden" id="requestingUserId" name="requestingUserId" value="${viewUser.id}" />
+				<input type="hidden" id="requestedUserId" name="requestedUserId" value="${user.id}" />
 				<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Contact</span></button>
 			</g:form>
 		</g:else>

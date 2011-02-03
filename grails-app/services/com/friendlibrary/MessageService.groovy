@@ -16,33 +16,31 @@ class MessageService {
   //Sends a friend request message from one user to another
   */
 	void friendRequest(params){
+    def requestedUser = User.get(params.requestedUserId)
+    def requestingUser = User.get(params.requestingUserId)
 		def requestMessage = new Message(
-			sentFrom:params.requestingUser, 
-			sentTo:params.requestedUser, 
-			body:"You have a new friend request from ${params.requestingUser}", 
+			sentFrom: requestingUser,
+			sentTo: requestedUser,
+			body:"You have a new friend request from ${requestingUser.username}",
 			type:"Friend Request"
 		)
 		requestMessage.save(failOnError:true)
-		def user = User.findByUsername(params.requestedUser)
-		user.addToMessages(requestMessage)
+		requestedUser.addToInMessages(requestMessage)
 	}
 
   /*
   //Confirm a submitted friend request
   */
 	void confirmFriendRequest(params){
-		def requestedUser = User.findByUsername(params.requestedUser)
-		assert requestedUser != null 
-		def requestingUser = User.findByUsername(params.requestingUser)
-		assert requestingUser != null
-		requestedUser.addToFriends(requestingUser)
-		requestingUser.addToFriends(requestedUser)
-		def message = requestedUser.messages.find{
-			(it.type == 'Friend Request')&&
-			(it.sentFrom == params.requestingUser)
-		}
-		assert message != null
-		requestedUser.removeFromMessages(message)
+    def message = Message.get(params.messageId)
+
+    assert message != null
+    assert message.sentFrom != null
+    assert message.sentTo != null
+
+    message.sentFrom.addToFriends(message.sentTo)
+    message.sentTo.addToFriends(message.sentFrom)
+
 		message.delete()
 	}
 
@@ -133,18 +131,23 @@ class MessageService {
   // Remove a specific request for an item, leaving all others intact
   */
  //TODO: not tested, does this work at all?
-	void removeRequest(params){
-		def requestedItem = Item.get(params.requestedMedia)
+	void removeRequest(messageId){
+    def message = Message.get(messageId)
+    assert message != null
+		//def requestedItem = Item.get(params.requestedMedia)
+    def requestedItem = message.item
     assert requestedItem != null
-    def requestedUser = User.findByUsername(params.requestedUser)
+    //def requestedUser = User.findByUsername(params.requestedUser)
+    def requestedUser = message.sentTo
     assert requestedUser != null
-    def requestingUser = User.findByUsername(params.requestingUser)
+    //def requestingUser = User.findByUsername(params.requestingUser)
+    def requestingUser = message.sentFrom
     assert requestingUser != null
     // Assume that the item will be un-requested afterwards,
     //  but check as we walk through the messages
     def stillRequested = false
-    (Message.findAllBySentToAndItem(requestedUser.username, requestedItem)).each{
-      if(it.sentFrom == requestingUser.username){
+    (Message.findAllBySentToAndItem(requestedUser, requestedItem)).each{
+      if(it.sentFrom == requestingUser){
         requestedUser.removeFromMessages(it)
         it.delete()
       }
@@ -177,7 +180,13 @@ class MessageService {
   //Confirm a request to borrow an item
   */
  void confirmItemRequest(params){
-   def requestedItem = Item.get(params.requestedMedia)
+   //def requestedItem = Item.get(params.requestedMedia)
+   System.out.println(params.messageId)
+   def message = Message.get(params.messageId)
+   assert message != null
+   System.out.println(message.item.id)
+   //def requestedItem = Item.get(message.item.id)
+   def requestedItem = message.item
    assert requestedItem != null
    def requestedUser = User.findByUsername(params.requestedUser)
    assert requestedUser != null
@@ -186,7 +195,7 @@ class MessageService {
    def confirmMessage = new Message(
      sentFrom:requestedUser.username,
      sentTo:requestingUser.username,
-     body:"${requestedUser.username} has agreed to laon you the ${requestedItem.mediaType} \
+     body:"${requestedUser.username} has agreed to loan you the ${requestedItem.mediaType} \
        \"${requestedItem.title}\", and will bring it to you soon",
       type:"Item Request Confirm",
       item:requestedItem
@@ -197,7 +206,19 @@ class MessageService {
     requestedItem.loanedTo = requestingUser
     requestedItem.save(failOnError:true)
 
-    removeRequest(params)
+    removeRequest(params.messageId)
+  }
+
+  /*
+  //Removes a notification message from a user
+  */
+  void dismissMessage(params){
+    def messgae = Message.get(params.messageId)
+    assert message != null
+    user = User.findByUsername(message.sentTo)
+    assert requestedUser != null
+    user.removeFromMessages(message)
+    message.delete()
   }
 
 }
