@@ -33,7 +33,7 @@
 						</ul>
 	
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="newTabs-game">
-							<g:form controller="item" action="addItem" id="${user.username}">
+							<g:form controller="item" action="addItem" id="${user.id}">
 								<table>
 									<tr>
 										<td><label for="title">Title&nbsp;</label></td>
@@ -56,7 +56,7 @@
 						</div>
 	
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newTabs-book">
-							<g:form controller="item" action="addItem" id="${user.username}">
+							<g:form controller="item" action="addItem" id="${user.id}">
 								<table>
 									<tr>
 										<td><label for="title">Title&nbsp;</label></td>
@@ -74,7 +74,7 @@
 						</div>
 	
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newTabs-movie">
-							<g:form controller="item" action="addItem" id="${user.username}">
+							<g:form controller="item" action="addItem" id="${user.id}">
 								<table>
 									<tr>
 										<td><label for="title">Title&nbsp;</label></td>
@@ -97,7 +97,7 @@
 						</div>
 						
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newTabs-music">
-							<g:form controller="item" action="addItem" id="${user.username}">
+							<g:form controller="item" action="addItem" id="${user.id}">
 								<table>
 									<tr>
 										<td><label for="title">Title&nbsp;</label></td>
