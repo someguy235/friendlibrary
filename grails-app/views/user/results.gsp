@@ -12,7 +12,7 @@
     <br />
     <ul>
       <g:each var="user" in="${users}">
-        <li><g:link controller="user" action="profile" id="${user.username}">${user.username}</g:link></li>
+        <li><g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></li>
       </g:each>
     </ul>
     <br />

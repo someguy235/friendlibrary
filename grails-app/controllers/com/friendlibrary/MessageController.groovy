@@ -5,15 +5,27 @@ class MessageController {
 	def scaffold = true
 
   def index = { }
-	
-	def friendRequest = {
+
+  /*
+  // User relationship controller actions
+  */
+	def makeFriendRequest = {
 		try{
-			messageService.friendRequest(params)
+			messageService.makeFriendRequest(params)
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
 		redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
 	}
+
+  def removeFriendRequest = {
+    try{
+      messageService.removeFriendRequest(params)
+    }catch(ItemException ie){
+			flash.message = ie.message
+		}
+    redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
+  }
 
 	def confirmFriendRequest = {
 		try{
@@ -42,7 +54,10 @@ class MessageController {
 		redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
 	}
 
-	def itemRequest = {
+  /*
+  // Item related actions
+  */
+	def makeItemRequest = {
 		try{
 			def result = messageService.itemRequest(params)
       if (result != "success"){
@@ -54,7 +69,7 @@ class MessageController {
 		redirect(controller: 'library', action: 'index', id:params.requestedUser)
 	}
 
-	def requestReturn = {
+	def requestItemReturn = {
 		try{
 			messageService.requestReturn(params)
 		}catch(ItemException ie){
@@ -63,7 +78,7 @@ class MessageController {
 		redirect(controller: 'library', action: 'index', id:params.requestedUser)
 	}
 
-	def removeRequest = {
+	def removeItemRequest = {
 		try{
       System.out.println(params)
 			messageService.removeRequest(params)
@@ -73,7 +88,7 @@ class MessageController {
 		redirect(controller: 'library', action: 'index', id:params.requestedUser)
 	}
 
-  def removeAllRequests = {
+  def removeAllItemRequests = {
 		try{
 			messageService.removeAllRequests(params)
 		}catch(ItemException ie){
@@ -91,6 +106,9 @@ class MessageController {
 		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
 	}
 
+  /*
+  // Generic message actions
+  */
   def dismissMessage = {
 		try{
 			messageService.dismissMessage(params)

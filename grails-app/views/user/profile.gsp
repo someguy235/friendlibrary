@@ -39,36 +39,36 @@
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'game.png')}" alt="games" title="games"/>
 				</div>
 				<div style="height:20;" >
-					&nbsp; <g:link controller="library" action="index" id="${user.username}">${user.library.availableGames} of ${user.library.games.size()} available</g:link>
+					&nbsp; <g:link controller="library" action="index" id="${user.id}">${user.library.availableGames} of ${user.library.games.size()} available</g:link>
 				</div>
 				<div style="float:left;">
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'book.png')}" alt="books" title="books"/>
 				</div>
 				<div style="height:20;" >
-					&nbsp; <g:link controller="library" action="index" id="${user.username}">${user.library.availableBooks} of ${user.library.books.size()} available</g:link>
+					&nbsp; <g:link controller="library" action="index" id="${user.id}">${user.library.availableBooks} of ${user.library.books.size()} available</g:link>
 				</div>
 				<div style="float:left;">
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'movie.png')}" alt="movies" title="movies"/>
 				</div>
 				<div style="height:20;" >
-					&nbsp; <g:link controller="library" action="index" id="${user.username}">${user.library.availableMovies} of ${user.library.movies.size()} available</g:link>
+					&nbsp; <g:link controller="library" action="index" id="${user.id}">${user.library.availableMovies} of ${user.library.movies.size()} available</g:link>
 				</div>
 				<div style="float:left;">
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'album.png')}" alt="albums" title="albums"/>
 				</div>
 				<div style="height:20;" >
-					&nbsp; <g:link controller="library" action="index" id="${user.username}">${user.library.availableAlbums} of ${user.library.albums.size()} available</g:link>
+					&nbsp; <g:link controller="library" action="index" id="${user.id}">${user.library.availableAlbums} of ${user.library.albums.size()} available</g:link>
 				</div>
 			</div>
 			
 			<div class="profile_column profile_column_right">
 				${user.friends.size()} contacts:<br />
 				<g:each in="${user.friends}" var="friend">
-					<g:link controller="user" action="profile" id="${friend.username}">
+					<g:link controller="user" action="profile" id="${friend.id}">
 						${friend.userFirstName} ${friend.userLastName}
 					</g:link>
 					(
-					<g:link controller="library" action="index" id="${friend.username}">
+					<g:link controller="library" action="index" id="${friend.id}">
 						library
 					</g:link>
 					)
@@ -154,7 +154,7 @@
 			</div>
 		</g:if>
 		<g:elseif test="${isFriend}">
-			${user.userFirstName} is one of your contacts. 
+			${user.username} is one of your contacts.
 			<g:form controller="message" action="removeFriend">
 				<input type="hidden" id="requestingUserId" name="requestingUserId" value="${viewUser.id}" />
 				<input type="hidden" id="requestedUserId" name="requestedUserId" value="${user.id}" />
@@ -162,11 +162,12 @@
 			</g:form>
 		</g:elseif>
 		<g:elseif test="${isFriendRequested}">
-      <!--TODO: this doesn't work, need a new controller action-->
-			You have requested ${user.userFirstName} as a contact (<g:link controller="message" action="removeRequest" requestedUser="${user.id}">cancel</g:link>).
+      <g:def var="requestedUserId" value="${user.id}" />
+      <g:def var="requestingUserId" value="${viewUser.id}" />
+      You have requested ${user.username} as a contact (<g:link controller="message" action="removeFriendRequest" params="[requestingUserId:requestingUserId, requestedUserId:requestedUserId]">cancel</g:link>).
 		</g:elseif>
 		<g:else>
-			<g:form controller="message" action="friendRequest">
+			<g:form controller="message" action="makeFriendRequest">
 				<input type="hidden" id="requestingUserId" name="requestingUserId" value="${viewUser.id}" />
 				<input type="hidden" id="requestedUserId" name="requestedUserId" value="${user.id}" />
 				<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Contact</span></button>

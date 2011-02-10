@@ -15,9 +15,11 @@ class MessageService {
   /*
   //Sends a friend request message from one user to another
   */
-	void friendRequest(params){
+	void makeFriendRequest(params){
     def requestedUser = User.get(params.requestedUserId)
+    assert requestedUser != null
     def requestingUser = User.get(params.requestingUserId)
+    assert requestingUser != null
 		def requestMessage = new Message(
 			sentFrom: requestingUser,
 			sentTo: requestedUser,
@@ -26,7 +28,27 @@ class MessageService {
 		)
 		requestMessage.save(failOnError:true)
 		requestedUser.addToInMessages(requestMessage)
+    requestingUser.addToOutMessages(requestMessage)
 	}
+
+  /*
+  // Cancel a previously submitted friend request
+  */
+  void removeFriendRequest(params){
+    System.out.println(params)
+    def requestedUser = User.get(params.requestedUserId)
+    assert requestedUser != null
+    def requestingUser = User.get(params.requestingUserId)
+    assert requestingUser != null
+    def message = requestedUser.inMessages.find{
+			(it.type == 'Friend Request')&&
+			(it.sentFrom == requestingUser)
+		}
+		assert message != null
+		requestedUser.removeFromInMessages(message)
+    requestingUser.removeFromOutMessages(message)
+		message.delete()
+  }
 
   /*
   //Confirm a submitted friend request
