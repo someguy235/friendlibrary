@@ -8,7 +8,7 @@ class ItemException extends RuntimeException{
 class ItemService{
 	boolean transactional = true
 	void addItem(params){
-		def user = User.findByUsername(params.id)
+		def user = User.get(params.id)
 		def library = user?.library
 		if(library){
 			def item

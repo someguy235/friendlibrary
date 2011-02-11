@@ -39,25 +39,25 @@
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'game.png')}" alt="games" title="games"/>
 				</div>
 				<div style="height:20;" >
-					&nbsp; <g:link controller="library" action="index" id="${user.id}">${user.library.availableGames} of ${user.library.games.size()} available</g:link>
+					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableGames} of ${user.library.games.size()} available</g:link>
 				</div>
 				<div style="float:left;">
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'book.png')}" alt="books" title="books"/>
 				</div>
 				<div style="height:20;" >
-					&nbsp; <g:link controller="library" action="index" id="${user.id}">${user.library.availableBooks} of ${user.library.books.size()} available</g:link>
+					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableBooks} of ${user.library.books.size()} available</g:link>
 				</div>
 				<div style="float:left;">
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'movie.png')}" alt="movies" title="movies"/>
 				</div>
 				<div style="height:20;" >
-					&nbsp; <g:link controller="library" action="index" id="${user.id}">${user.library.availableMovies} of ${user.library.movies.size()} available</g:link>
+					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableMovies} of ${user.library.movies.size()} available</g:link>
 				</div>
 				<div style="float:left;">
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'album.png')}" alt="albums" title="albums"/>
 				</div>
 				<div style="height:20;" >
-					&nbsp; <g:link controller="library" action="index" id="${user.id}">${user.library.availableAlbums} of ${user.library.albums.size()} available</g:link>
+					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableAlbums} of ${user.library.albums.size()} available</g:link>
 				</div>
 			</div>
 			
@@ -102,7 +102,7 @@
 							<g:else>
 								<g:each in="${user.inMessages}" var="message">
 									<tr>
-										<td><g:link controller="user" action="profile" id="${message.sentFrom.username}">${message.sentFrom.username}</g:link></td>
+										<td><g:link controller="user" action="profile" id="${message.sentFrom.id}">${message.sentFrom.username}</g:link></td>
 										<td>${message.type}</td>
 										<td>${message.body}</td>
 										<td>

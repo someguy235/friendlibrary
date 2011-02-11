@@ -35,7 +35,6 @@ class MessageService {
   // Cancel a previously submitted friend request
   */
   void removeFriendRequest(params){
-    System.out.println(params)
     def requestedUser = User.get(params.requestedUserId)
     assert requestedUser != null
     def requestingUser = User.get(params.requestingUserId)
