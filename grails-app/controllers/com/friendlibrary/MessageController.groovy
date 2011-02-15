@@ -1,8 +1,14 @@
 package com.friendlibrary
 
+//class MessageException extends RuntimeException{
+//	String messageString
+//	Message message
+//}
+
 class MessageController {
 	def messageService
 	def scaffold = true
+  def redirectId
 
   def index = { }
 
@@ -12,7 +18,7 @@ class MessageController {
 	def makeFriendRequest = {
 		try{
 			messageService.makeFriendRequest(params)
-		}catch(ItemException ie){
+		}catch(Exception ie){
 			flash.message = ie.message
 		}
 		redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
@@ -26,23 +32,25 @@ class MessageController {
 		}
     redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
   }
+  
+  def denyFriendRequest = {
+		try{
+      redirectId = Message.get(params.messageId).sentTo.id
+      messageService.denyFriendRequest(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'user', action: 'profile', id:redirectId)
+	}
 
 	def confirmFriendRequest = {
 		try{
+      redirectId = Message.get(params.messageId).sentTo.id
 			messageService.confirmFriendRequest(params)
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:params.user)
-	}
-
-	def denyFriendRequest = {
-		try{
-			messageService.denyFriendRequest(params)
-		}catch(ItemException ie){
-			flash.message = ie.message
-		}
-		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
+		redirect(controller: 'user', action: 'profile', id:redirectId)
 	}
 
 	def removeFriend = {

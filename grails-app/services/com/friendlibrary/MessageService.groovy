@@ -48,60 +48,41 @@ class MessageService {
     requestingUser.removeFromOutMessages(message)
 		message.delete()
   }
+  
+  /*
+  //Ignore a submitted friend request, removes request message from profile
+  */
+	void denyFriendRequest(params){
+    def message = Message.get(params.messageId)
+    assert message != null
+    assert message.sentFrom != null
+    assert message.sentTo != null
+    message.delete()
+	}
 
   /*
   //Confirm a submitted friend request
   */
 	void confirmFriendRequest(params){
     def message = Message.get(params.messageId)
-
     assert message != null
     assert message.sentFrom != null
     assert message.sentTo != null
-
     message.sentFrom.addToFriends(message.sentTo)
     message.sentTo.addToFriends(message.sentFrom)
-
 		message.delete()
 	}
-
-  /*
-  //Ignore a submitted friend request, removes request message from profile
-  */
-	void denyFriendRequest(params){
-		def requestedUser = User.findByUsername(params.requestedUser)
-		assert requestedUser != null
-		def requestingUser = User.findByUsername(params.requestingUser)
-		assert requestingUser != null
-		//requestedUser.addToFriends(requestingUser)
-		//requestingUser.addToFriends(requestedUser)
-		def message = requestedUser.messages.find{
-			(it.type == 'Friend Request')&&
-			(it.sentFrom == params.requestingUser)
-		}
-		assert message != null
-		requestedUser.removeFromMessages(message)
-		message.delete()
-		
-	}
-
+  
   /*
   //Unfriend
   */
 	void removeFriend(params){
-		def requestedUser = User.findByUsername(params.requestedUser)
+		def requestedUser = User.get(params.requestedUserId)
 		assert requestedUser != null
-		def requestingUser = User.findByUsername(params.requestingUser)
+		def requestingUser = User.get(params.requestingUserId)
 		assert requestingUser != null
 		requestedUser.removeFromFriends(requestingUser)
 		requestingUser.removeFromFriends(requestedUser)
-		//def message = requestedUser.messages.find{
-		//	(it.type == 'Friend Request')&&
-		//	(it.sentFrom == params.requestingUser)
-		//}
-		//assert message != null
-		//requestedUser.removeFromMessages(message)
-		//message.delete()
 	}
 
   /*

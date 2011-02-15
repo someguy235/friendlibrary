@@ -136,7 +136,7 @@
                         </div>
                         <g:if test="${denyAction != ''}">
                           <div>
-                            <g:form controller="message" action="${denyRequest}">
+                            <g:form controller="message" action="${denyAction}">
                               <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
                               <input type="hidden" id="user" name="user" value="${user.id}" />
                               <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">${denyButtonText}</span></button>

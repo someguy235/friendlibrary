@@ -216,6 +216,7 @@ input:focus, select:focus, textarea:focus {
 }
 #action_buttons{
 	font-size:8pt;
+  /*text-align: center;*/
 }
 #messageTable tbody tr td{
 	vertical-align:middle;
