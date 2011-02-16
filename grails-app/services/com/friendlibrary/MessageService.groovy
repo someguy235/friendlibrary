@@ -89,68 +89,68 @@ class MessageService {
   //Send an item request message to the item-owning user and
   //mark the item as 'requested'
   */
-	String itemRequest(params){
-		def requestedUser = User.findByUsername(params.requestedUser)
+	String makeItemRequest(params){
+		def requestedUser = User.get(params.requestedUser)
 		assert requestedUser != null
-		def requestingUser = User.findByUsername(params.requestingUser)
+		def requestingUser = User.get(params.requestingUser)
 		assert requestingUser != null
 		def requestedItem = Item.get(params.requestedMedia)
 		assert requestedItem != null
     def alreadyRequested = false
-    Message.findAllBySentToAndSentFrom(requestedUser.username, requestingUser.username).each{
-      if ((it.item == requestedItem)&&(it.type=="Item Request")){
-        alreadyRequested = true
-      }
-    }
-    if(!alreadyRequested){
-      def requestMessage = new Message(
-        sentFrom:params.requestingUser,
-        sentTo:params.requestedUser,
-        body:"${params.requestingUser} has asked to borrow the ${requestedItem.mediaType} \"${requestedItem.title}\" ",
-        type:"Item Request",
-        item:requestedItem
-      )
-      requestMessage.save(failOnError:true)
-      def user = User.findByUsername(params.requestedUser)
-      user.addToMessages(requestMessage)
-      requestedItem.requested = true
-      requestedItem.save(failOnError:true)
-      return "success"
+
+    if(requestingUser == requestedUser){
+      requestedItem.reserved = true
+      return "${requestedItem.title} item is now reserved"
     }
     else{
-      return "You have already requested that item."
+      Message.findAllBySentToAndSentFrom(requestedUser, requestingUser).each{
+        if ((it.item == requestedItem)&&(it.type=="Item Request")){
+          alreadyRequested = true
+        }
+      }
+      if(!alreadyRequested){
+        def requestMessage = new Message(
+          sentFrom:requestingUser,
+          sentTo:requestedUser,
+          body:"${requestingUser.username} has asked to borrow the ${requestedItem.mediaType} \"${requestedItem.title}\" ",
+          type:"Item Request",
+          item:requestedItem
+        )
+        requestMessage.save(failOnError:true)
+        //def user = User.findByUsername(params.requestedUser)
+        requestedUser.addToInMessages(requestMessage)
+        requestingUser.addToOutMessages(requestMessage)
+        requestedItem.requested = true
+        requestedItem.save(failOnError:true)
+        return "success"
+      }
+      else{
+        return "You have already requested that item."
+      }
     }
-	}
-
-  /*
-  //Send a message requesting the return of a specific item
-	*/
-  void requestReturn(params){
-		
 	}
 
   /*
   // Remove a specific request for an item, leaving all others intact
   */
  //TODO: not tested, does this work at all?
-	void removeRequest(messageId){
-    def message = Message.get(messageId)
+	void removeItemRequest(params){
+    def message = Message.get(params.messageId)
     assert message != null
-		//def requestedItem = Item.get(params.requestedMedia)
     def requestedItem = message.item
     assert requestedItem != null
-    //def requestedUser = User.findByUsername(params.requestedUser)
     def requestedUser = message.sentTo
     assert requestedUser != null
-    //def requestingUser = User.findByUsername(params.requestingUser)
     def requestingUser = message.sentFrom
     assert requestingUser != null
+
     // Assume that the item will be un-requested afterwards,
     //  but check as we walk through the messages
     def stillRequested = false
     (Message.findAllBySentToAndItem(requestedUser, requestedItem)).each{
       if(it.sentFrom == requestingUser){
-        requestedUser.removeFromMessages(it)
+        requestedUser.removeFromInMessages(it)
+        requestingUser.removeFromOutMessages(it)
         it.delete()
       }
       else{
@@ -161,10 +161,10 @@ class MessageService {
     }
 	}
 
-  /*
+   /*
   //Removes all requests for an item and marks it as available
   */
-  void removeAllRequests(params){
+  void removeAllItemRequests(params){
     def requestedItem = Item.get(params.requestedMedia)
     assert requestedItem != null
     def requestedUser = User.findByUsername(params.requestedUser)
@@ -177,6 +177,13 @@ class MessageService {
       requestedItem.requested = false
     }
   }
+
+  /*
+  //Send a message requesting the return of a specific item
+	*/
+  void requestItemReturn(params){
+		
+	}
 
   /*
   //Confirm a request to borrow an item

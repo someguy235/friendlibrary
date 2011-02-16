@@ -109,7 +109,7 @@
                       <g:if test="${message.type == 'Item Request'}">
                         <g:set var="confirmAction" value="confirmItemRequest" />
                         <g:set var="confirmButtonText" value="Confirm" />
-                        <g:set var="denyAction" value="removeRequest" />
+                        <g:set var="denyAction" value="removeItemRequest" />
                         <g:set var="denyButtonText" value="Deny" />
                       </g:if>
                       <g:elseif test="${message.type == 'Item Return Request'}">
@@ -130,7 +130,7 @@
                         <div style="float:left;">
                           <g:form controller="message" action="${confirmAction}">
                             <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
-                            <input type="hidden" id="user" name="user" value="${user.id}" />
+                            <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
                             <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">${confirmButtonText}</span></button>
                           </g:form>
                         </div>
@@ -138,7 +138,7 @@
                           <div>
                             <g:form controller="message" action="${denyAction}">
                               <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
-                              <input type="hidden" id="user" name="user" value="${user.id}" />
+                              <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
                               <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">${denyButtonText}</span></button>
                             </g:form>
                           </div>
@@ -155,6 +155,7 @@
 		</g:if>
 		<g:elseif test="${isFriend}">
 			${user.username} is one of your contacts.
+      <br /><br />
 			<g:form controller="message" action="removeFriend">
 				<input type="hidden" id="requestingUserId" name="requestingUserId" value="${viewUser.id}" />
 				<input type="hidden" id="requestedUserId" name="requestedUserId" value="${user.id}" />

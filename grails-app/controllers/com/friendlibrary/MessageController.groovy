@@ -67,44 +67,46 @@ class MessageController {
   */
 	def makeItemRequest = {
 		try{
-			def result = messageService.itemRequest(params)
+			def result = messageService.makeItemRequest(params)
       if (result != "success"){
         flash.message = result
       }
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'library', action: 'index', id:params.requestedUser)
+		redirect(controller: 'user', action: 'library', id:params.requestedUser)
 	}
 
-	def requestItemReturn = {
-		try{
-			messageService.requestReturn(params)
-		}catch(ItemException ie){
-			flash.message = ie.message
-		}
-		redirect(controller: 'library', action: 'index', id:params.requestedUser)
-	}
-
-	def removeItemRequest = {
+  def removeItemRequest = {
 		try{
       System.out.println(params)
-			messageService.removeRequest(params)
+			messageService.removeItemRequest(params)
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'library', action: 'index', id:params.requestedUser)
+		redirect(controller: 'user', action: 'library', id:params.requestedUser)
 	}
 
   def removeAllItemRequests = {
 		try{
-			messageService.removeAllRequests(params)
+			messageService.removeAllItemRequests(params)
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'library', action: 'index', id:params.requestedUser)
+		redirect(controller: 'user', action: 'library', id:params.requestedUser)
 	}
 
+	def requestItemReturn = {
+		try{
+			messageService.requestItemReturn(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'user', action: 'library', id:params.requestedUser)
+	}
+  
+  //TODO: is this needed?
+  /*
   def confirmItemRequest = {
 		try{
 			messageService.confirmItemRequest(params)
@@ -113,7 +115,8 @@ class MessageController {
 		}
 		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
 	}
-
+  */
+ 
   /*
   // Generic message actions
   */

@@ -8,9 +8,7 @@
 		<g:javascript>
 			$(function() {
 				$("#newTabs").tabs({ selected: 0 });
-			
 				$("#libTabs").tabs({ selected: 0 });
-			
       	$("#libTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]      } ); 
       	$("#libTabs-games-content").tablesorter( {sortList: [[1,0],[2,0]]} );
       	$("#libTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
@@ -179,7 +177,7 @@
 		
 		<br />
 		
-		<h1>Library for <g:link controller="user" action="profile" id="${user.username}">${user.username}</g:link></h1>
+		<h1>Library for <g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></h1>
 		
 		<br />
 		
@@ -225,7 +223,7 @@
 													<g:if test="${item.loanedOut == true}">
 														<g:set var="buttonColor" value="red" />
 													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="requestReturn" />
+													    <g:set var="formAction" value="requestItemReturn" />
 													    <g:set var="buttonTitle" value="request this item be returned" />
 													  </g:if>
 													  <g:else>
@@ -234,7 +232,7 @@
                                 <g:set var="buttonTitle" value="you have this item" />
                               </g:if>
                               <g:else>
-                                <g:set var="formAction" value="itemRequest" />
+                                <g:set var="formAction" value="makeItemRequest" />
                                 <g:set var="buttonTitle" value="request this item when it is returned" />
                               </g:else>
 													  </g:else>
@@ -242,21 +240,22 @@
 													<g:elseif test="${item.reserved == true}">
 													  <g:set var="buttonColor" value="yellow" />
 													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="removeAllRequests" />
-													    <g:set var="buttonTitle" value="remove all requests from this item" />
+													    <g:set var="formAction" value="removeAllItemRequests" />
+													    <g:set var="buttonTitle" value="remove reserved status from this item" />
 													  </g:if>
 													  <g:else>
-													    <g:set var="formAction" value="itemRequest" />
-													    <g:set var="buttonTitle" value="request this item when it is returned" />
+													    <g:set var="formAction" value="makeItemRequest" />
+													    <g:set var="buttonTitle" value="request this item when it is available" />
 													  </g:else>
 													</g:elseif>
 													<g:elseif test="${item.requested == true}">
 													  <g:set var="buttonColor" value="yellow" />
 													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="removeAllRequests" />
+													    <g:set var="formAction" value="removeAllItemRequests" />
 													    <g:set var="buttonTitle" value="remove all requests from this item" />
 													  </g:if>
 													  <g:else>
+                              <!--TODO: different action for users who have already requested this item-->
 													    <g:set var="formAction" value="itemRequest" />
 													    <g:set var="buttonTitle" value="request this item when it is returned" />
 													  </g:else>
@@ -264,17 +263,17 @@
 													<g:else> <!--  item is available -->
 													  <g:set var="buttonColor" value="green" />
 													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="itemHold" />
+													    <g:set var="formAction" value="makeItemRequest" />
 													    <g:set var="buttonTitle" value="place a hold on this item" />
 													  </g:if>
 													  <g:else>
-													    <g:set var="formAction" value="itemRequest" />
+													    <g:set var="formAction" value="makeItemRequest" />
 													    <g:set var="buttonTitle" value="request this item" />
 													  </g:else>
 													</g:else>
 													<g:form controller="message" action="${formAction}">
-														<input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser}" />
-														<input type="hidden" id="requestedUser" name="requestedUser" value="${user}" />
+														<input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser.id}" />
+														<input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
 														<input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />	
 														<button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
 														  <g:set var="buttonImage" value="${buttonColor}light.png" />
