@@ -96,18 +96,14 @@ class MessageService {
 		assert requestingUser != null
 		def requestedItem = Item.get(params.requestedMedia)
 		assert requestedItem != null
-    def alreadyRequested = false
+    def alreadyRequested = requestedItem.requestQueue.contains(requestingUser.id)
 
+    //Self-requests mark the item as reserved
     if(requestingUser == requestedUser){
       requestedItem.reserved = true
       return "${requestedItem.title} item is now reserved"
     }
     else{
-      Message.findAllBySentToAndSentFrom(requestedUser, requestingUser).each{
-        if ((it.item == requestedItem)&&(it.type=="Item Request")){
-          alreadyRequested = true
-        }
-      }
       if(!alreadyRequested){
         def requestMessage = new Message(
           sentFrom:requestingUser,
@@ -117,11 +113,12 @@ class MessageService {
           item:requestedItem
         )
         requestMessage.save(failOnError:true)
-        //def user = User.findByUsername(params.requestedUser)
         requestedUser.addToInMessages(requestMessage)
         requestingUser.addToOutMessages(requestMessage)
-        requestedItem.requested = true
+        requestedItem.requestQueue.push(requestingUser.id)
         requestedItem.save(failOnError:true)
+        println(requestedItem.requestQueue)
+        println(requestedItem.requestQueue.size())
         return "success"
       }
       else{

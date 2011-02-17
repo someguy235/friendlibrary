@@ -218,6 +218,7 @@
 								<tbody>
 									<g:each in="${allItems}" var="itemCategory">
 										<g:each in="${itemCategory}" var="item">
+                      ${item.requestQueue.size()}
 											<tr>
 												<td align="center">
 													<g:if test="${item.loanedOut == true}">
@@ -248,16 +249,21 @@
 													    <g:set var="buttonTitle" value="request this item when it is available" />
 													  </g:else>
 													</g:elseif>
-													<g:elseif test="${item.requested == true}">
+                          <g:elseif test="${item.requestQueue.size()}">
 													  <g:set var="buttonColor" value="yellow" />
 													  <g:if test="${viewingSelf}">
 													    <g:set var="formAction" value="removeAllItemRequests" />
 													    <g:set var="buttonTitle" value="remove all requests from this item" />
 													  </g:if>
 													  <g:else>
-                              <!--TODO: different action for users who have already requested this item-->
-													    <g:set var="formAction" value="itemRequest" />
-													    <g:set var="buttonTitle" value="request this item when it is returned" />
+                              <g:if test="${item.requestQueue.contains(viewUser.id)}">
+                                <g:set var="formAction" value="removeItemRequest" />
+                                <g:set var="buttonTitle" value="remove your request for this item" />
+                              </g:if>
+                              <g:else>
+                                <g:set var="formAction" value="itemRequest" />
+                                <g:set var="buttonTitle" value="request this item when it is returned" />
+                              </g:else>
 													  </g:else>
 													</g:elseif>
 													<g:else> <!--  item is available -->

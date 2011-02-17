@@ -68,7 +68,7 @@
 						${friend.userFirstName} ${friend.userLastName}
 					</g:link>
 					(
-					<g:link controller="library" action="index" id="${friend.id}">
+					<g:link controller="user" action="library" id="${friend.id}">
 						library
 					</g:link>
 					)
