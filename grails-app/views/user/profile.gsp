@@ -100,6 +100,7 @@
 								<tr><td align="center" colspan="4">You have no messages</td></tr>
 							</g:if>
 							<g:else>
+                <g:set var="requestSource" value="message" />
 								<g:each in="${user.inMessages}" var="message">
 									<tr>
 										<td><g:link controller="user" action="profile" id="${message.sentFrom.id}">${message.sentFrom.username}</g:link></td>
@@ -109,7 +110,7 @@
                       <g:if test="${message.type == 'Item Request'}">
                         <g:set var="confirmAction" value="confirmItemRequest" />
                         <g:set var="confirmButtonText" value="Confirm" />
-                        <g:set var="denyAction" value="removeItemRequest" />
+                        <g:set var="denyAction" value="denyItemRequest" />
                         <g:set var="denyButtonText" value="Deny" />
                       </g:if>
                       <g:elseif test="${message.type == 'Item Return Request'}">

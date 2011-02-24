@@ -77,9 +77,17 @@ class MessageController {
 		redirect(controller: 'user', action: 'library', id:params.requestedUser)
 	}
 
+  def denyItemRequest = {
+		try{
+			messageService.denyItemRequest(params)
+		}catch(ItemException ie){
+			flash.message = ie.message
+		}
+		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
+	}
+
   def removeItemRequest = {
 		try{
-      System.out.println(params)
 			messageService.removeItemRequest(params)
 		}catch(ItemException ie){
 			flash.message = ie.message

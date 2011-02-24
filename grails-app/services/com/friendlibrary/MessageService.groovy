@@ -117,8 +117,6 @@ class MessageService {
         requestingUser.addToOutMessages(requestMessage)
         requestedItem.requestQueue.push(requestingUser.id)
         requestedItem.save(failOnError:true)
-        println(requestedItem.requestQueue)
-        println(requestedItem.requestQueue.size())
         return "success"
       }
       else{
@@ -128,50 +126,43 @@ class MessageService {
 	}
 
   /*
-  // Remove a specific request for an item, leaving all others intact
+  // Deny a specific request for an item, leaving all others intact
   */
- //TODO: not tested, does this work at all?
-	void removeItemRequest(params){
+	void denyItemRequest(params){
     def message = Message.get(params.messageId)
     assert message != null
-    def requestedItem = message.item
-    assert requestedItem != null
-    def requestedUser = message.sentTo
-    assert requestedUser != null
-    def requestingUser = message.sentFrom
-    assert requestingUser != null
-
-    // Assume that the item will be un-requested afterwards,
-    //  but check as we walk through the messages
-    def stillRequested = false
-    (Message.findAllBySentToAndItem(requestedUser, requestedItem)).each{
-      if(it.sentFrom == requestingUser){
-        requestedUser.removeFromInMessages(it)
-        requestingUser.removeFromOutMessages(it)
-        it.delete()
-      }
-      else{
-        // If any request message exists from another user
-        stillRequested = true
-      }
-      requestedItem.requested = stillRequested
-    }
+    message.item.requestQueue.remove(message.sentFrom.id)
+    message.delete()
 	}
 
-   /*
+  /*
+  // Remove a request for an item
+  */
+  void removeItemRequest(params){
+    if(params.requestingUser == params.requestedUser){
+      Item.get(params.requestedMedia).reserved = false
+    }
+    else{
+      def message = Message.find("from Message as m where \
+                                    m.sentFrom = ${params.requestingUser} and \
+                                    m.sentTo = ${params.requestedUser} and \
+                                    m.item = ${params.requestedMedia}")
+      assert message != null
+      message.item.requestQueue.remove(message.sentFrom.id)
+      message.delete()
+    }
+  }
+  
+  /*
   //Removes all requests for an item and marks it as available
   */
   void removeAllItemRequests(params){
-    def requestedItem = Item.get(params.requestedMedia)
-    assert requestedItem != null
-    def requestedUser = User.findByUsername(params.requestedUser)
-    assert requestedUser != null
-    (Message.findAllBySentTo(requestedUser.username)).each{
-      if(it.item == requestedItem){
-        requestedUser.removeFromMessages(it)
-        it.delete()
-      }
-      requestedItem.requested = false
+    def messages = Message.findAll("from Message as m where \
+                                    m.sentFrom = ${params.requestedUser} and \
+                                    m.item = ${params.requestedMedia}")
+    messages.each{
+      params.requestedMedia.requestQueue.remove(it.sentFrom.id)
+      it.delete()
     }
   }
 
