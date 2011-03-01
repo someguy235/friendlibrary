@@ -1,12 +1,17 @@
 package com.friendlibrary
 
-class ItemException extends RuntimeException{
-	String message
-	Item item
-}
+//class ItemException extends RuntimeException{
+//	String message
+//	Item item
+//}
 
 class ItemService{
+
 	boolean transactional = true
+
+  //
+  // Add a single item to a user's library
+  //
 	void addItem(params){
 		def user = User.get(params.id)
 		def library = user?.library
@@ -43,4 +48,22 @@ class ItemService{
 		}
 		throw new ItemException(message:"Item Exception: Invalid Username")
 	}
+
+  void addList(params){
+    def f = params['file']
+    def id = params['id']
+    
+    if(!f.empty) {
+      def is = f.getInputStream()
+      def rl = is.readLines()
+      def tkns
+      rl.each{e ->
+        tkns = e.split(',')
+        println "${tkns[2]}: ${tkns[1]}"
+      }
+    }
+    else {
+      println 'file cannot be empty'
+    }
+  }
 }

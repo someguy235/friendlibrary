@@ -28,6 +28,27 @@ class ItemController {
     redirect(controller: 'user', action: 'library', id:params.id)
   }
 
+  def addList = {
+    try{
+      itemService.addList(["file": request.getFile('myFile'), "id": params.id])
+    }catch(ItemException ie){
+      flash.message = ie.message
+    }
+    redirect(controller: 'user', action: 'library', id:params.id)
+  }
+
+//  def addList = {
+//    def f = request.getFile('myFile')
+//    if(!f.empty) {
+//      flash.message = 'success'
+//    }
+//    else {
+//     flash.message = 'file cannot be empty'
+//    }
+//    redirect(controller: 'user', action: 'library', id:params.id)
+//  }
+
+
   //		def index = {
   //			redirect(action: 'library', params:params)
   //		}

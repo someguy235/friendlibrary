@@ -163,7 +163,7 @@
 								</tr>
 								<tr>
 									<td>
-                    <g:form action="upload" method="post" enctype="multipart/form-data">
+                    <g:form controller="item" action="addList" id="${user.id}" method="post" enctype="multipart/form-data">
                       <input type="file" name="myFile" />
                       <input type="submit" value="Upload" />
                     </g:form>
@@ -228,7 +228,6 @@
 								<tbody>
 									<g:each in="${allItems}" var="itemCategory">
 										<g:each in="${itemCategory}" var="item">
-                      ${item.requestQueue.size()}
 											<tr>
 												<td align="center">
 													<g:if test="${item.loanedOut == true}">
