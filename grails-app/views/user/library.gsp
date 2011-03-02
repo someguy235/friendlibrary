@@ -151,25 +151,25 @@
 							</table>
 						</div>
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemListTabs-book">
-							<table>
-								<tr>
-									<g:set var="bookListSources" value="${['GoodReads', 'CSV']}" />
-									<td><label for="bookListSource">Source&nbsp;</label></td>
-									<td>
-									<div class="ui-widget">
-										<g:select from="${bookListSources}" value="GoodReads" name="bookListSources" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
-									</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-                    <g:form controller="item" action="addList" id="${user.id}" method="post" enctype="multipart/form-data">
-                      <input type="file" name="myFile" />
-                      <input type="submit" value="Upload" />
-                    </g:form>
-                  </td>
-								</tr>
-							</table>
+							<g:form controller="item" action="addItemList" id="${user.id}">
+								<table>
+									<tr>
+										<g:set var="source" value="${['GoodReads', 'CSV']}" />
+										<td><label for="source">Source&nbsp;</label></td>
+										<td>
+											<div class="ui-widget">
+												<g:select from="${source}" value="GoodReads" name="source" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
+											</div>
+										</td>
+									</tr>
+                  <tr>
+										<td><label for="remoteUserId">User Id&nbsp;</label></td>
+										<td><g:textField id="remoteUserId" name="remoteUserId"/></td>
+									</tr>
+								</table>
+								<br />
+								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
+							</g:form>
 						</div>
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemListTabs-movie">
 							Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.

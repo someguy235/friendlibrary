@@ -28,9 +28,9 @@ class ItemController {
     redirect(controller: 'user', action: 'library', id:params.id)
   }
 
-  def addList = {
+  def addItemList = {
     try{
-      itemService.addList(["file": request.getFile('myFile'), "id": params.id])
+      itemService.addItemList(params)
     }catch(ItemException ie){
       flash.message = ie.message
     }

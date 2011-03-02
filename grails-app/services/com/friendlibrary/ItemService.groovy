@@ -49,21 +49,33 @@ class ItemService{
 		throw new ItemException(message:"Item Exception: Invalid Username")
 	}
 
-  void addList(params){
-    def f = params['file']
-    def id = params['id']
-    
-    if(!f.empty) {
-      def is = f.getInputStream()
-      def rl = is.readLines()
-      def tkns
-      rl.each{e ->
-        tkns = e.split(',')
-        println "${tkns[2]}: ${tkns[1]}"
-      }
+  void addItemList(params){
+    def user = User.get(params.id)
+
+    switch(params.source){
+      case "GoodReads":
+        def grKey = "76E1DkBEFtkn0tg03fnxQ"
+        def grId = params.remoteUserId
+        def grUrl = "http://www.goodreads.com/owned_books/user?format=xml&id=${grId}&key=${grKey}"
+        def grResponse = new URL(grUrl).getText()
+        def grXML = new XmlSlurper().parseText(grResponse)
+        def ownedBooks = grXML.owned_books.owned_book
+        def authorList = []
+        def titleList = []
+        ownedBooks.each{b ->
+          addItem([
+            "author": b.book.authors.author.name.text().trim(),
+            "title": b.book.title.text().trim(),
+            "id": params.id,
+            "mediaType": "book"
+          ])
+        }
+        break
+      default:
+        println "no case found"
+
     }
-    else {
-      println 'file cannot be empty'
-    }
+
+
   }
 }
