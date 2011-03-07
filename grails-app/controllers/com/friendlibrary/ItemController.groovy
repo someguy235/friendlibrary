@@ -20,8 +20,10 @@ class ItemController {
   }
 		
   def addItem = {
+    println "add item"
     try{
-      itemService.addItem(params)
+      def result = itemService.addItem(params)
+      flash.message = result
     }catch(ItemException ie){
       flash.message = ie.message
     }
@@ -30,28 +32,19 @@ class ItemController {
 
   def addItemList = {
     try{
-      itemService.addItemList(params)
+      def result = itemService.addItemList(params)
+      flash.message = result
     }catch(ItemException ie){
       flash.message = ie.message
     }
     redirect(controller: 'user', action: 'library', id:params.id)
   }
 
-//  def addList = {
-//    def f = request.getFile('myFile')
-//    if(!f.empty) {
-//      flash.message = 'success'
-//    }
-//    else {
-//     flash.message = 'file cannot be empty'
-//    }
-//    redirect(controller: 'user', action: 'library', id:params.id)
-//  }
+  def deleteItem = {
+    println "delete item ${params.requestedMedia}"
+    redirect(controller: 'user', action: 'library', id:params.id)
+  }
 
-
-  //		def index = {
-  //			redirect(action: 'library', params:params)
-  //		}
 }
 
 

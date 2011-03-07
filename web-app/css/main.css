@@ -185,7 +185,7 @@ input:focus, select:focus, textarea:focus {
 		width:100%;
 }
 .tableFirstCol{
-	width:12%;
+	width:9%;
 }
 .noItems{
 	padding:5px 0px 5px 0px;
@@ -221,5 +221,25 @@ input:focus, select:focus, textarea:focus {
 #messageTable tbody tr td{
 	vertical-align:middle;
 }
-
+.library_table_body{
+  font-size: 9pt;
+}
+.library_table_body tr td{
+  vertical-align: middle;
+}
+.library_all_col_1{
+  width:9%;
+}
+.library_all_col_2{
+  width:7%;
+}
+.library_all_col_6{
+  width:8%;
+}
+.library_all_col_7{
+  width:9%;
+}
+.library_all_col_8{
+  width:9%;
+}
 

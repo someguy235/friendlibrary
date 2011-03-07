@@ -4,9 +4,29 @@
 			Library for ${user.username}
 		</title>
 		<meta name="layout" content="main"/>
-		
+		<style>
+      
+    </style>
+    
 		<g:javascript>
+      $.fx.speeds._default = 500;
 			$(function() {
+        $( ".item_options" ).dialog({
+          autoOpen: false,
+          show: "blind",
+          hide: "blind"
+        });
+
+        $( ".option_button" ).click(function() {
+          var id = $(this).attr("id");
+          //alert(id);
+          id = id.substring(id.indexOf("-")+1);
+          //alert(id);
+          $( '#item_options-'+id+'' ).dialog( "open" );
+          //alert(id);
+          return false;
+        });
+
 				$("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
 				$("#libTabs").tabs({ selected: 0 });
@@ -214,22 +234,28 @@
 							<table id="libTabs-all-content" class="tablesorter">
 								<thead>
 									<tr>
-										<th class="tableFirstCol">
+										<th class="library_all_col_1">
 											Available &nbsp;&nbsp;&nbsp;&nbsp;
 										</th>
-										<th>Media &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th>Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th>Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th>Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th>Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th class="library_all_col_2">Media &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th class="library_all_col_3">Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th class="library_all_col_4">Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th class="library_all_col_5">Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th class="library_all_col_6">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
+										<th class="library_all_col_7">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <g:if test="${viewingSelf}">
+                      <th class="library_all_col_8">Remove &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    </g:if>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody class="library_table_body">
 									<g:each in="${allItems}" var="itemCategory">
 										<g:each in="${itemCategory}" var="item">
 											<tr>
 												<td align="center">
+                         
+                          
+
 													<g:if test="${item.loanedOut == true}">
 														<g:set var="buttonColor" value="red" />
 													  <g:if test="${viewingSelf}">
@@ -295,6 +321,12 @@
 															<img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
 														</button>
 													</g:form>
+                          <button class="option_button" id="option_button-${item.id}">Options</button>
+                          <div id="item_options-${item.id}" class="item_options" title="Item Options">
+                            <p>
+                              This is the dialog for item ${item.id}, ${item.title}.
+                            </p>
+                          </div>
 												</td>
 												<td align="center">
 													<g:set var="mediaImage" value="${item.mediaType}.png" />
@@ -325,6 +357,17 @@
 												<g:else>
 													<td>&nbsp;</td>
 												</g:else>
+                        <g:if test="${viewingSelf}">
+                          <td align="center">
+                            <g:form controller="item" action="deleteItem" id="${user.id}">
+                              <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
+                              <button aria-disabled="false" role="button" id="button" title="delete item">
+                                <g:set var="buttonImage" value="delete.png" />
+                                <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
+                              </button>
+                            </g:form>
+                          </td>
+                        </g:if>
 											</tr>
 										</g:each>
 									</g:each>
