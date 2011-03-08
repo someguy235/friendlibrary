@@ -242,4 +242,16 @@ input:focus, select:focus, textarea:focus {
 .library_all_col_8{
   width:9%;
 }
+.item_options{
 
+}
+.library_item_option{
+  text-align: left;
+  margin: 3px;
+}
+.library_item_status{
+  font-size: 11pt;
+  color: #b83400;
+  text-align: center;
+  margin: 5px;
+}

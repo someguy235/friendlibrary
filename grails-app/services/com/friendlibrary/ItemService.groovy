@@ -99,4 +99,15 @@ class ItemService{
       result += " (${itemsIgnored} duplicates ignored)"
     return result
   }
+
+  String deleteItem(params){
+    try{
+      def item = Item.get(params.requestedMedia)
+      assert item != null
+      item.delete()
+      return "\"${item.title}\" deleted"
+    }catch(Exception e){
+      return "failed to delete item"
+    }
+  }
 }

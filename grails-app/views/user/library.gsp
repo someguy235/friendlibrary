@@ -9,7 +9,7 @@
     </style>
     
 		<g:javascript>
-      $.fx.speeds._default = 500;
+      $.fx.speeds._default = 250;
 			$(function() {
         $( ".item_options" ).dialog({
           autoOpen: false,
@@ -243,9 +243,6 @@
 										<th class="library_all_col_5">Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
 										<th class="library_all_col_6">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
 										<th class="library_all_col_7">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <g:if test="${viewingSelf}">
-                      <th class="library_all_col_8">Remove &nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    </g:if>
 									</tr>
 								</thead>
 								<tbody class="library_table_body">
@@ -253,80 +250,98 @@
 										<g:each in="${itemCategory}" var="item">
 											<tr>
 												<td align="center">
-                         
-                          
-
-													<g:if test="${item.loanedOut == true}">
-														<g:set var="buttonColor" value="red" />
-													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="requestItemReturn" />
-													    <g:set var="buttonTitle" value="request this item be returned" />
-													  </g:if>
-													  <g:else>
-                              <g:if test="${item.loanedTo.id == viewUser.id}">
-                                <g:set var="formAction" value="" />
-                                <g:set var="buttonTitle" value="you have this item" />
+                          <!-- options panel -->
+                          <div id="item_options-${item.id}" class="item_options" title="${item.title}">
+                            <g:if test="${item.loanedOut == true}">
+                              <g:set var="item_status_message" value="this item is loaned out" />
+                              <g:set var="buttonColor" value="red" />
+                              <g:if test="${viewingSelf}">
+                                <g:set var="formAction" value="requestItemReturn" />
+                                <g:set var="buttonTitle" value="request this item be returned" />
+                              </g:if>
+                              <g:else>
+                                <g:if test="${item.loanedTo.id == viewUser.id}">
+                                  <g:set var="formAction" value="" />
+                                  <g:set var="buttonTitle" value="you have this item" />
+                                </g:if>
+                                <g:else>
+                                  <g:set var="formAction" value="makeItemRequest" />
+                                  <g:set var="buttonTitle" value="request this item when it is returned" />
+                                </g:else>
+                              </g:else>
+                            </g:if>
+                            <g:elseif test="${item.reserved == true}">
+                              <g:set var="item_status_message" value="this item is reserved" />
+                              <g:set var="buttonColor" value="yellow" />
+                              <g:if test="${viewingSelf}">
+                                <g:set var="formAction" value="removeItemRequest" />
+                                <g:set var="buttonTitle" value="remove reserved status from this item" />
                               </g:if>
                               <g:else>
                                 <g:set var="formAction" value="makeItemRequest" />
-                                <g:set var="buttonTitle" value="request this item when it is returned" />
+                                <g:set var="buttonTitle" value="request this item when it is available" />
                               </g:else>
-													  </g:else>
-													</g:if>
-													<g:elseif test="${item.reserved == true}">
-													  <g:set var="buttonColor" value="yellow" />
-													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="removeItemRequest" />
-													    <g:set var="buttonTitle" value="remove reserved status from this item" />
-													  </g:if>
-													  <g:else>
-													    <g:set var="formAction" value="makeItemRequest" />
-													    <g:set var="buttonTitle" value="request this item when it is available" />
-													  </g:else>
-													</g:elseif>
-                          <g:elseif test="${item.requestQueue.size()}">
-													  <g:set var="buttonColor" value="yellow" />
-													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="removeAllItemRequests" />
-													    <g:set var="buttonTitle" value="remove all requests from this item" />
-													  </g:if>
-													  <g:else>
-                              <g:if test="${item.requestQueue.contains(viewUser.id)}">
-                                <g:set var="formAction" value="removeItemRequest" />
-                                <g:set var="buttonTitle" value="remove your request for this item" />
+                            </g:elseif>
+                            <g:elseif test="${item.requestQueue.size()}">
+                              <g:set var="item_status_message" value="this item has been requested" />
+                              <g:set var="buttonColor" value="yellow" />
+                              <g:if test="${viewingSelf}">
+                                <g:set var="formAction" value="removeAllItemRequests" />
+                                <g:set var="buttonTitle" value="remove all requests from this item" />
                               </g:if>
                               <g:else>
-                                <g:set var="formAction" value="itemRequest" />
-                                <g:set var="buttonTitle" value="request this item when it is returned" />
+                                <g:if test="${item.requestQueue.contains(viewUser.id)}">
+                                  <g:set var="formAction" value="removeItemRequest" />
+                                  <g:set var="buttonTitle" value="remove your request for this item" />
+                                </g:if>
+                                <g:else>
+                                  <g:set var="formAction" value="itemRequest" />
+                                  <g:set var="buttonTitle" value="request this item when it is returned" />
+                                </g:else>
                               </g:else>
-													  </g:else>
-													</g:elseif>
-													<g:else> <!--  item is available -->
-													  <g:set var="buttonColor" value="green" />
-													  <g:if test="${viewingSelf}">
-													    <g:set var="formAction" value="makeItemRequest" />
-													    <g:set var="buttonTitle" value="place a hold on this item" />
-													  </g:if>
-													  <g:else>
-													    <g:set var="formAction" value="makeItemRequest" />
-													    <g:set var="buttonTitle" value="request this item" />
-													  </g:else>
-													</g:else>
-													<g:form controller="message" action="${formAction}">
-														<input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser.id}" />
-														<input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
-														<input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />	
-														<button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
-														  <g:set var="buttonImage" value="${buttonColor}light.png" />
-															<img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
-														</button>
-													</g:form>
-                          <button class="option_button" id="option_button-${item.id}">Options</button>
-                          <div id="item_options-${item.id}" class="item_options" title="Item Options">
-                            <p>
-                              This is the dialog for item ${item.id}, ${item.title}.
-                            </p>
+                            </g:elseif>
+                            <g:else> <!--  item is available -->
+                              <g:set var="item_status_message" value="this item is available" />
+                              <g:set var="buttonColor" value="green" />
+                              <g:if test="${viewingSelf}">
+                                <g:set var="formAction" value="makeItemRequest" />
+                                <g:set var="buttonTitle" value="place a hold on this item" />
+                              </g:if>
+                              <g:else>
+                                <g:set var="formAction" value="makeItemRequest" />
+                                <g:set var="buttonTitle" value="request this item" />
+                              </g:else>
+                            </g:else>
+                            <g:set var="buttonImage" value="${buttonColor}light.png" />
+                            <div class="library_item_status">
+                              ${item_status_message}
+                            </div>
+                            <div class="library_item_option">
+                              <g:form controller="message" action="${formAction}">
+                                <input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser.id}" />
+                                <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
+                                <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
+                                <button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
+                                  <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
+                                </button>
+                                ${buttonTitle}
+                              </g:form>
+                            </div
+                            <g:if test="${viewingSelf}">
+                              <div class="library_item_option">
+                                <g:form controller="item" action="deleteItem" id="${user.id}">
+                                  <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
+                                  <button aria-disabled="false" role="button" id="button" title="delete item">
+                                    <img height="15" width="15" src="${resource(dir:'images/icons',file:"delete.png")}" />
+                                  </button>
+                                  delete this item
+                                </g:form>
+                              </div>
+                            </g:if>
                           </div>
+                          <button class="option_button" id="option_button-${item.id}" title="options">
+                            <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
+                          </button>
 												</td>
 												<td align="center">
 													<g:set var="mediaImage" value="${item.mediaType}.png" />
@@ -357,17 +372,6 @@
 												<g:else>
 													<td>&nbsp;</td>
 												</g:else>
-                        <g:if test="${viewingSelf}">
-                          <td align="center">
-                            <g:form controller="item" action="deleteItem" id="${user.id}">
-                              <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
-                              <button aria-disabled="false" role="button" id="button" title="delete item">
-                                <g:set var="buttonImage" value="delete.png" />
-                                <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
-                              </button>
-                            </g:form>
-                          </td>
-                        </g:if>
 											</tr>
 										</g:each>
 									</g:each>

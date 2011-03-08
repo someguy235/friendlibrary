@@ -22,8 +22,7 @@ class ItemController {
   def addItem = {
     println "add item"
     try{
-      def result = itemService.addItem(params)
-      flash.message = result
+      flash.message = itemService.addItem(params)
     }catch(ItemException ie){
       flash.message = ie.message
     }
@@ -32,8 +31,7 @@ class ItemController {
 
   def addItemList = {
     try{
-      def result = itemService.addItemList(params)
-      flash.message = result
+      flash.message = itemService.addItemList(params)
     }catch(ItemException ie){
       flash.message = ie.message
     }
@@ -41,7 +39,11 @@ class ItemController {
   }
 
   def deleteItem = {
-    println "delete item ${params.requestedMedia}"
+    try{
+      flash.message = itemService.deleteItem(params)
+    }catch(ItemException ie){
+      flash.message = ie.message
+    }
     redirect(controller: 'user', action: 'library', id:params.id)
   }
 
