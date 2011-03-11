@@ -3,10 +3,8 @@
 		<title>
 			Library for ${user.username}
 		</title>
-		<meta name="layout" content="main"/>
-		<style>
-      
-    </style>
+
+    <meta name="layout" content="main"/>
     
 		<g:javascript>
       $.fx.speeds._default = 250;
@@ -19,11 +17,8 @@
 
         $( ".option_button" ).click(function() {
           var id = $(this).attr("id");
-          //alert(id);
           id = id.substring(id.indexOf("-")+1);
-          //alert(id);
           $( '#item_options-'+id+'' ).dialog( "open" );
-          //alert(id);
           return false;
         });
 
@@ -205,374 +200,46 @@
 		
 		<div class="clear"></div>
 		
-		<br />
-		
-		<h1>Library for <g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></h1>
-		
-		<br />
+    <p><h1>Library for <g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></h1></p>
 		
 		<g:if test="${flash.message}">
-			<div class="flash">
-				${flash.message}
-			</div>
+			<div class="flash">${flash.message}</div>
 		</g:if>
-		
+
+    <g:set var="item_categories" value="${['all', 'games', 'books', 'movies', 'music']}" />
+    
 		<div id="allItems" class="main">
 			<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="libTabs">
+
+        <!-- list for tab titles -->
 				<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-					<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#libTabs-all">All</a></li>
-					<li class="ui-state-default ui-corner-top"><a href="#libTabs-games">Games</a></li>
-					<li class="ui-state-default ui-corner-top"><a href="#libTabs-books">Books</a></li>
-					<li class="ui-state-default ui-corner-top"><a href="#libTabs-movies">Movies</a></li>
-					<li class="ui-state-default ui-corner-top"><a href="#libTabs-music">Music</a></li>
+          <g:each in="${item_categories}" var="category">
+            <li class="ui-state-default ui-corner-top"><a href="#libTabs-${category}">${category.capitalize()}</a></li>
+          </g:each>
 				</ul>
-					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-all">
-						<g:if test="${(allItems[0].size()==0)&&(allItems[1].size()==0)&&(allItems[2].size()==0)&&(allItems[3].size()==0) }">
-							<div class="noItems">There are no items in this library.</div>
-						</g:if>
-						<g:else>
-							<table id="libTabs-all-content" class="tablesorter">
-								<thead>
-									<tr>
-										<th class="library_all_col_1">
-											Available &nbsp;&nbsp;&nbsp;&nbsp;
-										</th>
-										<th class="library_all_col_2">Media &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th class="library_all_col_3">Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th class="library_all_col_4">Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th class="library_all_col_5">Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th class="library_all_col_6">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th class="library_all_col_7">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</tr>
-								</thead>
-								<tbody class="library_table_body">
-									<g:each in="${allItems}" var="itemCategory">
-										<g:each in="${itemCategory}" var="item">
-											<tr>
-												<td align="center">
-                          <!-- options panel -->
-                          <div id="item_options-${item.id}" class="item_options" title="${item.title}">
-                            <g:if test="${item.loanedOut == true}">
-                              <g:set var="item_status_message" value="this item is loaned out" />
-                              <g:set var="buttonColor" value="red" />
-                              <g:if test="${viewingSelf}">
-                                <g:set var="formAction" value="requestItemReturn" />
-                                <g:set var="buttonTitle" value="request this item be returned" />
-                              </g:if>
-                              <g:else>
-                                <g:if test="${item.loanedTo.id == viewUser.id}">
-                                  <g:set var="formAction" value="" />
-                                  <g:set var="buttonTitle" value="you have this item" />
-                                </g:if>
-                                <g:else>
-                                  <g:set var="formAction" value="makeItemRequest" />
-                                  <g:set var="buttonTitle" value="request this item when it is returned" />
-                                </g:else>
-                              </g:else>
-                            </g:if>
-                            <g:elseif test="${item.reserved == true}">
-                              <g:set var="item_status_message" value="this item is reserved" />
-                              <g:set var="buttonColor" value="yellow" />
-                              <g:if test="${viewingSelf}">
-                                <g:set var="formAction" value="removeItemRequest" />
-                                <g:set var="buttonTitle" value="remove reserved status from this item" />
-                              </g:if>
-                              <g:else>
-                                <g:set var="formAction" value="makeItemRequest" />
-                                <g:set var="buttonTitle" value="request this item when it is available" />
-                              </g:else>
-                            </g:elseif>
-                            <g:elseif test="${item.requestQueue.size()}">
-                              <g:set var="item_status_message" value="this item has been requested" />
-                              <g:set var="buttonColor" value="yellow" />
-                              <g:if test="${viewingSelf}">
-                                <g:set var="formAction" value="removeAllItemRequests" />
-                                <g:set var="buttonTitle" value="remove all requests from this item" />
-                              </g:if>
-                              <g:else>
-                                <g:if test="${item.requestQueue.contains(viewUser.id)}">
-                                  <g:set var="formAction" value="removeItemRequest" />
-                                  <g:set var="buttonTitle" value="remove your request for this item" />
-                                </g:if>
-                                <g:else>
-                                  <g:set var="formAction" value="itemRequest" />
-                                  <g:set var="buttonTitle" value="request this item when it is returned" />
-                                </g:else>
-                              </g:else>
-                            </g:elseif>
-                            <g:else> <!--  item is available -->
-                              <g:set var="item_status_message" value="this item is available" />
-                              <g:set var="buttonColor" value="green" />
-                              <g:if test="${viewingSelf}">
-                                <g:set var="formAction" value="makeItemRequest" />
-                                <g:set var="buttonTitle" value="place a hold on this item" />
-                              </g:if>
-                              <g:else>
-                                <g:set var="formAction" value="makeItemRequest" />
-                                <g:set var="buttonTitle" value="request this item" />
-                              </g:else>
-                            </g:else>
-                            <g:set var="buttonImage" value="${buttonColor}light.png" />
-                            <div class="library_item_status">
-                              ${item_status_message}
-                            </div>
-                            <div class="library_item_option">
-                              <g:form controller="message" action="${formAction}">
-                                <input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser.id}" />
-                                <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
-                                <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
-                                <button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
-                                  <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
-                                </button>
-                                ${buttonTitle}
-                              </g:form>
-                            </div
-                            <g:if test="${viewingSelf}">
-                              <div class="library_item_option">
-                                <g:form controller="item" action="deleteItem" id="${user.id}">
-                                  <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
-                                  <button aria-disabled="false" role="button" id="button" title="delete item">
-                                    <img height="15" width="15" src="${resource(dir:'images/icons',file:"delete.png")}" />
-                                  </button>
-                                  delete this item
-                                </g:form>
-                              </div>
-                            </g:if>
-                          </div>
-                          <button class="option_button" id="option_button-${item.id}" title="options">
-                            <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
-                          </button>
-												</td>
-												<td align="center">
-													<g:set var="mediaImage" value="${item.mediaType}.png" />
-													<img height="20" width="20" src="${resource(dir:'images/icons',file:mediaImage)}" alt="${item.mediaType}" title="${item.mediaType}"/>
-												</td>
-												<td>${item.title}</td>
-												<g:if test="${item.mediaType == 'album'}">
-													<td>${item.artist}</td>
-												</g:if>
-												<g:else>
-													<td>&nbsp;</td>
-												</g:else>
-												<g:if test="${item.mediaType == 'book'}">
-													<td>${item.author}</td>
-												</g:if>
-												<g:else>
-													<td>&nbsp;</td>
-												</g:else>
-												<g:if test="${(item.mediaType == 'album')||(item.mediaType == 'movie')}">
-													<td>${item.format}</td>
-												</g:if>
-												<g:else>
-													<td>&nbsp;</td>
-												</g:else>
-												<g:if test="${item.mediaType == 'game'}">
-													<td>${item.platform}</td>
-												</g:if>
-												<g:else>
-													<td>&nbsp;</td>
-												</g:else>
-											</tr>
-										</g:each>
-									</g:each>
-								</tbody>
-							</table>
-						</g:else>
-					</div>
-					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-games">
-						<g:if test="${user.library.games.size()==0 }">
-							<div class="noItems">There are no games in this library.</div>
-						</g:if>
-						<g:else>
-							<table id="libTabs-games-content" class="tablesorter">
-								<thead>
-									<tr>
-										<th class="tableFirstCol">
-										<g:if test="${!viewingSelf}">
-											Request Item &nbsp;&nbsp;&nbsp;&nbsp;
-										</g:if>
-										<g:else>
-											Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
-										</g:else>
-										</th>
-										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th style="width:10%;">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</tr>
-								</thead>
-								<tbody>
-									<g:each in="${user.library.games}" var="item">
-											<tr>
-												<g:if test="${!viewingSelf}">
-													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
-												</g:if>
-												<g:else>
-													<td align="center">	
-														<g:if test="${item.loanedOut == null}">
-															<g:link title="Request this item be returned">
-																<span class="ui-icon ui-icon-mail-closed"></span>
-															</g:link>
-														</g:if>
-													</td>
-												</g:else>
-												<td>${item.title}</td>
-												<td>${item.platform}</td>
-											</tr>
-									</g:each>
-								</tbody>
-							</table>
-							<g:if test="${!viewingSelf}">
-								<div align="left">
-									<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
-								</div>
-							</g:if>
-						</g:else>
-					</div>
-					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-books">
-						<g:if test="${user.library.books.size()==0 }">
-							<div class="noItems">There are no books in this library.</div>
-						</g:if>
-						<g:else>
-							<table id="libTabs-books-content" class="tablesorter">
-								<thead>
-									<tr>
-										<th class="tableFirstCol">
-										<g:if test="${!viewingSelf}">
-											Request Item &nbsp;&nbsp;&nbsp;&nbsp;
-										</g:if>
-										<g:else>
-											Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
-										</g:else>
-										</th>
-										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th>Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</tr>
-								</thead>
-								<tbody>
-									<g:each in="${user.library.books}" var="item">
-											<tr>
-												<g:if test="${!viewingSelf}">
-													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
-												</g:if>
-												<g:else>
-													<td align="center">	
-														<g:if test="${item.loanedOut == null}">
-															<g:link title="Request this item be returned">
-																<span class="ui-icon ui-icon-mail-closed"></span>
-															</g:link>
-														</g:if>
-													</td>
-												</g:else>
-												<td>${item.title}</td>
-												<td>${item.author}</td>
-											</tr>
-									</g:each>
-								</tbody>					
-							</table>
-							<g:if test="${!viewingSelf}">
-								<div align="left">
-									<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
-								</div>
-							</g:if>
-						</g:else>
-					</div>
-					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-movies">
-						<g:if test="${user.library.movies.size()==0 }">
-							<div class="noItems">There are no movies in this library.</div>
-						</g:if>
-						<g:else>
-							<table id="libTabs-movies-content" class="tablesorter">
-								<thead>
-									<tr>
-										<th class="tableFirstCol">
-										<g:if test="${!viewingSelf}">
-											Request Item &nbsp;&nbsp;&nbsp;&nbsp;
-										</g:if>
-										<g:else>
-											Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
-										</g:else>
-										</th>
-										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th style="width:10%;">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</tr>
-								</thead>
-								<tbody>
-									<g:each in="${user.library.movies}" var="item">
-											<tr>
-												<g:if test="${!viewingSelf}">
-													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
-												</g:if>
-												<g:else>
-													<td align="center">	
-														<g:if test="${item.loanedOut == null}">
-															<g:link title="Request this item be returned">
-																<span class="ui-icon ui-icon-mail-closed"></span>
-															</g:link>
-														</g:if>
-													</td>
-												</g:else>
-												<td>${item.title}</td>
-												<td>${item.format}</td>
-											</tr>
-									</g:each>
-								</tbody>
-							</table>
-							<g:if test="${!viewingSelf}">
-								<div align="left">
-									<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
-								</div>
-							</g:if>
-						</g:else>
-					</div>
-					<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="libTabs-music">
-						<g:if test="${user.library.albums.size()==0 }">
-							<div class="noItems">There are no albums in this library.</div>
-						</g:if>
-						<g:else>
-							<table id="libTabs-music-content" class="tablesorter">
-								<thead>
-									<tr>
-										<th class="tableFirstCol">
-											<g:if test="${!viewingSelf}">
-												Request Item &nbsp;&nbsp;&nbsp;&nbsp;
-											</g:if>
-											<g:else>
-												Loaned Out &nbsp;&nbsp;&nbsp;&nbsp;
-											</g:else>
-										</th>
-										<th>Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th>Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
-										<th style="width:10%;">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
-									</tr>
-								</thead>
-								<tbody>
-									<g:each in="${user.library.albums}" var="item">
-											<tr>
-												<g:if test="${!viewingSelf}">
-													<td align="center"><g:checkBox name="${item.title}"></g:checkBox></td>
-												</g:if>
-												<g:else>
-													<td align="center">	
-														<g:if test="${item.loanedOut == null}">
-															<g:link title="Request this item be returned">
-																<span class="ui-icon ui-icon-mail-closed"></span>
-															</g:link>
-														</g:if>
-													</td>
-												</g:else>
-												<td>${item.title}</td>
-												<td>${item.artist}</td>
-												<td>${item.format}</td>
-											</tr>
-									</g:each>
-								</tbody>
-							</table>
-							<g:if test="${!viewingSelf}">
-								<div align="left">
-									<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Request Items</span></button>
-								</div>
-							</g:if>
-						</g:else>
-					</div>
+
+        <g:each in="${item_categories}" var="category">
+          <!-- create a hashmap of lists of items for this category
+               each item type gets its own list, even if there is only one item type -->
+          <g:if test="${category == 'all'}">
+            <g:set var="category_list" value="${allItems}" />
+          </g:if>
+          <g:else>
+            <g:set var="category_list" value="${[ allItems[category] ]}" />
+          </g:else>
+
+          <g:each in="${category_list}" var="itemCategory">
+
+
+
+
+
+
+
+          </g:each>
+
+        </g:each>
+        
 			</div>
 		</div>
 	</body>
