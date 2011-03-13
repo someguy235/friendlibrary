@@ -227,19 +227,16 @@ input:focus, select:focus, textarea:focus {
 .library_table_body tr td{
   vertical-align: middle;
 }
-.library_all_col_1{
+.library_all_col_available{
   width:9%;
 }
-.library_all_col_2{
+.library_all_col_media{
   width:7%;
 }
-.library_all_col_6{
+.library_all_col_format{
   width:8%;
 }
-.library_all_col_7{
-  width:9%;
-}
-.library_all_col_8{
+.library_all_col_platform{
   width:9%;
 }
 .item_options{
