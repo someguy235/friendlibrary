@@ -249,25 +249,147 @@
                     <th class="library_all_col_available">Available &nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th class="library_all_col_media">Media &nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th class="library_all_col_title">Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="library_all_col_artist">Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="library_all_col_author">Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="library_all_col_format">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th class="library_all_col_platform">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <g:if test="${(category == 'music') || (category == 'all')}">
+                      <th class="library_all_col_artist">Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    </g:if>
+                    <g:if test="${(category == 'books') || (category == 'all')}">
+                      <th class="library_all_col_author">Author &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    </g:if>
+                    <g:if test="${(category == 'albums') || (category == 'movies') || (category == 'all')}">
+                      <th class="library_all_col_format">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    </g:if>
+                    <g:if test="${(category == 'games') || (category == 'all')}">
+                      <th class="library_all_col_platform">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    </g:if>
                   </tr>
                 </thead>
                 <tbody class="library_table_body">
                   <g:each in="${category_list}" var="itemCategory">
                     <g:each in="${itemCategory.value}" var="item">
                       <tr>
-                        <td>${item.loanedOut}</td>
-                        <td>${item.mediaType}</td>
+                        <td align="center">
+                          <!-- options panel -->
+                          <div id="item_options-${item.id}" class="item_options" title="${item.title}">
+                            <g:if test="${item.loanedOut == true}">
+                              <g:set var="item_status_message" value="this item is loaned out" />
+                              <g:set var="buttonColor" value="red" />
+                              <g:if test="${viewingSelf}">
+                                <g:set var="formAction" value="requestItemReturn" />
+                                <g:set var="buttonTitle" value="request this item be returned" />
+                              </g:if>
+                              <g:else>
+                                <g:if test="${item.loanedTo.id == viewUser.id}">
+                                  <g:set var="formAction" value="" />
+                                  <g:set var="buttonTitle" value="you have this item" />
+                                </g:if>
+                                <g:else>
+                                  <g:set var="formAction" value="makeItemRequest" />
+                                  <g:set var="buttonTitle" value="request this item when it is returned" />
+                                </g:else>
+                              </g:else>
+                            </g:if>
+                            <g:elseif test="${item.reserved == true}">
+                              <g:set var="item_status_message" value="this item is reserved" />
+                              <g:set var="buttonColor" value="yellow" />
+                              <g:if test="${viewingSelf}">
+                                <g:set var="formAction" value="removeItemRequest" />
+                                <g:set var="buttonTitle" value="remove reserved status from this item" />
+                              </g:if>
+                              <g:else>
+                                <g:set var="formAction" value="makeItemRequest" />
+                                <g:set var="buttonTitle" value="request this item when it is available" />
+                              </g:else>
+                            </g:elseif>
+                            <g:elseif test="${item.requestQueue.size()}">
+                              <g:set var="item_status_message" value="this item has been requested" />
+                              <g:set var="buttonColor" value="yellow" />
+                              <g:if test="${viewingSelf}">
+                                <g:set var="formAction" value="removeAllItemRequests" />
+                                <g:set var="buttonTitle" value="remove all requests from this item" />
+                              </g:if>
+                              <g:else>
+                                <g:if test="${item.requestQueue.contains(viewUser.id)}">
+                                  <g:set var="formAction" value="removeItemRequest" />
+                                  <g:set var="buttonTitle" value="remove your request for this item" />
+                                </g:if>
+                                <g:else>
+                                  <g:set var="formAction" value="itemRequest" />
+                                  <g:set var="buttonTitle" value="request this item when it is returned" />
+                                </g:else>
+                              </g:else>
+                            </g:elseif>
+                            <g:else> <!-- item is available -->
+                              <g:set var="item_status_message" value="this item is available" />
+                              <g:set var="buttonColor" value="green" />
+                              <g:if test="${viewingSelf}">
+                                <g:set var="formAction" value="makeItemRequest" />
+                                <g:set var="buttonTitle" value="place a hold on this item" />
+                              </g:if>
+                              <g:else>
+                                <g:set var="formAction" value="makeItemRequest" />
+                                <g:set var="buttonTitle" value="request this item" />
+                              </g:else>
+                            </g:else>
+                            <g:set var="buttonImage" value="${buttonColor}light.png" />
+                            <div class="library_item_status">
+                              ${item_status_message}
+                            </div>
+                            <div class="library_item_option">
+                              <g:form controller="message" action="${formAction}">
+                                <input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser.id}" />
+                                <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
+                                <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
+                                <button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
+                                  <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
+                                </button>
+                                ${buttonTitle}
+                              </g:form>
+                            </div
+                            <g:if test="${viewingSelf}">
+                              <div class="library_item_option">
+                                <g:form controller="item" action="deleteItem" id="${user.id}">
+                                  <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
+                                  <button aria-disabled="false" role="button" id="button" title="delete item">
+                                    <img height="15" width="15" src="${resource(dir:'images/icons',file:"delete.png")}" />
+                                  </button>
+                                  delete this item
+                                </g:form>
+                              </div>
+                            </g:if>
+                          </div>
+                          <button class="option_button" id="option_button-${item.id}" title="options">
+                            <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
+                          </button>
+                        </td>
+                        <td align="center">
+                          <g:set var="mediaImage" value="${item.mediaType}.png" />
+                          <img height="20" width="20" src="${resource(dir:'images/icons',file:mediaImage)}" alt="${item.mediaType}" title="${item.mediaType}"/>
+                        </td>
                         <td>${item.title}</td>
-                        <td>"none"</td>
-                        <td>"none"</td>
-                        <td>"none"</td>
-                        <td>"none"</td>
-
-
+                        <g:if test="${item.mediaType == 'album'}">
+                          <td>${item.artist}</td>
+                        </g:if>
+                        <g:elseif test="${category == 'all'}">
+                          <td>&nbsp;</td>
+                        </g:elseif>
+                        <g:if test="${item.mediaType == 'book'}">
+                          <td>${item.author}</td>
+                        </g:if>
+                        <g:elseif test="${category == 'all'}">
+                          <td>&nbsp;</td>
+                        </g:elseif>
+                        <g:if test="${(item.mediaType == 'album')||(item.mediaType == 'movie')}">
+                          <td>${item.format}</td>
+                        </g:if>
+                        <g:elseif test="${category == 'all'}">
+                          <td>&nbsp;</td>
+                        </g:elseif>
+                        <g:if test="${item.mediaType == 'game'}">
+                          <td>${item.platform}</td>
+                        </g:if>
+                        <g:elseif test="${category == 'all'}">
+                          <td>&nbsp;</td>
+                        </g:elseif>
                       </tr>
                     </g:each>
                   </g:each>

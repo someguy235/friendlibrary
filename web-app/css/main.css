@@ -11,7 +11,7 @@ html {
 /* GENERAL */
 
 body {
-	width: 900px;
+	width: 960px;
 	height: 100%;
 	text-align: center;
     background: #111;
@@ -228,16 +228,22 @@ input:focus, select:focus, textarea:focus {
   vertical-align: middle;
 }
 .library_all_col_available{
-  width:9%;
+  width:64px;
 }
 .library_all_col_media{
-  width:7%;
+  width:50px;
+}
+.library_all_col_artist{
+  min-width:50px;
+}
+.library_all_col_author{
+  min-width:55px;
 }
 .library_all_col_format{
-  width:8%;
+  min-width:55px;
 }
 .library_all_col_platform{
-  width:9%;
+  width:65px;
 }
 .item_options{
 
