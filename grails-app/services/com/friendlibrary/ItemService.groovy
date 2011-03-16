@@ -48,6 +48,7 @@ class ItemService{
       default:
         throw new ItemException(message: "Invalid item type", item:item)
     }
+    library.available[params.mediaType]+=1
     item.title = params.title
     item.library = library
 
@@ -104,6 +105,9 @@ class ItemService{
     try{
       def item = Item.get(params.requestedMedia)
       assert item != null
+      if(!item.loanedOut){
+        library.available[item.mediaType]-=1
+      }
       item.delete()
       return "\"${item.title}\" deleted"
     }catch(Exception e){

@@ -5,6 +5,7 @@ class Library {
     static belongsTo = [ user:User ]
     
     static hasMany = [ books:Book, games:Game, albums:Album, movies:Movie ]
+    HashMap available = ["book": 0, "game": 0, "album": 0, "movie": 0]
     int availableBooks=0
     int availableGames=0
     int availableAlbums=0

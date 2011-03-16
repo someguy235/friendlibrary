@@ -145,21 +145,27 @@ input:focus, select:focus, textarea:focus {
 }
 .profile_column{
 	width:32%;
-	float:left;
+	/*float:left;*/
 	color:#000;
 	font: 14px verdana, arial, helvetica, sans-serif;
 	text-align:left;
 	padding: 3px 0px 2px 10px;
 }
 .profile_column_left{
-	float:left;
+  /*position:relative;*/
+  /*left:0px;*/
+  /*float:left;*/
 	/*background-color:#F00;*/
 }
 .profile_column_center{
+  position:relative;
+  left:34%
 	/*background-color:#0F0;*/
 }
 .profile_column_right{
-	float:right;
+	/*position:relative;*/
+  /*right:0%;*/
+  /*float:right;*/
 	/*background-color:#00F;*/
 }
 #newItem{

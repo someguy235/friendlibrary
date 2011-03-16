@@ -35,10 +35,10 @@
 				Joined: ${user.dateCreated.format('MM/dd/yy') }
 			</div>
 			<div class="profile_column profile_column_center">
-				<div style="float:left;">
+				<div style="position:relative;left:0px;">
 					<img height="20" width="20" src="${resource(dir:'images/icons',file:'game.png')}" alt="games" title="games"/>
 				</div>
-				<div style="height:20;" >
+				<div style="height:20;position:relative;top:0px;left:30px;" >
 					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableGames} of ${user.library.games.size()} available</g:link>
 				</div>
 				<div style="float:left;">
