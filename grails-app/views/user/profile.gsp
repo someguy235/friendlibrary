@@ -11,72 +11,82 @@
 	</head>
 	<body>
 		<h1>Profile for ${user.username}</h1>
-		<div>
+		<div class="grid_12">
 			<br />
 			<hr></hr>
-				<div class="profile_column profile_column_left">
-				Info
-				</div>
-				<div class="profile_column profile_column_center">
-				Library
-				</div>
-				<div class="profile_column profile_column_right">
-				Social
-				</div>
-				<div class="clear"></div>
+    </div>
+    <div class="grid_4 profile_column">
+    Info
+    </div>
+    <div class="grid_4 profile_column">
+    Library
+    </div>
+    <div class="grid_4 profile_column">
+    Social
+    </div>
+    <div class="clear"></div>
+    <div class="grid_12">
 			<hr></hr>
 			<br />
 		</div>
-		<div>
-			<div class="profile_column profile_column_left">
-				User: ${user.username}<br />
-				Name: ${user.userFirstName} ${user.userLastName}<br />
-				Email: ${user.email}<br />
-				Joined: ${user.dateCreated.format('MM/dd/yy') }
-			</div>
-			<div class="profile_column profile_column_center">
-				<div style="position:relative;left:0px;">
-					<img height="20" width="20" src="${resource(dir:'images/icons',file:'game.png')}" alt="games" title="games"/>
-				</div>
-				<div style="height:20;position:relative;top:0px;left:30px;" >
-					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableGames} of ${user.library.games.size()} available</g:link>
-				</div>
-				<div style="float:left;">
-					<img height="20" width="20" src="${resource(dir:'images/icons',file:'book.png')}" alt="books" title="books"/>
-				</div>
-				<div style="height:20;" >
-					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableBooks} of ${user.library.books.size()} available</g:link>
-				</div>
-				<div style="float:left;">
-					<img height="20" width="20" src="${resource(dir:'images/icons',file:'movie.png')}" alt="movies" title="movies"/>
-				</div>
-				<div style="height:20;" >
-					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableMovies} of ${user.library.movies.size()} available</g:link>
-				</div>
-				<div style="float:left;">
-					<img height="20" width="20" src="${resource(dir:'images/icons',file:'album.png')}" alt="albums" title="albums"/>
-				</div>
-				<div style="height:20;" >
-					&nbsp; <g:link controller="user" action="library" id="${user.id}">${user.library.availableAlbums} of ${user.library.albums.size()} available</g:link>
-				</div>
-			</div>
-			
-			<div class="profile_column profile_column_right">
-				${user.friends.size()} contacts:<br />
-				<g:each in="${user.friends}" var="friend">
-					<g:link controller="user" action="profile" id="${friend.id}">
-						${friend.userFirstName} ${friend.userLastName}
-					</g:link>
-					(
-					<g:link controller="user" action="library" id="${friend.id}">
-						library
-					</g:link>
-					)
-					<br />
-				</g:each>
-			</div>
-			<div class="clear"></div>
-		</div>
+    <div class="grid_4 profile_column">
+      User: ${user.username}<br />
+      Name: ${user.userFirstName} ${user.userLastName}<br />
+      Email: ${user.email}<br />
+      Joined: ${user.dateCreated.format('MM/dd/yy') }
+    </div>
+    <div class="grid_4 profile_column">
+      <div style="height:20px;">
+        <div style="position:relative;height:20px;">
+          <img height="20" width="20" src="${resource(dir:'images/icons',file:'game.png')}" alt="games" title="games"/>
+        </div>
+        <div style="height:20px;position:relative;left:30px;top:-20px;" >
+          <g:link controller="user" action="library" id="${user.id}">${user.library.availableGames} of ${user.library.games.size()} available</g:link>
+        </div>
+      </div>
+
+      <div style="height:20px;">
+        <div style="position:relative;height:20px;">
+          <img height="20" width="20" src="${resource(dir:'images/icons',file:'book.png')}" alt="books" title="books"/>
+        </div>
+        <div style="height:20px;position:relative;left:30px;top:-20px;" >
+          <g:link controller="user" action="library" id="${user.id}">${user.library.availableBooks} of ${user.library.books.size()} available</g:link>
+        </div>
+      </div>
+   
+      <div style="height:20px;">
+        <div style="position:relative;height:20px;">
+          <img height="20" width="20" src="${resource(dir:'images/icons',file:'movie.png')}" alt="movies" title="movies"/>
+        </div>
+        <div style="height:20px;position:relative;left:30px;top:-20px;" >
+          <g:link controller="user" action="library" id="${user.id}">${user.library.availableMovies} of ${user.library.movies.size()} available</g:link>
+        </div>
+      </div>
+      
+      <div style="height:20px;">
+        <div style="position:relative;height:20px;">
+          <img height="20" width="20" src="${resource(dir:'images/icons',file:'album.png')}" alt="albums" title="albums"/>
+        </div>
+        <div style="height:20px;position:relative;left:30px;top:-20px;" >
+          <g:link controller="user" action="library" id="${user.id}">${user.library.availableAlbums} of ${user.library.albums.size()} available</g:link>
+        </div>
+      </div>
+    </div>
+    <div class="grid_4 profile_column">
+      ${user.friends.size()} contacts:<br />
+      <g:each in="${user.friends}" var="friend">
+        <g:link controller="user" action="profile" id="${friend.id}">
+          ${friend.userFirstName} ${friend.userLastName}
+        </g:link>
+        (
+        <g:link controller="user" action="library" id="${friend.id}">
+          library
+        </g:link>
+        )
+        <br />
+      </g:each>
+    </div>
+    <div class="clear"></div>
 		<br />
 		<br />
 		<br />

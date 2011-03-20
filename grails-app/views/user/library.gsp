@@ -22,6 +22,9 @@
           return false;
         });
 
+        $(".accordion").accordion({ header: "h2" });
+        $(".accordion").last().accordion("option", "icons", false);
+
 				$("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
 				$("#libTabs").tabs({ selected: 0 });
@@ -36,7 +39,7 @@
 	<body>
 		<div > <!-- interface for adding items -->
 			<g:if test="${viewingSelf}">
-	  		<div id="newItem" class="main centered">
+	  		<div class="accordion import_box grid_6">
 					<h2>Add an item to your library.</h2>
 					<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newItemTabs">
 						<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
@@ -139,7 +142,7 @@
 				</div>
 			</div>
 			
-			<div id="importItems" class="main centered">
+			<div class="import_box grid_6">
 				<h2>Import a list of items.</h2>
 					<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newItemListTabs">
 						<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">

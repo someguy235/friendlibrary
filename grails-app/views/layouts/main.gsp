@@ -1,10 +1,10 @@
 <html>
   <head>
     <title><g:layoutTitle default="Grails" /></title>
-    <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'960gs.css')}" />
-    <link rel="stylesheet" href="${resource(dir:'css/custom-theme',file:'jquery-ui-1.8.1.custom.css')}" />
+    <link rel="stylesheet" href="${resource(dir:'css/custom-theme',file:'jquery-ui-1.8.7.custom.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'tablesorter-style.css')}" />
+    <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
     <g:javascript library="jquery" />
     <g:javascript library="application" />
@@ -14,7 +14,8 @@
     <g:layoutHead />
   </head>
   <body>
-    <div class="content">
+    <!--<div class="content">-->
+    <div class="container_12 content">
       <div id="spinner" class="spinner" style="display:none;">
         <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
       </div>
@@ -22,26 +23,28 @@
       <h1><a href="/friendlibrary">FriendlyLibrary</a></h1>
       <br />
       <g:layoutBody />
-      <div class="footer">
-        <g:isLoggedIn>
-          <g:set var="loggedInUsername" value="${loggedInUserInfo(field:'username')}" />
-          <g:set var="loggedInUserId" value="${loggedInUserInfo(field:'id')}" />
-                  Welcome, ${loggedInUsername}
-          <br />
-          <g:link controller="user" action="library" id="${loggedInUserId}">library</g:link> |
-          <g:link controller="user" action="profile" id="${loggedInUserId}">profile</g:link> |
-          <g:link controller="user" action="friends" id="${loggedInUsername}">friends</g:link> |
-          <g:link controller="search" action=" ">search</g:link> |
-          <g:link controller="logout">logout</g:link>
-        </g:isLoggedIn>
-        <g:isNotLoggedIn>
-          <g:link controller="login">log in</g:link> |
-          <g:link controller="register">sign up</g:link>
-        </g:isNotLoggedIn>
-      </div>
-      <h3>
-          All: &copy 2010, Ethan Shepherd
-      </h3>
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
+    <div class="clear" ></div>
+    <div class="footer">
+      <g:isLoggedIn>
+        <g:set var="loggedInUsername" value="${loggedInUserInfo(field:'username')}" />
+        <g:set var="loggedInUserId" value="${loggedInUserInfo(field:'id')}" />
+                Welcome, ${loggedInUsername}
+        <br />
+        <g:link controller="user" action="library" id="${loggedInUserId}">library</g:link> |
+        <g:link controller="user" action="profile" id="${loggedInUserId}">profile</g:link> |
+        <g:link controller="user" action="friends" id="${loggedInUsername}">friends</g:link> |
+        <g:link controller="search" action=" ">search</g:link> |
+        <g:link controller="logout">logout</g:link>
+      </g:isLoggedIn>
+      <g:isNotLoggedIn>
+        <g:link controller="login">log in</g:link> |
+        <g:link controller="register">sign up</g:link>
+      </g:isNotLoggedIn>
     </div>
   </body>
   <g:javascript>

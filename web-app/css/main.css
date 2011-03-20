@@ -2,68 +2,62 @@
 
 html {
 	text-align: center;
-	/*background: #1e1e1e;*/
-	background: #111;
+	background: #fff;
 	height: 100%;
-	/* background-image: url("../images/stripe.png");*/
 }
 
-/* GENERAL */
-
 body {
-	width: 960px;
+	/*width: 960px;*/
 	height: 100%;
 	text-align: center;
-    background: #111;
-    color: #453821;
-    font: 11px verdana, arial, helvetica, sans-serif;
+  background: #fff;
+  color: #453821;
+  font: 11px verdana, arial, helvetica, sans-serif;
 	margin:0 auto;
-    /*padding:header-<length> 0 footer-<length> 0;*/
 }
 
 a:link, a:visited, a:hover {
-    color: #666;
-    font-weight: bold;
-    text-decoration: none;
-    outline-style: none;
+  color: #666;
+  font-weight: bold;
+  text-decoration: none;
+  outline-style: none;
 }
 
 h1{
-	text-align: center;	
-	background: #D4D1BF;
-	/*width: 900px;*/
-	width: 100%;
-	/*height: 60px;*/
-	
+  text-align: center;
+  background: #5686BA;
+  padding: 5px 0px 5px 0px;
+  margin: 0px 10px 0px 10px;
+  /*width: 100%;*/
 }
 
 h2 {
-    /*color: #5686BA;*/
-    color: #b83400;
-    font-weight: normal;
-    font-size: 18px;
-    margin: .8em 0 .3em 0;
-    /*text-align: center;*/
+  /*color: #5686BA;*/
+  color: #b83400;
+  font-weight: normal;
+  font-size: 18px;
+  margin: .8em 0 .3em 0;
+  /*text-align: center;*/
 }
 
 h3 {
-    color: #000;
-    font-weight: normal;
-    font-size: 14px;
-    margin: .8em 0 .3em 0;
-    /*text-align: center;*/
+  color: #000;
+  font-weight: normal;
+  font-size: 14px;
+  margin: .8em 0 .3em 0;
+  /*text-align: center;*/
 }
 
 ul {
-    padding-left: 15px;
+  padding-left: 15px;
 }
 
 input, select, textarea {
-    background-color: #fcfcfc;
-    border: 1px solid #ccc;
-    font: 11px verdana, arial, helvetica, sans-serif;
-    margin: 2px 0;
-    padding: 2px 4px;
+  background-color: #fcfcfc;
+  border: 1px solid #ccc;
+  font: 11px verdana, arial, helvetica, sans-serif;
+  margin: 2px 0;
+  padding: 2px 4px;
 }
 select {
    padding: 2px 2px 2px 0;
@@ -79,24 +73,24 @@ input:focus, select:focus, textarea:focus {
 }
 
 .content{
-	background:#ddd;
+	background:#fff;
 }
 
 .main {
 	text-align: center;
-    /*background: #fafafa;*/
-    /*width: 100%;*/
-    padding: 10px;
-    /*margin: 1px;*/
-    /*border: 1px solid #994D53;*/
-    color: #ddd;
+  /*background: #fafafa;*/
+  /*width: 100%;*/
+  padding: 10px;
+  /*margin: 1px;*/
+  /*border: 1px solid #994D53;*/
+  color: #fff;
 }
 
 .search {
 	text-align: center;
-    background: #eee;
-    padding: 10px;
-    border: 1px solid #F6AE38;
+  background: #eee;
+  padding: 10px;
+  border: 1px solid #F6AE38;
 }	
 
 .clear {
@@ -111,21 +105,21 @@ input:focus, select:focus, textarea:focus {
 	background: #CFC233;
 	font-size: 14px;
 	padding: .3em;
-    margin: .8em 0 .3em 0;
-	
+  margin: .8em 0 .3em 0;
 }
 .footer{
-	color: #b83400;
-    font-weight: normal;
-    font-size: 18px;
-    margin: .8em 0 .8em 0;
-    padding-top: .3em;
-    padding-bottom: .3em;
-    
-    text-align: center;	
-	background: #D4D1BF;
+  color: #5686BA;
+  font-weight: normal;
+  font-size: 18px;
+  margin: .8em 0 0 0;
+  padding-top: .3em;
+  padding-bottom: .3em;
+  text-align: center;	
+	background: #ccc;
 	width: 100%;
-	/*color: #fff;*/	
+  position:fixed;
+  bottom:0px;
+	border-top: 3px solid;
 }
 .highlight-box{
 	background-color:#D4D1BF;
@@ -143,13 +137,15 @@ input:focus, select:focus, textarea:focus {
 	background: #CF7491;
 	border: 1px dotted #b83400;	
 }
+
 .profile_column{
-	width:32%;
+	/*width:32%;*/
 	/*float:left;*/
-	color:#000;
+	/*color:#000;*/
 	font: 14px verdana, arial, helvetica, sans-serif;
 	text-align:left;
-	padding: 3px 0px 2px 10px;
+	/*padding: 3px 0px 2px 10px;*/
+  /*padding-left: 10px;*/
 }
 .profile_column_left{
   /*position:relative;*/
@@ -168,16 +164,10 @@ input:focus, select:focus, textarea:focus {
   /*float:right;*/
 	/*background-color:#00F;*/
 }
-#newItem{
-	width: 47%;	
-	min-width: 200px;
-	color: #ddd;
-	float: left;
-}
-#importItems{
-	width: 48%;
-	color: #ddd;
-	float: right;
+.import_box{
+  height:250px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 #allItems{
 	/*text-align: left;*/
