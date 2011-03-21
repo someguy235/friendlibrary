@@ -39,7 +39,7 @@
 	<body>
 		<div > <!-- interface for adding items -->
 			<g:if test="${viewingSelf}">
-	  		<div class="accordion import_box grid_6">
+	  		<div class="import_box grid_6">
 					<h2>Add an item to your library.</h2>
 					<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newItemTabs">
 						<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">

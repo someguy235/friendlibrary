@@ -1,23 +1,31 @@
 * { margin: 0; padding: 0; }
 
 html {
-	text-align: center;
-	background: #fff;
+	background: #ccc;
+  /*background: -moz-linear-gradient(top, #ccc, #000);*/
+  /*background: -moz-linear-gradient(top,  #ccc,  #000);*/
 	height: 100%;
 }
 
 body {
 	/*width: 960px;*/
 	height: 100%;
-	text-align: center;
-  background: #fff;
-  color: #453821;
+	/*background: #fff;*/
+  background: -moz-linear-gradient(top, #444, #ccc);
+  /*color: #453821;*/
+  color: #4F4F4F;
   font: 11px verdana, arial, helvetica, sans-serif;
 	margin:0 auto;
 }
 
 a:link, a:visited, a:hover {
-  color: #666;
+  color: #ccc;
+  font-weight: bold;
+  text-decoration: none;
+  outline-style: none;
+}
+.footer a:link, a:visited, a:hover {
+  color: #28496d;
   font-weight: bold;
   text-decoration: none;
   outline-style: none;
@@ -25,9 +33,10 @@ a:link, a:visited, a:hover {
 
 h1{
   text-align: center;
-  background: #5686BA;
+  /*background: #5686BA;*/
+  background: -moz-linear-gradient(top, #39587A, #5686BA);
   padding: 5px 0px 5px 0px;
-  margin: 0px 10px 0px 10px;
+  margin: 0px 0px 0px 0px;
   /*width: 100%;*/
 }
 
@@ -98,9 +107,6 @@ input:focus, select:focus, textarea:focus {
 	height: 0;
 	visibility: hidden;
 }
-.centered {
-	text-align: center;
-}
 .flash{
 	background: #CFC233;
 	font-size: 14px;
@@ -165,13 +171,14 @@ input:focus, select:focus, textarea:focus {
 	/*background-color:#00F;*/
 }
 .import_box{
+  text-align: center;
   height:250px;
   margin-left: 10px;
   margin-right: 10px;
 }
 #allItems{
 	/*text-align: left;*/
-	color: #000;
+	/*color: #000;*/
 }
 #messages{
 	padding-left: 10px;
