@@ -1,18 +1,11 @@
 * { margin: 0; padding: 0; }
-
 html {
 	background: #ccc;
-  /*background: -moz-linear-gradient(top, #ccc, #000);*/
-  /*background: -moz-linear-gradient(top,  #ccc,  #000);*/
 	height: 100%;
 }
-
 body {
-	/*width: 960px;*/
 	height: 100%;
-	/*background: #fff;*/
-  background: -moz-linear-gradient(top, #444, #ccc);
-  /*color: #453821;*/
+  background: -moz-linear-gradient(top, #666, #ccc);
   color: #4F4F4F;
   font: 11px verdana, arial, helvetica, sans-serif;
 	margin:0 auto;
@@ -24,49 +17,34 @@ a:link, a:visited, a:hover {
   text-decoration: none;
   outline-style: none;
 }
-.footer a:link, a:visited, a:hover {
-  color: #28496d;
-  font-weight: bold;
-  text-decoration: none;
-  outline-style: none;
-}
-
 h1{
   text-align: center;
-  /*background: #5686BA;*/
+  color: #ba9556;
   background: -moz-linear-gradient(top, #39587A, #5686BA);
   padding: 5px 0px 5px 0px;
   margin: 0px 0px 0px 0px;
-  /*width: 100%;*/
 }
-
 h2 {
-  /*color: #5686BA;*/
-  color: #b83400;
+  color:#2878AE;
   font-weight: normal;
   font-size: 18px;
   margin: .8em 0 .3em 0;
-  /*text-align: center;*/
 }
-
 h3 {
   color: #000;
   font-weight: normal;
   font-size: 14px;
   margin: .8em 0 .3em 0;
-  /*text-align: center;*/
 }
-
-ul {
-  padding-left: 15px;
-}
-
 input, select, textarea {
   background-color: #fcfcfc;
   border: 1px solid #ccc;
   font: 11px verdana, arial, helvetica, sans-serif;
   margin: 2px 0;
   padding: 2px 4px;
+}
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #994D53;
 }
 select {
    padding: 2px 2px 2px 0;
@@ -76,109 +54,17 @@ textarea {
 	height: 150px;
 	vertical-align: top;
 }
-
-input:focus, select:focus, textarea:focus {
-    border: 1px solid #994D53;
+ul {
+  padding-left: 15px;
 }
 
-.content{
-	background:#fff;
-}
-
-.main {
-	text-align: center;
-  /*background: #fafafa;*/
-  /*width: 100%;*/
-  padding: 10px;
-  /*margin: 1px;*/
-  /*border: 1px solid #994D53;*/
-  color: #fff;
-}
-
-.search {
-	text-align: center;
-  background: #eee;
-  padding: 10px;
-  border: 1px solid #F6AE38;
-}	
-
-.clear {
-  clear: both;
-	height: 0;
-	visibility: hidden;
-}
-.flash{
-	background: #CFC233;
-	font-size: 14px;
-	padding: .3em;
-  margin: .8em 0 .3em 0;
-}
-.footer{
-  color: #5686BA;
-  font-weight: normal;
-  font-size: 18px;
-  margin: .8em 0 0 0;
-  padding-top: .3em;
-  padding-bottom: .3em;
-  text-align: center;	
-	background: #ccc;
-	width: 100%;
-  position:fixed;
-  bottom:0px;
-	border-top: 3px solid;
-}
-.highlight-box{
-	background-color:#D4D1BF;
-	border: 1px solid #b83400;	
-	margin-left:25%;
-	width:50%;
-	padding: 5px;
-}
-.message{
-	margin-left:25%;
-	padding: 5px;
-	width:50%;
-	font-weight:600;
-	font-size:150%;
-	background: #CF7491;
-	border: 1px dotted #b83400;	
-}
-
-.profile_column{
-	/*width:32%;*/
-	/*float:left;*/
-	/*color:#000;*/
-	font: 14px verdana, arial, helvetica, sans-serif;
-	text-align:left;
-	/*padding: 3px 0px 2px 10px;*/
-  /*padding-left: 10px;*/
-}
-.profile_column_left{
-  /*position:relative;*/
-  /*left:0px;*/
-  /*float:left;*/
-	/*background-color:#F00;*/
-}
-.profile_column_center{
-  position:relative;
-  left:34%
-	/*background-color:#0F0;*/
-}
-.profile_column_right{
-	/*position:relative;*/
-  /*right:0%;*/
-  /*float:right;*/
-	/*background-color:#00F;*/
-}
-.import_box{
-  text-align: center;
-  height:250px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
 #allItems{
 	/*text-align: left;*/
 	/*color: #000;*/
+}
+#header{
+  height: 64px;
+  background-color: #5686ba;
 }
 #messages{
 	padding-left: 10px;
@@ -187,48 +73,53 @@ input:focus, select:focus, textarea:focus {
 #messages-table{
 		width:100%;
 }
-.tableFirstCol{
-	width:9%;
+
+.clear {
+  clear: both;
+	height: 0;
+	visibility: hidden;
 }
-.noItems{
-	padding:5px 0px 5px 0px;
-	width:100%;
-	background-color:#FFF;
+.content{
+	background:#fff;
 }
-.searchBox{
-	width:33%;
+.flash{
+	background: #CFC233;
+	font-size: 14px;
+	padding: .3em;
+  margin: .8em 0 .3em 0;
+  text-align: center;
 }
-.searchLabel{
-	padding-top:4px;
-	width:30%;
-	float:left;
-	text-align:right;
-}
-.searchField{
-	width:70%;
-	float:right;
-}
-.search_column{
-	width:32%;
-	float:left;
-	padding: 3px 0px 2px 10px;
-}
-.search_result {
+.footer{
+  color: #5686BA;
   font-weight: normal;
   font-size: 18px;
+  padding-top: .4em;
+  padding-bottom: .4em;
+  text-align: center;
+	background: #ccc;
+	width: 100%;
+  position:fixed;
+  bottom:0px;
+	border-top: 2px dotted;
 }
-#action_buttons{
-	font-size:8pt;
-  /*text-align: center;*/
+.footer a {
+  color: #28496d;
+  font-weight: bold;
+  text-decoration: none;
+  outline-style: none;
 }
-#messageTable tbody tr td{
-	vertical-align:middle;
+.highlight-box{
+	background-color:#D4D1BF;
+	border: 1px solid #b83400;
+	margin-left:25%;
+	width:50%;
+	padding: 5px;
 }
-.library_table_body{
-  font-size: 9pt;
-}
-.library_table_body tr td{
-  vertical-align: middle;
+.import_box{
+  text-align: center;
+  height:250px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .library_all_col_available{
   width:64px;
@@ -248,16 +139,80 @@ input:focus, select:focus, textarea:focus {
 .library_all_col_platform{
   width:65px;
 }
-.item_options{
-
-}
 .library_item_option{
   text-align: left;
   margin: 3px;
 }
 .library_item_status{
   font-size: 11pt;
-  color: #b83400;
+  color: #5686ba;
   text-align: center;
   margin: 5px;
+}
+.library_table_body{
+  font-size: 9pt;
+}
+.library_table_body tr td{
+  vertical-align: middle;
+}
+.main {
+	text-align: center;
+  padding: 10px;
+  color: #fff;
+}
+.message{
+	margin-left:25%;
+	padding: 5px;
+	width:50%;
+	font-weight:600;
+	font-size:150%;
+	background: #CF7491;
+	border: 1px dotted #b83400;
+}
+.noItems{
+	padding:5px 0px 5px 0px;
+	width:100%;
+	background-color:#FFF;
+}
+.profile_column{
+	font: 14px verdana, arial, helvetica, sans-serif;
+	text-align:left;
+}
+.search {
+	text-align: center;
+  background: #eee;
+  padding: 10px;
+  border: 1px solid #F6AE38;
+}	
+.searchBox{
+	width:33%;
+}
+.search_column{
+	width:32%;
+	float:left;
+	padding: 3px 0px 2px 10px;
+}
+.searchField{
+	width:70%;
+	float:right;
+}
+.searchLabel{
+	padding-top:4px;
+	width:30%;
+	float:left;
+	text-align:right;
+}
+.search_result {
+  font-weight: normal;
+  font-size: 18px;
+}
+.tableFirstCol{
+	width:9%;
+}
+
+#action_buttons{
+	font-size:8pt;
+}
+#messageTable tbody tr td{
+	vertical-align:middle;
 }

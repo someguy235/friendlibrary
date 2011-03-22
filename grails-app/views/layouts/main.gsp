@@ -14,19 +14,14 @@
     <g:layoutHead />
   </head>
   <body>
-    <!--<div class="content">-->
     <div class="container_12 content">
       <div id="spinner" class="spinner" style="display:none;">
         <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
       </div>
-      <!-- <br /> -->
-      <h1><a href="/friendlibrary">FriendlyLibrary</a></h1>
+      <a href="/friendlibrary"><div id="header"></div></a>
       <br />
       <g:layoutBody />
-      <br />
-      <br />
-      <br />
-      <br />
+      
     </div>
     <div class="clear" ></div>
     <div class="footer">
@@ -42,10 +37,18 @@
         <g:link controller="logout">logout</g:link>
       </g:isLoggedIn>
       <g:isNotLoggedIn>
+        Welcome, guest
+        <br />
         <g:link controller="login">log in</g:link> |
         <g:link controller="register">sign up</g:link>
       </g:isNotLoggedIn>
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </body>
   <g:javascript>
                   var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
