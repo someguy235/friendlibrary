@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
     <g:javascript library="jquery" />
     <g:javascript library="application" />
-    <g:javascript library="resize" />
     <jq:plugin name="tablesorter" />
     <jq:plugin name="ui" />
     <g:layoutHead />

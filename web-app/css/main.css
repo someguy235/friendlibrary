@@ -58,6 +58,9 @@ ul {
   padding-left: 15px;
 }
 
+#action_buttons{
+	font-size:8pt;
+}
 #allItems{
 	/*text-align: left;*/
 	/*color: #000;*/
@@ -72,6 +75,9 @@ ul {
 }
 #messages-table{
 		width:100%;
+}
+#messageTable tbody tr td{
+	vertical-align:middle;
 }
 
 .clear {
@@ -210,9 +216,3 @@ ul {
 	width:9%;
 }
 
-#action_buttons{
-	font-size:8pt;
-}
-#messageTable tbody tr td{
-	vertical-align:middle;
-}
