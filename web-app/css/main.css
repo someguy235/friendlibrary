@@ -12,7 +12,7 @@ body {
 }
 
 a:link, a:visited, a:hover {
-  color: #ccc;
+  color: #97ADC5;
   font-weight: bold;
   text-decoration: none;
   outline-style: none;
@@ -44,7 +44,7 @@ input, select, textarea {
   padding: 2px 4px;
 }
 input:focus, select:focus, textarea:focus {
-    border: 1px solid #994D53;
+    border: 1px solid #5686ba;
 }
 select {
    padding: 2px 2px 2px 0;
@@ -96,23 +96,17 @@ ul {
   text-align: center;
 }
 .footer{
-  color: #5686BA;
+  color: #ba9556;
   font-weight: normal;
   font-size: 18px;
   padding-top: .4em;
   padding-bottom: .4em;
   text-align: center;
-	background: #ccc;
+	background: #39587A;
 	width: 100%;
   position:fixed;
   bottom:0px;
 	border-top: 2px dotted;
-}
-.footer a {
-  color: #28496d;
-  font-weight: bold;
-  text-decoration: none;
-  outline-style: none;
 }
 .highlight-box{
 	background-color:#D4D1BF;
@@ -123,7 +117,7 @@ ul {
 }
 .import_box{
   text-align: center;
-  height:250px;
+  height:200px;
   margin-left: 10px;
   margin-right: 10px;
 }

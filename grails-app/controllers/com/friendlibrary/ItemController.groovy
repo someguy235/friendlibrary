@@ -1,5 +1,10 @@
 package com.friendlibrary
 
+class ItemException extends RuntimeException{
+	String message
+	Item item
+}
+
 class ItemController {
   def authenticateService
   def itemService

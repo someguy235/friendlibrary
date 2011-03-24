@@ -1,15 +1,15 @@
 <html>
   <head>
-    <title><g:layoutTitle default="Grails" /></title>
+    <title><g:layoutTitle default="FriendLibrary" /></title>
     <link rel="stylesheet" href="${resource(dir:'css',file:'960gs.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css/custom-theme',file:'jquery-ui-1.8.7.custom.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'tablesorter-style.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-    <g:javascript library="jquery" />
+    <g:javascript src="jquery/jquery-1.4.4.min.js"/>
+    <g:javascript src="jquery/jquery-ui-1.8.1.custom.min.js"/>
+    <g:javascript src="jquery/jquery.tablesorter.min.js"/>
     <g:javascript library="application" />
-    <jq:plugin name="tablesorter" />
-    <jq:plugin name="ui" />
     <g:layoutHead />
   </head>
   <body>
