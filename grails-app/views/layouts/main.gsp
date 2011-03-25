@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="${resource(dir:'css',file:'tablesorter-style.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-    <g:javascript src="jquery/jquery-1.4.4.min.js"/>
-    <g:javascript src="jquery/jquery-ui-1.8.1.custom.min.js"/>
+    <g:javascript src="jquery/jquery-1.5.1.min.js"/>
+    <g:javascript src="jquery/jquery-ui-1.8.11.custom.min.js"/>
     <g:javascript src="jquery/jquery.tablesorter.min.js"/>
     <g:javascript library="application" />
     <g:layoutHead />

@@ -21,10 +21,7 @@
           return false;
         });
 
-        $(".accordion").accordion({ header: "h2" });
-        $(".accordion").last().accordion("option", "icons", false);
-
-				$("#newItemTabs").tabs({ selected: 0 });
+        $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
 				$("#libTabs").tabs({ selected: 0 });
       	$("#libTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]} ); 
