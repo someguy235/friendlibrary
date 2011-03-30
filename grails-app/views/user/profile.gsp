@@ -36,41 +36,19 @@
       Joined: ${user.dateCreated.format('MM/dd/yy') }
     </div>
     <div class="grid_4 profile_column">
-      <div style="height:20px;">
-        <div style="position:relative;height:20px;">
-          <img height="20" width="20" src="${resource(dir:'images/icons',file:'game.png')}" alt="games" title="games"/>
+      <g:each in="${user.library.available}" var="itemCategory">
+        <div class="profile_avail_category">
+          <div class="profile_avail_image">
+            <g:set var="itemCatImage" value="${itemCategory.key[0..-2]}.png" />
+            <img height="20" width="20" src="${resource(dir:'images/icons',file:itemCatImage)}" alt="${itemCategory.key}" title="${itemCategory.key}"/>
+          </div>
+          <div class="profile_avail_count">
+            <g:set var="availCount" value="${user.library.available[itemCategory.key]}" />
+            <g:set var="totalCount" value="${user.library.(itemCategory.key).size()}" />
+            <g:link controller="user" action="library" id="${user.id}">${availCount} of ${totalCount} available</g:link>
+          </div>
         </div>
-        <div style="height:20px;position:relative;left:30px;top:-20px;" >
-          <g:link controller="user" action="library" id="${user.id}">${user.library.availableGames} of ${user.library.games.size()} available</g:link>
-        </div>
-      </div>
-
-      <div style="height:20px;">
-        <div style="position:relative;height:20px;">
-          <img height="20" width="20" src="${resource(dir:'images/icons',file:'book.png')}" alt="books" title="books"/>
-        </div>
-        <div style="height:20px;position:relative;left:30px;top:-20px;" >
-          <g:link controller="user" action="library" id="${user.id}">${user.library.availableBooks} of ${user.library.books.size()} available</g:link>
-        </div>
-      </div>
-   
-      <div style="height:20px;">
-        <div style="position:relative;height:20px;">
-          <img height="20" width="20" src="${resource(dir:'images/icons',file:'movie.png')}" alt="movies" title="movies"/>
-        </div>
-        <div style="height:20px;position:relative;left:30px;top:-20px;" >
-          <g:link controller="user" action="library" id="${user.id}">${user.library.availableMovies} of ${user.library.movies.size()} available</g:link>
-        </div>
-      </div>
-      
-      <div style="height:20px;">
-        <div style="position:relative;height:20px;">
-          <img height="20" width="20" src="${resource(dir:'images/icons',file:'album.png')}" alt="albums" title="albums"/>
-        </div>
-        <div style="height:20px;position:relative;left:30px;top:-20px;" >
-          <g:link controller="user" action="library" id="${user.id}">${user.library.availableAlbums} of ${user.library.albums.size()} available</g:link>
-        </div>
-      </div>
+      </g:each>
     </div>
     <div class="grid_4 profile_column">
       ${user.friends.size()} contacts:<br />

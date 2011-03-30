@@ -11,7 +11,7 @@ body {
 	margin:0 auto;
 }
 
-a:link, a:visited, a:hover {
+a:link, a:visited, a:hover, a:active, a:focus {
   color: #97ADC5;
   font-weight: bold;
   text-decoration: none;
@@ -35,6 +35,9 @@ h3 {
   font-weight: normal;
   font-size: 14px;
   margin: .8em 0 .3em 0;
+}
+img {
+  outline-style: none;
 }
 input, select, textarea {
   background-color: #fcfcfc;
@@ -74,6 +77,7 @@ ul {
 	padding-right: 10px;
 }
 #messages-table{
+  margin: 3px;
 		width:100%;
 }
 #messageTable tbody tr td{
@@ -140,6 +144,9 @@ ul {
   width:65px;
 }
 .library_item_option{
+  margin: 3px;
+}
+.library_item_options{
   text-align: left;
   margin: 3px;
 }
@@ -173,6 +180,19 @@ ul {
 	padding:5px 0px 5px 0px;
 	width:100%;
 	background-color:#FFF;
+}
+.profile_avail_category{
+  height:20px;
+}
+.profile_avail_image{
+  position:relative;
+  height:20px;
+}
+.profile_avail_count{
+  height:20px;
+  position:relative;
+  left:30px;
+  top:-20px;
 }
 .profile_column{
 	font: 14px verdana, arial, helvetica, sans-serif;

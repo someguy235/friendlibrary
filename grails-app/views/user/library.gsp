@@ -9,7 +9,7 @@
 		<g:javascript>
       $.fx.speeds._default = 250;
 			$(function() {
-        $( ".item_options" ).dialog({
+        $( ".library_item_options" ).dialog({
           autoOpen: false,
           modal: true
         });
@@ -203,6 +203,7 @@
 			<div class="flash">${flash.message}</div>
 		</g:if>
 
+    <!--TODO: do this better -->
     <g:set var="item_categories" value="${['all', 'games', 'books', 'movies', 'music']}" />
     
 		<div id="allItems" class="main">
@@ -266,7 +267,7 @@
                       <tr>
                         <td align="center">
                           <!-- options panel -->
-                          <div id="item_options-${item.id}" class="item_options" title="${item.title}">
+                          <div id="item_options-${item.id}" class="library_item_options" title="${item.title}">
                             <g:if test="${item.loanedOut == true}">
                               <g:set var="item_status_message" value="this item is loaned out" />
                               <g:set var="buttonColor" value="red" />
