@@ -107,7 +107,8 @@
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
 							</g:form>
 						</div>
-						
+
+
 						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-music">
 							<g:form controller="item" action="addItem" id="${user.id}">
 								<table>
@@ -134,17 +135,19 @@
 								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
 							</g:form>
 						</div>
+
 				</div>
 			</div>
 			
 			<div class="import_box grid_6">
         <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newItemListTabs">
           <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#newItemListTabs-game">Games</a></li>
-            <li class="ui-state-default ui-corner-top"><a href="#newItemListTabs-book">Books</a></li>
-            <li class="ui-state-default ui-corner-top"><a href="#newItemListTabs-movie">Movies</a></li>
-            <li class="ui-state-default ui-corner-top"><a href="#newItemListTabs-movie">Music</a></li>
+            <!--<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#newItemListTabs-game">Games</a></li>-->
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#newItemListTabs-book">Books</a></li>
+            <!--<li class="ui-state-default ui-corner-top"><a href="#newItemListTabs-movie">Movies</a></li>-->
+            <!--<li class="ui-state-default ui-corner-top"><a href="#newItemListTabs-movie">Music</a></li>-->
           </ul>
+          <!--
           <div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="newItemListTabs-game">
             <table>
               <tr>
@@ -162,11 +165,12 @@
               </tr>
             </table>
           </div>
+          -->
           <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemListTabs-book">
             <g:form controller="item" action="addItemList" id="${user.id}">
               <table>
                 <tr>
-                  <g:set var="source" value="${['GoodReads', 'CSV']}" />
+                  <g:set var="source" value="${['GoodReads']}" />
                   <td><label for="source">Source&nbsp;</label></td>
                   <td>
                     <div class="ui-widget">
@@ -183,12 +187,14 @@
               <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Import List</span></button>
             </g:form>
           </div>
+          <!--
           <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemListTabs-movie">
             Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.
           </div>
           <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemListTabs-music">
             Nam dui erat, auctor a, dignissim quis, entesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.
           </div>
+          -->
         </div>
         <br />
 			</div>

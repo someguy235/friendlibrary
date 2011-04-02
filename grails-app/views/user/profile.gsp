@@ -75,20 +75,28 @@
 				</ul>
 				<div class="ui-widget-content ui-corner-bottom" id="messageTabs-received">
 					<table id="messageTable" class="tablesorter">
-						<thead>
-							<tr>
-								<th style="width:10%;">From</th>
-								<th style="width:15%;">Type</th>
-								<th style="width:50%;">Message</th>
-								<th style="width:20%;">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<g:if test="${user.inMessages.size() == 0}">
-								<tr><td align="center" colspan="4">You have no messages</td></tr>
-							</g:if>
-							<g:else>
-                <g:set var="requestSource" value="message" />
+            <g:if test="${user.inMessages.size() == 0}">
+              <thead><tr>
+                  <th style="width:10%;">From</th>
+                  <th style="width:15%;">Type</th>
+                  <th style="width:50%;">Message</th>
+                  <th style="width:20%;">Action</th>
+              </tr></thead>
+              <tbody>
+                <tr><td align="center" colspan="4">You have no messages</td></tr>
+              </tbody>
+						</g:if>
+            <g:else>
+              <thead>
+                <tr>
+                  <th style="width:10%;">From</th>
+                  <th style="width:15%;">Type</th>
+                  <th style="width:50%;">Message</th>
+                  <th style="width:20%;">Action</th>
+                </tr>
+              </thead>
+  						<tbody>
+							  <g:set var="requestSource" value="message" />
 								<g:each in="${user.inMessages}" var="message">
 									<tr>
 										<td><g:link controller="user" action="profile" id="${message.sentFrom.id}">${message.sentFrom.username}</g:link></td>
@@ -115,8 +123,8 @@
                         <g:set var="denyAction" value="" />
                       </g:elseif>
 
-                      <div id="action_buttons">
-                        <div style="float:left;">
+                      <div class="action_buttons">
+                        <div class="button_confirm">
                           <g:form controller="message" action="${confirmAction}">
                             <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
                             <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
@@ -124,7 +132,7 @@
                           </g:form>
                         </div>
                         <g:if test="${denyAction != ''}">
-                          <div>
+                          <div class="button_deny">
                             <g:form controller="message" action="${denyAction}">
                               <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
                               <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
@@ -136,8 +144,8 @@
 										</td>
 									</tr>
 								</g:each>
-							</g:else>
-						</tbody>
+  						</tbody>
+            </g:else>
 					</table>
 				</div>
 			</div>

@@ -5,7 +5,10 @@ html {
 }
 body {
 	height: 100%;
+  background: #999999;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#cccccc'); /* for IE */
   background: -moz-linear-gradient(top, #666, #ccc);
+  background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#ccc));
   color: #4F4F4F;
   font: 11px verdana, arial, helvetica, sans-serif;
 	margin:0 auto;
@@ -20,7 +23,10 @@ a:link, a:visited, a:hover, a:active, a:focus {
 h1{
   text-align: center;
   color: #ba9556;
+  background: #476F9A;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39587A', endColorstr='#5686BA'); /* for IE */
   background: -moz-linear-gradient(top, #39587A, #5686BA);
+  background: -webkit-gradient(linear, left top, left bottom, from(#39587A), to(#5686BA));
   padding: 5px 0px 5px 0px;
   margin: 0px 0px 0px 0px;
 }
@@ -61,29 +67,27 @@ ul {
   padding-left: 15px;
 }
 
-#action_buttons{
-	font-size:8pt;
-}
-#allItems{
-	/*text-align: left;*/
-	/*color: #000;*/
-}
 #header{
   height: 64px;
   background-color: #5686ba;
 }
-#messages{
-	padding-left: 10px;
-	padding-right: 10px;
-}
-#messages-table{
-  margin: 3px;
-		width:100%;
-}
-#messageTable tbody tr td{
-	vertical-align:middle;
+#messageTabs{
+  padding-top: 10px;
 }
 
+.action_buttons{
+	text-align: center;
+}
+.button_confirm{
+  margin-right:0px;
+  width:50%;
+  float:left;
+}
+.button_deny{
+  margin-left:0px;
+  width:50%;
+  float:left;
+}
 .clear {
   clear: both;
 	height: 0;
@@ -164,7 +168,7 @@ ul {
 }
 .main {
 	text-align: center;
-  padding: 10px;
+  padding-top: 10px;
   color: #fff;
 }
 .message{

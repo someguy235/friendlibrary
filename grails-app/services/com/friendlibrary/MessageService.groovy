@@ -177,44 +177,40 @@ class MessageService {
   //Confirm a request to borrow an item
   */
  void confirmItemRequest(params){
-   //def requestedItem = Item.get(params.requestedMedia)
    System.out.println(params.messageId)
    def message = Message.get(params.messageId)
    assert message != null
-   System.out.println(message.item.id)
-   //def requestedItem = Item.get(message.item.id)
    def requestedItem = message.item
    assert requestedItem != null
-   def requestedUser = User.findByUsername(params.requestedUser)
+   def requestedUser = message.sentTo
    assert requestedUser != null
-   def requestingUser = User.findByUsername(params.requestingUser)
+   def requestingUser = message.sentFrom
    assert requestingUser != null
    def confirmMessage = new Message(
-     sentFrom:requestedUser.username,
-     sentTo:requestingUser.username,
+     sentFrom:requestedUser,
+     sentTo:requestingUser,
      body:"${requestedUser.username} has agreed to loan you the ${requestedItem.mediaType} \
        \"${requestedItem.title}\", and will bring it to you soon",
       type:"Item Request Confirm",
       item:requestedItem
     )
     confirmMessage.save(failOnError:true)
-    requestingUser.addToMessages(confirmMessage)
+    requestingUser.addToInMessages(confirmMessage)
+    requestedUser.addToOutMessages(confirmMessage)
     requestedItem.loanedOut = true
     requestedItem.loanedTo = requestingUser
     requestedItem.save(failOnError:true)
 
-    removeRequest(params.messageId)
+    message.item.requestQueue.remove(message.sentFrom.id)
+    message.delete()
   }
 
   /*
   //Removes a notification message from a user
   */
   void dismissMessage(params){
-    def messgae = Message.get(params.messageId)
+    def message = Message.get(params.messageId)
     assert message != null
-    user = User.findByUsername(message.sentTo)
-    assert requestedUser != null
-    user.removeFromMessages(message)
     message.delete()
   }
 

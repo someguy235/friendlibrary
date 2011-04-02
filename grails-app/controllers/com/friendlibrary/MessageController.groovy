@@ -114,7 +114,6 @@ class MessageController {
 	}
   
   //TODO: is this needed?
-  /*
   def confirmItemRequest = {
 		try{
 			messageService.confirmItemRequest(params)
@@ -123,8 +122,7 @@ class MessageController {
 		}
 		redirect(controller: 'user', action: 'profile', id:params.requestedUser)
 	}
-  */
- 
+  
   /*
   // Generic message actions
   */

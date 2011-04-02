@@ -102,12 +102,12 @@ class ItemService{
       def item = Item.get(params.requestedMedia)
       assert item != null
       if(!item.loanedOut){
-        library.available[item.mediaType]-=1
+        item.library.available[(item.mediaType+"s")]-=1
       }
       item.delete()
       return "\"${item.title}\" deleted"
     }catch(Exception e){
-      return "failed to delete item"
+      return "failed to delete item: " + e
     }
   }
 }
