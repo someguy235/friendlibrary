@@ -106,8 +106,10 @@
                       <g:if test="${message.type == 'Item Request'}">
                         <g:set var="confirmAction" value="confirmItemRequest" />
                         <g:set var="confirmButtonText" value="Confirm" />
+                        <g:set var="confirmButtonTitle" value="I have delivered this item to ${message.sentFrom.username}" />
                         <g:set var="denyAction" value="denyItemRequest" />
                         <g:set var="denyButtonText" value="Deny" />
+                        <g:set var="denyButtonTitle" value="I don't want to loan this item to ${message.sentFrom.username}" />
                       </g:if>
                       <g:elseif test="${message.type == 'Item Return Request'}">
                       </g:elseif>
@@ -128,7 +130,9 @@
                           <g:form controller="message" action="${confirmAction}">
                             <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
                             <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
-                            <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">${confirmButtonText}</span></button>
+                            <button title="${confirmButtonTitle}" aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button">
+                              <span class="ui-button-text">${confirmButtonText}</span>
+                            </button>
                           </g:form>
                         </div>
                         <g:if test="${denyAction != ''}">
@@ -136,7 +140,9 @@
                             <g:form controller="message" action="${denyAction}">
                               <input type="hidden" id="messageId" name="messageId" value="${message.id}" />
                               <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
-                              <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">${denyButtonText}</span></button>
+                              <button title="${denyButtonTitle}" aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button">
+                                <span class="ui-button-text">${denyButtonText}</span>
+                              </button>
                             </g:form>
                           </div>
                         </g:if>

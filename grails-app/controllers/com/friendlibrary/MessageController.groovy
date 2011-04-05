@@ -113,7 +113,9 @@ class MessageController {
 		redirect(controller: 'user', action: 'library', id:params.requestedUser)
 	}
   
-  //TODO: is this needed?
+  /*
+  // Mark an item as delivered to a borrower
+  */
   def confirmItemRequest = {
 		try{
 			messageService.confirmItemRequest(params)

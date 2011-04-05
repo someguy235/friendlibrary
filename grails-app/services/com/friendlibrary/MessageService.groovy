@@ -189,8 +189,8 @@ class MessageService {
    def confirmMessage = new Message(
      sentFrom:requestedUser,
      sentTo:requestingUser,
-     body:"${requestedUser.username} has agreed to loan you the ${requestedItem.mediaType} \
-       \"${requestedItem.title}\", and will bring it to you soon",
+     body:"${requestedUser.username} has loaned you the ${requestedItem.mediaType} \
+       \"${requestedItem.title}\". ",
       type:"Item Request Confirm",
       item:requestedItem
     )
