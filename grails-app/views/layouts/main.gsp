@@ -1,6 +1,7 @@
 <html>
   <head>
     <title><g:layoutTitle default="FriendLibrary" /></title>
+    <link rel="stylesheet" href="${resource(dir:'css',file:'html5bp.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'960gs.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css/custom-theme',file:'jquery-ui-1.8.7.custom.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'tablesorter-style.css')}" />

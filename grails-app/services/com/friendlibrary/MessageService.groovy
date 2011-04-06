@@ -176,21 +176,30 @@ class MessageService {
   /*
   //Confirm a request to borrow an item
   */
- void confirmItemRequest(params){
-   System.out.println(params.messageId)
-   def message = Message.get(params.messageId)
-   assert message != null
-   def requestedItem = message.item
-   assert requestedItem != null
-   def requestedUser = message.sentTo
-   assert requestedUser != null
-   def requestingUser = message.sentFrom
-   assert requestingUser != null
-   def confirmMessage = new Message(
-     sentFrom:requestedUser,
-     sentTo:requestingUser,
-     body:"${requestedUser.username} has loaned you the ${requestedItem.mediaType} \
-       \"${requestedItem.title}\". ",
+  void confirmItemRequest(params){
+    def message
+    if (params.messageId){
+      message = Message.get(params.messageId)
+    }
+    else{
+      message = Message.find("from Message as m where \
+                              m.sentFrom = ${params.requestingUser} and \
+                              m.sentTo = ${params.requestedUser} and \
+                              m.item = ${params.requestedMedia}")
+    }
+    def requestedItem = message.item
+    def requestedUser = message.sentTo
+    def requestingUser = message.sentFrom
+
+    assert message != null
+    assert requestedItem != null
+    assert requestedUser != null
+    assert requestingUser != null
+    def confirmMessage = new Message(
+      sentFrom:requestedUser,
+      sentTo:requestingUser,
+      body:"${requestedUser.username} has loaned you the ${requestedItem.mediaType} \
+        \"${requestedItem.title}\". ",
       type:"Item Request Confirm",
       item:requestedItem
     )
@@ -201,7 +210,7 @@ class MessageService {
     requestedItem.loanedTo = requestingUser
     requestedItem.save(failOnError:true)
 
-    message.item.requestQueue.remove(message.sentFrom.id)
+    requestedItem.requestQueue.remove(requestingUser.id)
     message.delete()
   }
 

@@ -274,6 +274,9 @@
                         <td align="center">
                           <!-- options panel -->
                           <div id="item_options-${item.id}" class="library_item_options" title="${item.title}">
+                            <div class="library_item_status">
+                              ${item_status_message}
+                            </div>
                             <g:if test="${item.loanedOut == true}">
                               <g:set var="item_status_message" value="this item is loaned out" />
                               <g:set var="buttonColor" value="red" />
@@ -308,6 +311,17 @@
                               <g:set var="item_status_message" value="this item has been requested" />
                               <g:set var="buttonColor" value="yellow" />
                               <g:if test="${viewingSelf}">
+                                <div class="library_item_option">
+                                  <g:form controller="message" action="confirmItemRequest">
+                                    <input type="hidden" id="requestingUser" name="requestingUser" value="${item.requestQueue[0]}" />
+                                    <input type="hidden" id="requestedUser" name="requestedUser" value="${user.id}" />
+                                    <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
+                                    <button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
+                                      <img height="15" width="15" src="${resource(dir:'images/icons',file:"greenlight.png")}" />
+                                    </button>
+                                    mark this item as delivered
+                                  </g:form>
+                                </div>
                                 <g:set var="formAction" value="removeAllItemRequests" />
                                 <g:set var="buttonTitle" value="remove all requests from this item" />
                               </g:if>
@@ -335,9 +349,7 @@
                               </g:else>
                             </g:else>
                             <g:set var="buttonImage" value="${buttonColor}light.png" />
-                            <div class="library_item_status">
-                              ${item_status_message}
-                            </div>
+
                             <div class="library_item_option">
                               <g:form controller="message" action="${formAction}">
                                 <input type="hidden" id="requestingUser" name="requestingUser" value="${viewUser.id}" />
