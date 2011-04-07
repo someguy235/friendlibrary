@@ -162,13 +162,663 @@ a, a:active, a:visited { color: #607890; }
 a:hover { color: #036; }
 
 
+
+
+/**/
+/*
+/* 960.gs */
+/*
+/**/
+/*
+	Variable Grid System.
+	Learn more ~ http://www.spry-soft.com/grids/
+	Based on 960 Grid System - http://960.gs/
+
+	Licensed under GPL and MIT.
+*/
+
+
+/* Containers
+----------------------------------------------------------------------------------------------------*/
+.container_12 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+}
+
+/* Grid >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.grid_1,
+.grid_2,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12 {
+	display:inline;
+	float: left;
+	position: relative;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*/
+
+.alpha {
+	margin-left: 0;
+}
+
+.omega {
+	margin-right: 0;
+}
+
+/* Grid >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .grid_1 {
+	width:60px;
+}
+
+.container_12 .grid_2 {
+	width:140px;
+}
+
+.container_12 .grid_3 {
+	width:220px;
+}
+
+.container_12 .grid_4 {
+	width:300px;
+}
+
+.container_12 .grid_5 {
+	width:380px;
+}
+
+.container_12 .grid_6 {
+	width:460px;
+}
+
+.container_12 .grid_7 {
+	width:540px;
+}
+
+.container_12 .grid_8 {
+	width:620px;
+}
+
+.container_12 .grid_9 {
+	width:700px;
+}
+
+.container_12 .grid_10 {
+	width:780px;
+}
+
+.container_12 .grid_11 {
+	width:860px;
+}
+
+.container_12 .grid_12 {
+	width:940px;
+}
+
+
+
+/* Prefix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .prefix_1 {
+	padding-left:80px;
+}
+
+.container_12 .prefix_2 {
+	padding-left:160px;
+}
+
+.container_12 .prefix_3 {
+	padding-left:240px;
+}
+
+.container_12 .prefix_4 {
+	padding-left:320px;
+}
+
+.container_12 .prefix_5 {
+	padding-left:400px;
+}
+
+.container_12 .prefix_6 {
+	padding-left:480px;
+}
+
+.container_12 .prefix_7 {
+	padding-left:560px;
+}
+
+.container_12 .prefix_8 {
+	padding-left:640px;
+}
+
+.container_12 .prefix_9 {
+	padding-left:720px;
+}
+
+.container_12 .prefix_10 {
+	padding-left:800px;
+}
+
+.container_12 .prefix_11 {
+	padding-left:880px;
+}
+
+
+
+/* Suffix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .suffix_1 {
+	padding-right:80px;
+}
+
+.container_12 .suffix_2 {
+	padding-right:160px;
+}
+
+.container_12 .suffix_3 {
+	padding-right:240px;
+}
+
+.container_12 .suffix_4 {
+	padding-right:320px;
+}
+
+.container_12 .suffix_5 {
+	padding-right:400px;
+}
+
+.container_12 .suffix_6 {
+	padding-right:480px;
+}
+
+.container_12 .suffix_7 {
+	padding-right:560px;
+}
+
+.container_12 .suffix_8 {
+	padding-right:640px;
+}
+
+.container_12 .suffix_9 {
+	padding-right:720px;
+}
+
+.container_12 .suffix_10 {
+	padding-right:800px;
+}
+
+.container_12 .suffix_11 {
+	padding-right:880px;
+}
+
+
+
+/* Push Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .push_1 {
+	left:80px;
+}
+
+.container_12 .push_2 {
+	left:160px;
+}
+
+.container_12 .push_3 {
+	left:240px;
+}
+
+.container_12 .push_4 {
+	left:320px;
+}
+
+.container_12 .push_5 {
+	left:400px;
+}
+
+.container_12 .push_6 {
+	left:480px;
+}
+
+.container_12 .push_7 {
+	left:560px;
+}
+
+.container_12 .push_8 {
+	left:640px;
+}
+
+.container_12 .push_9 {
+	left:720px;
+}
+
+.container_12 .push_10 {
+	left:800px;
+}
+
+.container_12 .push_11 {
+	left:880px;
+}
+
+
+
+/* Pull Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .pull_1 {
+	left:-80px;
+}
+
+.container_12 .pull_2 {
+	left:-160px;
+}
+
+.container_12 .pull_3 {
+	left:-240px;
+}
+
+.container_12 .pull_4 {
+	left:-320px;
+}
+
+.container_12 .pull_5 {
+	left:-400px;
+}
+
+.container_12 .pull_6 {
+	left:-480px;
+}
+
+.container_12 .pull_7 {
+	left:-560px;
+}
+
+.container_12 .pull_8 {
+	left:-640px;
+}
+
+.container_12 .pull_9 {
+	left:-720px;
+}
+
+.container_12 .pull_10 {
+	left:-800px;
+}
+
+.container_12 .pull_11 {
+	left:-880px;
+}
+
+
+
+
+/* Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+.clearfix:after {
+	clear: both;
+	content: ' ';
+	display: block;
+	font-size: 0;
+	line-height: 0;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+.clearfix {
+	display: block;
+}
+
+
+
+
+/**/
+/*
+/* tablesorter tables */
+/*
+/**/
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 10pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #ECEADF;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(../images/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 5px;
+	background-color: #FFF;
+	/*vertical-align: top;*/
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#ECEADF;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../images/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../images/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+  /*background-color: #C5592F;*/
+  background-color: #5686BA;
+}
+
+
+
+
 /**
  * Primary styles
  *
- * Author: 
+ * Author:
  */
 
+html {
+	background: #ccc;
+	height: 100%;
+}
+body {
+	height: 100%;
+  background: #999999;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#cccccc'); /* for IE */
+  background: -moz-linear-gradient(top, #666, #ccc);
+  background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#ccc));
+  color: #4F4F4F;
+  font: 11px verdana, arial, helvetica, sans-serif;
+	margin:0 auto;
+}
 
+a:link, a:visited, a:hover, a:active, a:focus {
+  color: #97ADC5;
+  font-weight: bold;
+  text-decoration: none;
+  outline-style: none;
+}
+h1{
+  text-align: center;
+  color: #ba9556;
+  background: #476F9A;
+  font-size: 20px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39587A', endColorstr='#5686BA'); /* for IE */
+  background: -moz-linear-gradient(top, #39587A, #5686BA);
+  background: -webkit-gradient(linear, left top, left bottom, from(#39587A), to(#5686BA));
+  padding: 5px 0px 5px 0px;
+  margin: 0px 0px 0px 0px;
+}
+h2 {
+  color:#2878AE;
+  font-weight: normal;
+  font-size: 18px;
+  margin: .8em 0 .3em 0;
+}
+h3 {
+  color: #000;
+  font-weight: normal;
+  font-size: 14px;
+  margin: .8em 0 .3em 0;
+}
+img {
+  outline-style: none;
+}
+input, select, textarea {
+  background-color: #fcfcfc;
+  border: 1px solid #ccc;
+  font: 11px verdana, arial, helvetica, sans-serif;
+  margin: 2px 0;
+  padding: 2px 4px;
+}
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #5686ba;
+}
+select {
+   padding: 2px 2px 2px 0;
+}
+table.tablesorter thead tr th{
+  border: 1px solid #CECECE;
+}
+table.tablesorter tr td{
+  border: 1px solid #CECECE;
+  vertical-align: middle;
+}
+textarea {
+	width: 250px;
+	height: 150px;
+	vertical-align: top;
+}
+ul {
+  padding-left: 15px;
+}
+
+#header{
+  height: 64px;
+  background-color: #5686ba;
+}
+#messageTabs{
+  padding-top: 10px;
+}
+div#newItemTabs td, div#newItemListTabs td{
+  vertical-align: middle;
+}
+
+.action_buttons{
+	text-align: center;
+}
+.button_confirm{
+  margin-right:0px;
+  width:50%;
+  float:left;
+}
+.button_deny{
+  margin-left:0px;
+  width:50%;
+  float:left;
+}
+.clear {
+  clear: both;
+	height: 0;
+	visibility: hidden;
+}
+.content{
+	background:#fff;
+}
+.flash{
+	background: #CFC233;
+	font-size: 14px;
+	padding: .3em;
+  margin: .8em 0 .3em 0;
+  text-align: center;
+}
+.footer{
+  color: #ba9556;
+  font-weight: normal;
+  font-size: 18px;
+  padding-top: .4em;
+  padding-bottom: .4em;
+  text-align: center;
+	background: #39587A;
+	width: 100%;
+  position:fixed;
+  bottom:0px;
+	border-top: 2px dotted;
+}
+.highlight-box{
+	background-color:#D4D1BF;
+	border: 1px solid #b83400;
+	margin-left:25%;
+	width:50%;
+	padding: 5px;
+}
+.import_box{
+  text-align: center;
+  height:200px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.library_all_col_available{
+  width:64px;
+}
+.library_all_col_media{
+  width:50px;
+}
+.library_all_col_artist{
+  min-width:50px;
+}
+.library_all_col_author{
+  min-width:55px;
+}
+.library_all_col_format{
+  min-width:55px;
+}
+.library_all_col_platform{
+  width:65px;
+}
+.library_item_option{
+  margin: 3px;
+}
+.library_item_option form {
+  vertical-align: middle;
+}
+.library_item_options{
+  text-align: left;
+  margin: 3px;
+}
+.library_item_status{
+  font-size: 11pt;
+  color: #5686ba;
+  text-align: center;
+  margin: 5px;
+}
+.library_table_body{
+  font-size: 9pt;
+}
+.library_table_body tr td{
+  vertical-align: middle;
+}
+.main {
+	text-align: center;
+  padding-top: 10px;
+  color: #fff;
+}
+.message{
+	margin-left:25%;
+	padding: 5px;
+	width:50%;
+	font-weight:600;
+	font-size:150%;
+	background: #CF7491;
+	border: 1px dotted #b83400;
+}
+.noItems{
+	padding:5px 0px 5px 0px;
+	width:100%;
+	background-color:#FFF;
+}
+.profile_avail_category{
+  height:20px;
+}
+.profile_avail_image{
+  position:relative;
+  height:20px;
+}
+.profile_avail_count{
+  height:20px;
+  position:relative;
+  left:30px;
+  top:-20px;
+}
+.profile_column{
+	font: 14px verdana, arial, helvetica, sans-serif;
+	text-align:left;
+}
+.search {
+	text-align: center;
+  background: #eee;
+  padding: 10px;
+  border: 1px solid #F6AE38;
+}
+.searchBox{
+	width:33%;
+}
+.search_column{
+	width:32%;
+	float:left;
+	padding: 3px 0px 2px 10px;
+}
+.searchField{
+	width:70%;
+	float:right;
+}
+.searchLabel{
+	padding-top:4px;
+	width:30%;
+	float:left;
+	text-align:right;
+}
+.search_result {
+  font-weight: normal;
+  font-size: 18px;
+}
+.tableFirstCol{
+	width:9%;
+}
+.tablesorter td {
+  background-color: #CDCDCD;
+  padding:1px;
+  margin: 3px;
+
+}
 
 
 

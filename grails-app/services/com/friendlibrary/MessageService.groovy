@@ -101,6 +101,7 @@ class MessageService {
     //Self-requests mark the item as reserved
     if(requestingUser == requestedUser){
       requestedItem.reserved = true
+      requestedItem.library.available[requestedItem.mediaType + "s"] -= 1
       return "${requestedItem.title} item is now reserved"
     }
     else{
@@ -140,7 +141,9 @@ class MessageService {
   */
   void removeItemRequest(params){
     if(params.requestingUser == params.requestedUser){
-      Item.get(params.requestedMedia).reserved = false
+      def requestedMedia = Item.get(params.requestedMedia)
+      requestedMedia.reserved = false
+      requestedMedia.library.available[requestedMedia.mediaType + 's'] += 1
     }
     else{
       def message = Message.find("from Message as m where \
@@ -209,7 +212,7 @@ class MessageService {
     requestedItem.loanedOut = true
     requestedItem.loanedTo = requestingUser
     requestedItem.save(failOnError:true)
-
+    requestedItem.library.available[requestedItem.mediaType + "s"] -= 1
     requestedItem.requestQueue.remove(requestingUser.id)
     message.delete()
   }
