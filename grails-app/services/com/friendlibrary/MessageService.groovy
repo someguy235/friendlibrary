@@ -7,14 +7,14 @@ package com.friendlibrary
 
 /*
 //Provide services for messages
-*/
+ */
 class MessageService {
 
   boolean transactional = true
 
   /*
   //Sends a friend request message from one user to another
-  */
+   */
 	void makeFriendRequest(params){
     def requestedUser = User.get(params.requestedUserId)
     assert requestedUser != null
@@ -33,7 +33,7 @@ class MessageService {
 
   /*
   // Cancel a previously submitted friend request
-  */
+   */
   void removeFriendRequest(params){
     def requestedUser = User.get(params.requestedUserId)
     assert requestedUser != null
@@ -51,7 +51,7 @@ class MessageService {
   
   /*
   //Ignore a submitted friend request, removes request message from profile
-  */
+   */
 	void denyFriendRequest(params){
     def message = Message.get(params.messageId)
     assert message != null
@@ -62,7 +62,7 @@ class MessageService {
 
   /*
   //Confirm a submitted friend request
-  */
+   */
 	void confirmFriendRequest(params){
     def message = Message.get(params.messageId)
     assert message != null
@@ -75,7 +75,7 @@ class MessageService {
   
   /*
   //Unfriend
-  */
+   */
 	void removeFriend(params){
 		def requestedUser = User.get(params.requestedUserId)
 		assert requestedUser != null
@@ -88,7 +88,7 @@ class MessageService {
   /*
   //Send an item request message to the item-owning user and
   //mark the item as 'requested'
-  */
+   */
 	String makeItemRequest(params){
 		def requestedUser = User.get(params.requestedUser)
 		assert requestedUser != null
@@ -128,7 +128,7 @@ class MessageService {
 
   /*
   // Deny a specific request for an item, leaving all others intact
-  */
+   */
 	void denyItemRequest(params){
     def message = Message.get(params.messageId)
     assert message != null
@@ -138,7 +138,7 @@ class MessageService {
 
   /*
   // Remove a request for an item
-  */
+   */
   void removeItemRequest(params){
     if(params.requestingUser == params.requestedUser){
       def requestedMedia = Item.get(params.requestedMedia)
@@ -158,7 +158,7 @@ class MessageService {
   
   /*
   //Removes all requests for an item and marks it as available
-  */
+   */
   void removeAllItemRequests(params){
     def messages = Message.findAll("from Message as m where \
                                     m.sentFrom = ${params.requestedUser} and \
@@ -170,15 +170,8 @@ class MessageService {
   }
 
   /*
-  //Send a message requesting the return of a specific item
-	*/
-  void requestItemReturn(params){
-		
-	}
-
-  /*
   //Confirm a request to borrow an item
-  */
+   */
   void confirmItemRequest(params){
     def message
     if (params.messageId){
@@ -215,6 +208,35 @@ class MessageService {
     requestedItem.library.available[requestedItem.mediaType + "s"] -= 1
     requestedItem.requestQueue.remove(requestingUser.id)
     message.delete()
+  }
+
+  /*
+  //Send a message requesting the return of a specific item
+   */
+  void requestItemReturn(params){
+    def requestedItem = Item.get(params.requestedMedia)
+		assert requestedItem != null
+    def requestedUser = requestedItem.loanedTo
+    assert requestedUser != null
+    def requestingUser = requestedItem.library.user
+    assert requestingUser != null
+    def requestMessage = new Message(
+      sentFrom:requestingUser,
+      sentTo:requestedUser,
+      body:"${requestingUser.username} has asked you to return the ${requestedItem.mediaType} \"${requestedItem.title}\" ",
+      type:"Item Return Request",
+      item:requestedItem
+    )
+    requestMessage.save(failOnError:true)
+    requestedUser.addToInMessages(requestMessage)
+    requestingUser.addToOutMessages(requestMessage)
+	}
+
+  /*
+  // Un-mark an item as loaned out, and inform the owner
+  */
+  void confirmReturnRequest(param){
+
   }
 
   /*

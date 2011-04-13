@@ -112,6 +112,10 @@
                         <g:set var="denyButtonTitle" value="I don't want to loan this item to ${message.sentFrom.username}" />
                       </g:if>
                       <g:elseif test="${message.type == 'Item Return Request'}">
+                        <g:set var="confirmAction" value="confirmReturnRequest" />
+                        <g:set var="confirmButtonText" value="Confirm" />
+                        <g:set var="confirmButtonTitle" value="I have returned this item to ${message.sentFrom.username}" />
+                        <g:set var="denyAction" value="" />
                       </g:elseif>
                       <g:elseif test="${message.type == 'Friend Request'}">
                         <g:set var="confirmAction" value="confirmFriendRequest" />

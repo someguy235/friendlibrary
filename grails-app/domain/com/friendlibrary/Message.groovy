@@ -14,7 +14,7 @@ class Message {
         "Friend Request",
         "Item Request",
         "Item Request Confirm",
-        "Item Return Return"
+        "Item Return Request"
       ])
       item(nullable:true)
     }
