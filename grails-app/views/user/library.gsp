@@ -23,13 +23,21 @@
 
         $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
-				$("#libTabs").tabs({ selected: 0 });
+
+        $("#libTabs").tabs({ selected: 0 });
       	$("#libTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]} ); 
       	$("#libTabs-games-content").tablesorter( {sortList: [[1,0],[2,0]]} );
       	$("#libTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
       	$("#libTabs-movies-content").tablesorter( {sortList: [[1,0],[2,0]]} );
       	$("#libTabs-music-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-    	}); 
+
+        $("#borowedTabs").tabs({ selected: 0 });
+      	$("#borowedTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#borowedTabs-games-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#borowedTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#borowedTabs-movies-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#borowedTabs-music-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+    	});
 		</g:javascript>
 	</head>
 	<body>
@@ -202,16 +210,82 @@
 		</div>
 		
 		<div class="clear"></div>
-		
+
+    <!--TODO: do this better -->
+    <g:set var="item_categories" value="${['all', 'games', 'books', 'movies', 'music']}" />
+
+    <g:if test="${viewingSelf}">
+      <p><h1>Borrowed Items</h1></p>
+      <div id="borrowedItems" class="main">
+        <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="borrowedTabs">
+
+          <!-- list for tab titles -->
+          <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <g:each in="${item_categories}" var="category">
+              <g:set var="ul_classes" value="ui-state-default ui-corner-top" />
+              <g:if test="${category == 'all'}">
+                <g:set var="ul_classes" value="ui-state-default ui-corner-top ui-tabs-selected ui-state-active" />
+              </g:if>
+              <li class="${ul_classes}"><a href="#borrowedTabs-${category}">${category.capitalize()}</a></li>
+            </g:each>
+          </ul>
+
+          <g:each in="${item_categories}" var="category">
+            <!-- create a hashmap of lists of items for this category
+                 each item type gets its own list, even if there is only one item type -->
+            <g:if test="${category == 'all'}">
+              <g:set var="category_list" value="${borrowedItems}" />
+            </g:if>
+            <g:else>
+              <g:set var="category_list" value='${[category: borrowedItems[category]]}' />
+            </g:else>
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="borrowedTabs-${category}">
+              <!-- check for empty categories -->
+              <g:set var="empty_category" value="${true}" />
+              <g:each in="${category_list}" var="category_list_entry">
+                <g:if test="${category_list_entry.value.size() != 0}">
+                  <g:set var="empty_category" value="${false}" />
+                </g:if>
+              </g:each>
+              <g:if test="${empty_category == true}">
+                <div class="noItems">There are no items in this category yet.</div>
+              </g:if>
+              <g:else>
+                <table id="borrowedTabs-${category}-content" class="tablesorter">
+                  <thead>
+                    <tr>
+                      <th class="library_all_col_available">Available &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                      <th class="library_all_col_media">Media &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                      <th class="library_all_col_title">Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody class="library_table_body">
+                    <g:each in="${category_list}" var="itemCategory">
+                      <g:each in="${itemCategory.value}" var="item">
+                        <tr>
+                          <td>true</td>
+                          <td>${item.mediaType}</td>
+                          <td>${item.title}</td>
+                        </tr>
+                      </g:each>
+                    </g:each>
+                  </tbody>
+                </table>
+              </g:else>
+            </div>
+          </g:each>
+        </div>
+      </div>
+		</g:if>
+
+		<div class="clear"></div>
+
     <p><h1>Library for <g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></h1></p>
 		
 		<g:if test="${flash.message}">
 			<div class="flash">${flash.message}</div>
 		</g:if>
 
-    <!--TODO: do this better -->
-    <g:set var="item_categories" value="${['all', 'games', 'books', 'movies', 'music']}" />
-    
 		<div id="allItems" class="main">
 			<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="libTabs">
 
@@ -279,6 +353,7 @@
                               <g:set var="item_status_message" value="this item is loaned out" />
                               <g:set var="buttonColor" value="red" />
                               <g:if test="${viewingSelf}">
+                                <g:set var="item_status_message" value="this item is loaned out to ${item.loanedTo.username}" />
                                 <g:set var="formAction" value="requestItemReturn" />
                                 <g:set var="buttonTitle" value="request this item be returned" />
                               </g:if>

@@ -54,8 +54,9 @@ class UserController {
         def userLib = libUser.library
         //def allItems = [userLib.albums, userLib.books, userLib.games, userLib.movies]
         def allItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
+        def borrowedItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
         def boolean viewingSelf = (libUser == viewUser)
-        [ user : libUser, viewUser:viewUser, viewingSelf : viewingSelf, allItems:allItems ]
+        [ user : libUser, viewUser:viewUser, viewingSelf : viewingSelf, allItems:allItems, borrowedItems:borrowedItems ]
     }
 		
 }
