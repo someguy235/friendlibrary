@@ -204,6 +204,7 @@ class MessageService {
     requestedUser.addToOutMessages(confirmMessage)
     requestedItem.loanedOut = true
     requestedItem.loanedTo = requestingUser
+    requestingUser.addToBorrowed(requestedItem)
     requestedItem.save(failOnError:true)
     requestedItem.library.available[requestedItem.mediaType + "s"] -= 1
     requestedItem.requestQueue.remove(requestingUser.id)

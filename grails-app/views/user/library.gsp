@@ -23,6 +23,13 @@
 
         $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
+        
+        $("#borrowedTabs").tabs({ selected: 0 });
+      	$("#borrowedTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#borrowedTabs-games-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#borrowedTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#borrowedTabs-movies-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+      	$("#borrowedTabs-music-content").tablesorter( {sortList: [[1,0],[2,0]]} );
 
         $("#libTabs").tabs({ selected: 0 });
       	$("#libTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]} ); 
@@ -30,185 +37,17 @@
       	$("#libTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
       	$("#libTabs-movies-content").tablesorter( {sortList: [[1,0],[2,0]]} );
       	$("#libTabs-music-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-
-        $("#borowedTabs").tabs({ selected: 0 });
-      	$("#borowedTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#borowedTabs-games-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#borowedTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#borowedTabs-movies-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#borowedTabs-music-content").tablesorter( {sortList: [[1,0],[2,0]]} );
     	});
 		</g:javascript>
 	</head>
 	<body>
+    
 		<div > <!-- interface for adding items -->
 			<g:if test="${viewingSelf}">
-	  		<div class="import_box grid_6">
-					<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newItemTabs">
-						<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-							<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#newItemTabs-game">Game</a></li>
-							<li class="ui-state-default ui-corner-top"><a href="#newItemTabs-book">Book</a></li>
-							<li class="ui-state-default ui-corner-top"><a href="#newItemTabs-movie">Movie</a></li>
-							<li class="ui-state-default ui-corner-top"><a href="#newItemTabs-music">Music</a></li>
-						</ul>
-	
-						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="newItemTabs-game">
-							<g:form controller="item" action="addItem" id="${user.id}">
-								<table>
-									<tr>
-										<td><label for="title">Title&nbsp;</label></td>
-										<td><g:textField id="title" name="title"/></td>
-									</tr>
-									<tr>
-										<g:set var="platforms" value="${['PS3', 'XBox360', 'Wii']}" />
-										<td><label for="platform">Platform&nbsp;</label></td>
-										<td>
-											<div class="ui-widget">
-												<g:select from="${platforms}" value="PS3" name="platform" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
-											</div>
-										</td>
-									</tr>
-								</table>
-								<br />
-								<input type="hidden" id="mediaType" name="mediaType" value="game" />
-								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-							</g:form>
-						</div>
-	
-						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-book">
-							<g:form controller="item" action="addItem" id="${user.id}">
-								<table>
-									<tr>
-										<td><label for="title">Title&nbsp;</label></td>
-										<td><g:textField id="title" name="title"/></td>
-									</tr>
-									<tr>
-										<td><label for="author">Author&nbsp;</label></td>
-										<td><g:textField id="author" name="author"/></td>
-									</tr>
-								</table>
-								<br />
-								<input type="hidden" id="mediaType" name="mediaType" value="book" />
-								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-							</g:form>
-						</div>
-	
-						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-movie">
-							<g:form controller="item" action="addItem" id="${user.id}">
-								<table>
-									<tr>
-										<td><label for="title">Title&nbsp;</label></td>
-										<td><g:textField id="title" name="title"/></td>
-									</tr>
-									<tr>
-										<g:set var="formats" value="${['DVD', 'BlueRay', 'VHS', 'File']}" />
-										<td><label for="format">Format&nbsp;</label></td>
-										<td>
-											<div class="ui-widget">
-												<g:select from="${formats}" value="DVD" name="format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
-											</div>
-										</td>
-									</tr>
-								</table>
-								<br />
-								<input type="hidden" id="mediaType" name="mediaType" value="movie" />
-								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-							</g:form>
-						</div>
-
-
-						<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-music">
-							<g:form controller="item" action="addItem" id="${user.id}">
-								<table>
-									<tr>
-										<td><label for="title">Title&nbsp;</label></td>
-										<td><g:textField id="title" name="title"/></td>
-									</tr>
-									<tr>
-										<td><label for="artist">Artist&nbsp;</label></td>
-										<td><g:textField id="artist" name="artist"/></td>
-									</tr>
-									<tr>
-										<g:set var="formats" value="${['File', 'CD']}" />
-										<td><label for="format">Format&nbsp;</label></td>
-										<td>
-											<div class="ui-widget">
-												<g:select from="${formats}" value="File" name="format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
-											</div>
-										</td>
-									</tr>
-								</table>
-								<br />
-								<input type="hidden" id="mediaType" name="mediaType" value="album" />
-								<button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-							</g:form>
-						</div>
-
-				</div>
-			</div>
-			
-			<div class="import_box grid_6">
-        <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newItemListTabs">
-          <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-            <!--<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#newItemListTabs-game">Games</a></li>-->
-            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#newItemListTabs-book">Books</a></li>
-            <!--<li class="ui-state-default ui-corner-top"><a href="#newItemListTabs-movie">Movies</a></li>-->
-            <!--<li class="ui-state-default ui-corner-top"><a href="#newItemListTabs-movie">Music</a></li>-->
-          </ul>
-          <!--
-          <div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="newItemListTabs-game">
-            <table>
-              <tr>
-                <g:set var="platforms" value="${['PS3', 'XBox360', 'Wii']}" />
-                <td><label for="platform">Platform&nbsp;</label></td>
-                <td>
-                <div class="ui-widget">
-                  <g:select from="${platforms}" value="PS3" name="platform" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
-                </div>
-                </td>
-              </tr>
-              <tr>
-                <td><label for="title">Title&nbsp;</label></td>
-                <td><g:textField id="title" name="title"/></td>
-              </tr>
-            </table>
-          </div>
-          -->
-          <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemListTabs-book">
-            <g:form controller="item" action="addItemList" id="${user.id}">
-              <table>
-                <tr>
-                  <g:set var="source" value="${['GoodReads']}" />
-                  <td><label for="source">Source&nbsp;</label></td>
-                  <td>
-                    <div class="ui-widget">
-                      <g:select from="${source}" value="GoodReads" name="source" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><label for="remoteUserId">User Id&nbsp;</label></td>
-                  <td><g:textField id="remoteUserId" name="remoteUserId"/></td>
-                </tr>
-              </table>
-              <br />
-              <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Import List</span></button>
-            </g:form>
-          </div>
-          <!--
-          <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemListTabs-movie">
-            Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.
-          </div>
-          <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemListTabs-music">
-            Nam dui erat, auctor a, dignissim quis, entesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.
-          </div>
-          -->
-        </div>
-        <br />
-			</div>
+        <g:render template="addItem" />
+        <g:render template="addItemList" />
 			</g:if>
 		</div>
-		
 		<div class="clear"></div>
 
     <!--TODO: do this better -->
@@ -264,7 +103,10 @@
                       <g:each in="${itemCategory.value}" var="item">
                         <tr>
                           <td>true</td>
-                          <td>${item.mediaType}</td>
+                          <td align="center">
+                            <g:set var="mediaImage" value="${item.mediaType}.png" />
+                            <img height="20" width="20" src="${resource(dir:'images/icons',file:mediaImage)}" alt="${item.mediaType}" title="${item.mediaType}"/>
+                          </td>
                           <td>${item.title}</td>
                         </tr>
                       </g:each>
@@ -494,6 +336,9 @@
         </g:each>
 			</div>
 		</div>
+
+    <div class="clear"></div>
+
 	</body>
 </html>
 

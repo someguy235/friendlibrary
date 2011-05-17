@@ -15,7 +15,7 @@ class Item {
 	//User requestedBy
 	User loanedTo
 	List requestQueue = []
-  static hasMany = [requestQueue:long]
+  //static hasMany = [requestQueue:long]
 	
     static constraints = {
       title(nullable:false)
@@ -29,8 +29,10 @@ class Item {
     }
 
 	//static belongsTo = [ user : User ]
-	static belongsTo = [ library : Library ]
-
+	//static belongsTo = [ library : Library ]
+  static belongsTo = Library
+  static hasMany = [ libraries:Library, requestQueue:long ]
+  
 	static mapping = {
 	  sort title:"asc"
 	}

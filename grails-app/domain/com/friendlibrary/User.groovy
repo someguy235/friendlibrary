@@ -12,6 +12,7 @@ class User {
 	String userLastName
 	
 	Library library
+  Library borrowed
 	
 	//Message[] messages
 	//Message[] outMessages
