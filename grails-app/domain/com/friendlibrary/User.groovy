@@ -1,39 +1,34 @@
 package com.friendlibrary
 
 class User {
-	boolean enabled
+  boolean enabled
 	
-	String username
-	String passwd
-	String email
-	Date dateCreated
+  String username
+  String passwd
+  String email
+  Date dateCreated
 		
-	String userFirstName
-	String userLastName
+  String userFirstName
+  String userLastName
 	
-	Library library
-  Library borrowed
+  //Library library
+  //Library borrowed
 	
-	//Message[] messages
-	//Message[] outMessages
-	
-	static hasMany = [ authorities:Role, friends:User, inMessages:Message, outMessages:Message ]
-  //static hasMany = [ authorities:Role, friends:User ]
-	static mappedBy = [inMessages:"sentTo", outMessages:"sentFrom"]
-    static belongsTo = Role
+  static hasMany = [ authorities:Role, friends:User, inMessages:Message, outMessages:Message, libraries:Library ]
+  static mappedBy = [inMessages:"sentTo", outMessages:"sentFrom"]
+  static belongsTo = Role
 
-    static constraints = {
-		username(size:3..30, unique:true)
-		passwd(size:6..64)
-		email(nullable:false, blank:true)
-		userFirstName(size:0..64, nullable:true, blank:true)
-		userLastName(size:0..64, nullable:true, blank:true)
-    }
+  static constraints = {
+    username(size:3..30, unique:true)
+    passwd(size:6..64)
+    email(nullable:false, blank:true)
+    userFirstName(size:0..64, nullable:true, blank:true)
+    userLastName(size:0..64, nullable:true, blank:true)
+  }
 
-	static mapping = {
-	}
+  static mapping = {  }
 
-	String toString(){
-		"${username}"
-	}
+  String toString(){
+    "${username}"
+  }
 }
