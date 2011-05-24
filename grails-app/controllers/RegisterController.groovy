@@ -160,8 +160,10 @@ class RegisterController {
 		person.passwd = pass
 		person.enabled = true
 		//person.description = ''
-		person.library = new com.friendlibrary.Library()
-    person.borrowed = new com.friendlibrary.Library()
+		//person.library = new com.friendlibrary.Library()
+    //person.borrowed = new com.friendlibrary.Library()
+    person.addToLibraries(new com.friendlibrary.Library(name:"owned"))
+    person.addToLibraries(new com.friendlibrary.Library(name:"borrowed"))
 		if (person.save()) {
 			
 			role.addToPeople(person)
