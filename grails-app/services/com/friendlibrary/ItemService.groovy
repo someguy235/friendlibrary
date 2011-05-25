@@ -14,13 +14,18 @@ class ItemService{
   //
 	String addItem(params){
 		def user = User.get(params.id)
-		def library = user?.library
+		//def library = user?.library
+    def library = Library.find("from Library as l where \
+                                l.name = :name and \
+                                l.user.id = :userid",
+                                [name:"owned", userid:user.id]
+                              )
 
     def existingItem = Item.find("from Item as i where \
                                   i.title = :title and \
                                   i.mediaType = :mediaType and \
-                                  i.library.id = :libid",
-                                  [title:params.title, mediaType:params.mediaType, libid:library.id]
+                                  i.libraries.get(:ownedid).id = :libid",
+                                  [ownedid:"owned", title:params.title, mediaType:params.mediaType, libid:library.id]
                                 )
     
     if(existingItem){
@@ -46,8 +51,8 @@ class ItemService{
     }
     library.available[(params.mediaType + "s")]+=1
     item.title = params.title
-    item.library = library
-
+    item.libraries.put("owned", library)
+    
     item.save(failOnError:true)
     if(library.save(failOnError:true)){
       return "item added"

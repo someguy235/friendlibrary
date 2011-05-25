@@ -12,7 +12,8 @@ class BootStrap {
       userLastName:"ministrator",
       passwd:password,
       enabled:true,
-    ).save()
+      library:new com.friendlibrary.Library()
+    ).save(failOnError:true)
     
 
     password = authenticateService.encodePassword("catfood")
@@ -23,14 +24,13 @@ class BootStrap {
       userLastName:"Cat",
       passwd:password,
       enabled:true,
-    ).save()
+      library:new com.friendlibrary.Library()
+    ).save(failOnError:true)
 
     //create admin role
     def sudo = new com.friendlibrary.Role(authority:"ROLE_ADMIN",description:"Site Administrator")
     // now add the User to the role
     if (null != superadmin){
-      superadmin.addToLibraries(new com.friendlibrary.Library(name:"owned"))
-      superadmin.addToLibraries(new com.friendlibrary.Library(name:"borrowed"))
       sudo.addToPeople(superadmin)
       sudo.save()
     }
@@ -38,8 +38,6 @@ class BootStrap {
     def role_user = new com.friendlibrary.Role(authority:"ROLE_USER",description:"User").save()
     def defaultRole = role_user
     if (null != buster){
-      buster.addToLibraries(new com.friendlibrary.Library(name:"owned"))
-      buster.addToLibraries(new com.friendlibrary.Library(name:"borrowed"))
       role_user.addToPeople(buster)
       role_user.save()
     }

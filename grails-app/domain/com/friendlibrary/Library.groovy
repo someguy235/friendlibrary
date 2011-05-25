@@ -2,8 +2,6 @@ package com.friendlibrary
 
 class Library {
 
-  String name
-
   static belongsTo = [ user:User ]
     
   static hasMany = [ books:Book, games:Game, albums:Album, movies:Movie ]
@@ -13,6 +11,6 @@ class Library {
   }
 
   String toString(){
-    "${user.username + ": " + name}"
+    "${user.username + ": library"}"
   }
 }

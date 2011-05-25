@@ -50,18 +50,12 @@ class UserController {
     def libUser = User.get(params.id)
     def viewUser = authenticateService.userDomain()
     viewUser = User.get(viewUser.id)
-    def userLib = Library.find("from Library as l where \
-                                  l.name = :name and \
-                                  l.user.id = :userid",
-                                  [name:"owned", userid:libUser.id]
-                                )
-    def borrowLib = Library.find("from Library as l where \
-                                  l.name = :name and \
-                                  l.user.id = :userid",
-                                  [name:"borrowed", userid:libUser.id]
-                                )
+    def userLib = libUser.library
+    
     def allItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
-    def borrowedItems = ['music':borrowLib.albums, 'books':borrowLib.books, 'games':borrowLib.games, 'movies':borrowLib.movies]
+    def borrowedItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
+
+    //def borrowedItems = ['music':borrowLib.albums, 'books':borrowLib.books, 'games':borrowLib.games, 'movies':borrowLib.movies]
     def boolean viewingSelf = (libUser == viewUser)
     [ user : libUser, viewUser:viewUser, viewingSelf : viewingSelf, allItems:allItems, borrowedItems:borrowedItems ]
   }

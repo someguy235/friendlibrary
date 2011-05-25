@@ -11,10 +11,9 @@ class User {
   String userFirstName
   String userLastName
 	
-  //Library library
-  //Library borrowed
+  Library library
 	
-  static hasMany = [ authorities:Role, friends:User, inMessages:Message, outMessages:Message, libraries:Library ]
+  static hasMany = [ authorities:Role, friends:User, inMessages:Message, outMessages:Message ]
   static mappedBy = [inMessages:"sentTo", outMessages:"sentFrom"]
   static belongsTo = Role
 
