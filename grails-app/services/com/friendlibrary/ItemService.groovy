@@ -14,18 +14,13 @@ class ItemService{
   //
 	String addItem(params){
 		def user = User.get(params.id)
-		//def library = user?.library
-    def library = Library.find("from Library as l where \
-                                l.name = :name and \
-                                l.user.id = :userid",
-                                [name:"owned", userid:user.id]
-                              )
-
+		def library = user?.library
+    
     def existingItem = Item.find("from Item as i where \
                                   i.title = :title and \
                                   i.mediaType = :mediaType and \
-                                  i.libraries.get(:ownedid).id = :libid",
-                                  [ownedid:"owned", title:params.title, mediaType:params.mediaType, libid:library.id]
+                                  i.library.id = :libid",
+                                  [title:params.title, mediaType:params.mediaType, libid:library.id]
                                 )
     
     if(existingItem){
@@ -51,7 +46,7 @@ class ItemService{
     }
     library.available[(params.mediaType + "s")]+=1
     item.title = params.title
-    item.libraries.put("owned", library)
+    item.library = library
     
     item.save(failOnError:true)
     if(library.save(failOnError:true)){
@@ -114,5 +109,29 @@ class ItemService{
     }catch(Exception e){
       return "failed to delete item: " + e
     }
+  }
+
+  HashMap getBorrowedItems(userId){
+    def bMusic = Item.findAll("from Item as i where \
+                             i.loanedTo.id = :id and \
+                             i.mediaType = :mediaType",
+                             [mediaType:"album", id:userId]
+                            )
+    def bMovies = Item.findAll("from Item as i where \
+                             i.loanedTo.id = :id and \
+                             i.mediaType = :mediaType",
+                             [mediaType:"movie", id:userId]
+                            )
+    def bBooks = Item.findAll("from Item as i where \
+                             i.loanedTo.id = :id and \
+                             i.mediaType = :mediaType",
+                             [mediaType:"book", id:userId]
+                            )
+    def bGames = Item.findAll("from Item as i where \
+                             i.loanedTo.id = :id and \
+                             i.mediaType = :mediaType",
+                             [mediaType:"game", id:userId]
+                            )
+    def bLib = ['music':bMusic, 'books':bBooks, 'games':bGames, 'movies':bMovies]
   }
 }

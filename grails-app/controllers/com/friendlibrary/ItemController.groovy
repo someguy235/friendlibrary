@@ -25,7 +25,6 @@ class ItemController {
   }
 		
   def addItem = {
-    println "add item"
     try{
       flash.message = itemService.addItem(params)
     }catch(ItemException ie){

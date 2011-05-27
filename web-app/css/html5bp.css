@@ -721,6 +721,9 @@ div#newItemTabs td, div#newItemListTabs td{
 .library_all_col_format{
   min-width:55px;
 }
+.library_all_col_owner{
+  width: 100px;
+}
 .library_all_col_platform{
   width:65px;
 }

@@ -96,6 +96,7 @@
                       <th class="library_all_col_available">Available &nbsp;&nbsp;&nbsp;&nbsp;</th>
                       <th class="library_all_col_media">Media &nbsp;&nbsp;&nbsp;&nbsp;</th>
                       <th class="library_all_col_title">Title &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                      <th class="library_all_col_owner">Owner &nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </tr>
                   </thead>
                   <tbody class="library_table_body">
@@ -108,6 +109,7 @@
                             <img height="20" width="20" src="${resource(dir:'images/icons',file:mediaImage)}" alt="${item.mediaType}" title="${item.mediaType}"/>
                           </td>
                           <td>${item.title}</td>
+                          <td>${item.library.user.username}</td>
                         </tr>
                       </g:each>
                     </g:each>
@@ -121,7 +123,6 @@
 		</g:if>
 
 		<div class="clear"></div>
-
     <p><h1>Library for <g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></h1></p>
 		
 		<g:if test="${flash.message}">

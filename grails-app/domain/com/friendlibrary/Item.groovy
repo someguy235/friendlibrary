@@ -9,8 +9,8 @@ class Item {
 	Boolean reserved = false
 	Boolean loanedOut = false
 	Integer rating
-  User ownedBy
-	User loanedTo
+  //User ownedBy
+	User loanedTo = null
 	List requestQueue = []
 	
     static constraints = {

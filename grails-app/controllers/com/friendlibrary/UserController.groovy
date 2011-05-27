@@ -3,6 +3,7 @@ package com.friendlibrary
 class UserController {
   def scaffold = true
   def authenticateService
+  def itemService
 
   def search = {}
 
@@ -53,9 +54,9 @@ class UserController {
     def userLib = libUser.library
     
     def allItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
-    def borrowedItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
+    //def borrowedItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
+    def borrowedItems = itemService.getBorrowedItems(params.id.toLong())
 
-    //def borrowedItems = ['music':borrowLib.albums, 'books':borrowLib.books, 'games':borrowLib.games, 'movies':borrowLib.movies]
     def boolean viewingSelf = (libUser == viewUser)
     [ user : libUser, viewUser:viewUser, viewingSelf : viewingSelf, allItems:allItems, borrowedItems:borrowedItems ]
   }
