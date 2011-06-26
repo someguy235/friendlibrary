@@ -236,8 +236,27 @@ class MessageService {
   /*
   // Un-mark an item as loaned out, and inform the owner
   */
-  void confirmReturnRequest(param){
+  void confirmReturnRequest(params){
+    def message = Message.get(params.messageId)
+    assert message != null
+    def requestedItem = message.item
+    assert message != null
+    
+    def confirmMessage = new Message(
+      sentFrom:message.sentTo,
+      sentTo:message.sentFrom,
+      body:"${message.sentTo.username} has returned the ${requestedItem.mediaType} \"${requestedItem.title}\" ",
+      type:"Item Return Confirm"
+    )
+    confirmMessage.save(failOnError:true)
+    message.sentFrom.addToInMessages(confirmMessage)
+    message.sentTo.addToOutMessages(confirmMessage)
 
+    requestedItem.loanedOut = false
+    requestedItem.loanedTo = null
+    requestedItem.save(failOnError:true)
+    requestedItem.library.available[requestedItem.mediaType + "s"] += 1
+    message.delete()
   }
 
   /*

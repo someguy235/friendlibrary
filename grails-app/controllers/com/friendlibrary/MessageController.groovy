@@ -112,6 +112,15 @@ class MessageController {
 		}
 		redirect(controller: 'user', action: 'library', id:params.requestedUser)
 	}
+
+  def confirmReturnRequest = {
+    try{
+      messageService.confirmReturnRequest(params)
+    }catch(ItemException ie){
+      flash.message = ie.message
+    }
+    redirect(controller: 'user', action: 'profile', id:params.requestedUser)
+  }
   
   /*
   // Mark an item as delivered to a borrower

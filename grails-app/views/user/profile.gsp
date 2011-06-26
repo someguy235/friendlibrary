@@ -117,6 +117,11 @@
                         <g:set var="confirmButtonTitle" value="I have returned this item to ${message.sentFrom.username}" />
                         <g:set var="denyAction" value="" />
                       </g:elseif>
+                      <g:elseif test="${message.type == 'Item Return Confirm'}">
+                        <g:set var="confirmAction" value="dismissMessage" />
+                        <g:set var="confirmButtonText" value="Ok" />
+                        <g:set var="denyAction" value="" />
+                      </g:elseif>
                       <g:elseif test="${message.type == 'Friend Request'}">
                         <g:set var="confirmAction" value="confirmFriendRequest" />
                         <g:set var="confirmButtonText" value="Confirm" />
