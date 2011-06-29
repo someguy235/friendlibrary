@@ -1,3 +1,13 @@
+/*
+ * Item.groovy
+ *
+ * Contains attributes common to all items.
+ *
+ * Should not be used directly. Rather, should be extended by the actual item
+ * types, such as albums and books.
+ *
+ */
+
 package com.friendlibrary
 
 class Item {
@@ -9,26 +19,21 @@ class Item {
 	Boolean reserved = false
 	Boolean loanedOut = false
 	Integer rating
-  //User ownedBy
 	User loanedTo = null
 	List requestQueue = []
 	
-    static constraints = {
-      title(nullable:false)
-      reserved(nullable:true)
-      loanedOut(nullable:true)
-      rating(size:1..5, nullable:true)
-      loanedTo(nullable:true)
-      requestQueue(nullable:true)
-    }
+  static constraints = {
+    title(nullable:false)
+    reserved(nullable:false)
+    loanedOut(nullable:false)
+    rating(size:1..5, nullable:true)
+    loanedTo(nullable:true)
+    requestQueue(nullable:false)
+  }
 
 	static belongsTo = [ library : Library ]
   
-	static mapping = {
-	  sort title:"asc"
-	}
+	static mapping = { sort title:"asc"	}
 
-	String toString(){
-	  "${mediaType}: ${title} (${id})"
-	}
+	String toString(){ "${mediaType}: ${title} (${id})" }
 }

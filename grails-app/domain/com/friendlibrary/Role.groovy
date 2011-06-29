@@ -1,21 +1,21 @@
+/*
+ *  Role.groovy
+ *
+ *  Authority domain class.
+ *  
+ */
+
 package com.friendlibrary
 
-
-
-/**
- * Authority domain class.
- */
 class Role {
 
 	static hasMany = [people: User]
 
-	/** description */
 	String description
-	/** ROLE String */
 	String authority
 
 	static constraints = {
-		authority(blank: false, unique: true)
-		description()
+		authority(nullable:false, blank: false, unique: true)
+		description(nullable:true)
 	}
 }
