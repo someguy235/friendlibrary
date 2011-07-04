@@ -4,16 +4,16 @@ import grails.test.*
 
 class MovieUnitTests extends GrailsUnitTestCase {
   void testConstraints(){
-    def newMovie = new Movie(title:"New Movie", format:"DVD")
-    mockForConstraintsTests(Movie, [newMovie])
+
+    mockForConstraintsTests(Movie)
 
     def testMovie = new Movie()
-    assertFalse testMovie.validate()
+    testMovie.validate()
     assertEquals "nullable", testMovie.errors["title"]
     assertEquals "nullable", testMovie.errors["format"]
 
     testMovie = new Movie(title: "Test Movie", format:"DVD")
-
+    testMovie.validate()
     assertEquals "Test Movie", testMovie.title
     assertEquals false, testMovie.reserved
     assertEquals false, testMovie.loanedOut
@@ -23,6 +23,9 @@ class MovieUnitTests extends GrailsUnitTestCase {
 
     assertEquals "movie", testMovie.mediaType
     assertEquals "DVD", testMovie.format
+
+    assertEquals 1, testMovie.errors.errorCount
+    assertEquals "nullable", testMovie.errors["library"]
 
   }
 

@@ -3,16 +3,16 @@ package com.friendlibrary
 import grails.test.*
 
 class BookUnitTests extends GrailsUnitTestCase {
-  void testConstraints(){
-    def newBook = new Book(title:"New Book")
-    mockForConstraintsTests(Book, [newBook])
+ void testConstraints(){
+
+    mockForConstraintsTests(Book)
 
     def testBook = new Book()
-    assertFalse testBook.validate()
+    testBook.validate()
     assertEquals "nullable", testBook.errors["title"]
 
     testBook = new Book(title: "Test Book")
-
+    testBook.validate()
     assertEquals "Test Book", testBook.title
     assertEquals false, testBook.reserved
     assertEquals false, testBook.loanedOut
@@ -22,6 +22,9 @@ class BookUnitTests extends GrailsUnitTestCase {
 
     assertEquals "book", testBook.mediaType
     assertEquals null, testBook.author
+
+    assertEquals 1, testBook.errors.errorCount
+    assertEquals "nullable", testBook.errors["library"]
 
   }
 

@@ -18,11 +18,13 @@ class User {
   static belongsTo = Role
 
   static constraints = {
-    username(size:3..30, unique:true)
-    passwd(size:6..64)
+    username(size:3..30, nullable:false, unique:true)
+    passwd(size:6..64, nullable:false)
     email(nullable:false, blank:true)
+    dateCreated(nullable:true)
     userFirstName(size:0..64, nullable:true, blank:true)
     userLastName(size:0..64, nullable:true, blank:true)
+    library(nullable:false)
   }
 
   static mapping = {  }

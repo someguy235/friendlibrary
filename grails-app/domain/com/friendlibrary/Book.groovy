@@ -14,7 +14,7 @@ class Book extends Item {
 	String mediaType = "book"
 	String author
 
-  def constraints = {
+  static constraints = {
     mediaType(nullable:false)
     author(nullable:true)
   }
