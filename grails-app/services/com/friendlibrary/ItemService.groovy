@@ -7,14 +7,14 @@ package com.friendlibrary
 
 class ItemService{
 
-	boolean transactional = true
+  boolean transactional = true
 
   //
   // Add a single item to a user's library
   //
-	String addItem(params){
-		def user = User.get(params.id)
-		def library = user?.library
+  String addItem(params){
+    def user = User.get(params.id)
+    def library = user?.library
     
     def existingItem = Item.find("from Item as i where \
                                   i.title = :title and \
@@ -100,7 +100,6 @@ class ItemService{
   String deleteItem(params){
     try{
       def item = Item.get(params.requestedMedia)
-      assert item != null
       if(!item.loanedOut){
         item.library.available[(item.mediaType+"s")]-=1
       }
