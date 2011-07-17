@@ -12,8 +12,12 @@ class MessageController {
 
   def index = { }
 
-  /*
+  /***************************************/
   // User relationship controller actions
+  /***************************************/
+
+  /*
+  // Request to add another user as a contact
   */
 	def makeFriendRequest = {
 		try{
@@ -21,36 +25,29 @@ class MessageController {
 		}catch(Exception ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
+		redirect(controller: 'user', action: 'profile', id:params.id)
 	}
 
+  /*
+  // remove a contact, or deny a friend request
+  */
   def removeFriendRequest = {
     try{
       messageService.removeFriendRequest(params)
     }catch(ItemException ie){
 			flash.message = ie.message
 		}
-    redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
+    redirect(controller: 'user', action: 'profile', id:params.id)
   }
   
-  def denyFriendRequest = {
-		try{
-      redirectId = Message.get(params.messageId).sentTo.id
-      messageService.denyFriendRequest(params)
-		}catch(ItemException ie){
-			flash.message = ie.message
-		}
-		redirect(controller: 'user', action: 'profile', id:redirectId)
-	}
-
+  
 	def confirmFriendRequest = {
 		try{
-      redirectId = Message.get(params.messageId).sentTo.id
-			messageService.confirmFriendRequest(params)
+      messageService.confirmFriendRequest(params)
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:redirectId)
+		redirect(controller: 'user', action: 'profile', id:params.id)
 	}
 
 	def removeFriend = {
@@ -59,12 +56,14 @@ class MessageController {
 		}catch(ItemException ie){
 			flash.message = ie.message
 		}
-		redirect(controller: 'user', action: 'profile', id:params.requestedUserId)
+		redirect(controller: 'user', action: 'profile', id:params.id)
 	}
 
-  /*
+  /***********************/
   // Item related actions
-  */
+  /***********************/
+
+
 	def makeItemRequest = {
 		try{
 			def result = messageService.makeItemRequest(params)

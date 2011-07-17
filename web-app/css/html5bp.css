@@ -693,6 +693,10 @@ div#newItemTabs td, div#newItemListTabs td{
   bottom:0px;
 	border-top: 2px dotted;
 }
+.friend_status{
+  text-align: center;
+  padding-bottom: 5px;
+}
 .highlight-box{
 	background-color:#D4D1BF;
 	border: 1px solid #b83400;

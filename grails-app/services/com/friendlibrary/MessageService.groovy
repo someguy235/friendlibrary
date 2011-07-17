@@ -7,14 +7,18 @@ package com.friendlibrary
 
 /*
 //Provide services for messages
- */
+*/
 class MessageService {
 
   boolean transactional = true
 
+  /*******************************/
+  // User-related service actions
+  /*******************************/
+
   /*
   //Sends a friend request message from one user to another
-   */
+  */
 	void makeFriendRequest(params){
     def requestedUser = User.get(params.requestedUserId)
     assert requestedUser != null
@@ -33,49 +37,63 @@ class MessageService {
 
   /*
   // Cancel a previously submitted friend request
-   */
+  // Can use a message, or two user id's as params
+  */
   void removeFriendRequest(params){
-    def requestedUser = User.get(params.requestedUserId)
-    assert requestedUser != null
-    def requestingUser = User.get(params.requestingUserId)
-    assert requestingUser != null
-    def message = requestedUser.inMessages.find{
-			(it.type == 'Friend Request')&&
-			(it.sentFrom == requestingUser)
-		}
-		assert message != null
-		requestedUser.removeFromInMessages(message)
-    requestingUser.removeFromOutMessages(message)
+    def requestedUser
+    def requestingUser
+    def message
+
+    if(params.messageId != null){
+      message = Message.get(params.messageId)
+      requestedUser = message.sentTo
+      requestingUser = message.sentFrom
+    }else{
+      requestedUser = User.get(params.requestedUserId)
+      requestingUser = User.get(params.requestingUserId)
+      message = Message.find("from Message as m where \
+                                m.sentFrom = :sentFrom and \
+                                m.sentTo = :sentTo and \
+                                m.type = :type",
+                                [sentFrom:requestingUser, sentTo:requestedUser, type:"Friend Request"]
+                            )
+    }
 		message.delete()
   }
   
   /*
-  //Ignore a submitted friend request, removes request message from profile
-   */
-	void denyFriendRequest(params){
-    def message = Message.get(params.messageId)
-    assert message != null
-    assert message.sentFrom != null
-    assert message.sentTo != null
-    message.delete()
-	}
-
-  /*
-  //Confirm a submitted friend request
-   */
+  // Confirm a submitted friend request
+  // Can use a message, or two user id's as params
+  */
 	void confirmFriendRequest(params){
-    def message = Message.get(params.messageId)
-    assert message != null
-    assert message.sentFrom != null
-    assert message.sentTo != null
-    message.sentFrom.addToFriends(message.sentTo)
-    message.sentTo.addToFriends(message.sentFrom)
-		message.delete()
+    def requestingUser
+    def requestedUser
+    def message
+
+    if(params.messageId != null){
+      message = Message.get(params.messageId)
+      requestingUser = message.sentFrom
+      requestedUser = message.sentTo
+    }else{
+      requestingUser = User.get(params.requestingUserId)
+      requestedUser = User.get(params.requestedUserId)
+
+      message = Message.find("from Message as m where \
+                                m.sentFrom = :sentFrom and \
+                                m.sentTo = :sentTo and \
+                                m.type = :type",
+                                [sentFrom:requestingUser, sentTo:requestedUser, type:"Friend Request"]
+                            )
+    }
+
+    requestingUser.addToFriends(requestedUser)
+    requestedUser.addToFriends(requestingUser)
+    message.delete()
 	}
   
   /*
-  //Unfriend
-   */
+  // Unfriend
+  */
 	void removeFriend(params){
 		def requestedUser = User.get(params.requestedUserId)
 		assert requestedUser != null
@@ -85,10 +103,14 @@ class MessageService {
 		requestingUser.removeFromFriends(requestedUser)
 	}
 
+  /*******************************/
+  // Item-related service actions
+  /*******************************/
+
   /*
-  //Send an item request message to the item-owning user and
-  //mark the item as 'requested'
-   */
+  // Send an item request message to the item-owning user and
+  // mark the item as 'requested'
+  */
 	String makeItemRequest(params){
 		def requestedUser = User.get(params.requestedUser)
 		assert requestedUser != null
@@ -128,7 +150,7 @@ class MessageService {
 
   /*
   // Deny a specific request for an item, leaving all others intact
-   */
+  */
 	void denyItemRequest(params){
     def message = Message.get(params.messageId)
     assert message != null
@@ -138,7 +160,7 @@ class MessageService {
 
   /*
   // Remove a request for an item
-   */
+  */
   void removeItemRequest(params){
     if(params.requestingUser == params.requestedUser){
       def requestedMedia = Item.get(params.requestedMedia)
@@ -157,8 +179,8 @@ class MessageService {
   }
   
   /*
-  //Removes all requests for an item and marks it as available
-   */
+  // Removes all requests for an item and marks it as available
+  */
   void removeAllItemRequests(params){
     def messages = Message.findAll("from Message as m where \
                                     m.sentFrom = ${params.requestedUser} and \
@@ -170,8 +192,8 @@ class MessageService {
   }
 
   /*
-  //Confirm a request to borrow an item
-   */
+  // Confirm a request to borrow an item
+  */
   void confirmItemRequest(params){
     def message
     if (params.messageId){
@@ -212,8 +234,8 @@ class MessageService {
   }
 
   /*
-  //Send a message requesting the return of a specific item
-   */
+  // Send a message requesting the return of a specific item
+  */
   void requestItemReturn(params){
     def requestedItem = Item.get(params.requestedMedia)
 		assert requestedItem != null
@@ -260,7 +282,7 @@ class MessageService {
   }
 
   /*
-  //Removes a notification message from a user
+  // Removes a notification message from a user
   */
   void dismissMessage(params){
     def message = Message.get(params.messageId)

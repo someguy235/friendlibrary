@@ -28,7 +28,8 @@ class UserController {
     viewUser = User.get(viewUser.id)
     def boolean viewingSelf = (user == viewUser)
     def boolean isFriend = true
-    def boolean isFriendRequested = true
+    def boolean isFriendRequested = false
+    def boolean isRequestingFriend = false
     if (!viewingSelf){
       isFriend = viewUser.friends.contains(user)
     }
@@ -36,14 +37,19 @@ class UserController {
       isFriendRequested = user.inMessages.find{
         (it.type == 'Friend Request')&&(it.sentFrom.username == viewUser.username)
       }
+      isRequestingFriend = viewUser.inMessages.find{
+        (it.type == 'Friend Request')&&(it.sentFrom.username == user.username)
+      }
     }
+
 				
     [
       user : user,
       viewUser : viewUser,
       viewingSelf : viewingSelf,
       isFriend : isFriend,
-      isFriendRequested : isFriendRequested
+      isFriendRequested : isFriendRequested,
+      isRequestingFriend : isRequestingFriend
     ]
   }
 
