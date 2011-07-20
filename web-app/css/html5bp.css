@@ -735,7 +735,11 @@ div#newItemTabs td, div#newItemListTabs td{
   margin: 3px;
 }
 .library_item_option form {
-  vertical-align: middle;
+
+}
+.library_item_option_text{
+  position:relative;
+  top:-3px;
 }
 .library_item_options{
   text-align: left;
@@ -826,6 +830,7 @@ div#newItemTabs td, div#newItemListTabs td{
   margin: 3px;
 
 }
+.ui-dialog { width: 450px; }
 
 
 

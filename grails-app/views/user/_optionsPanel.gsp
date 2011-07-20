@@ -58,6 +58,7 @@
     <g:set var="item_status_message" value="this item is available" />
     <g:set var="buttonColor" value="green" />
     <g:if test="${viewingSelf}">
+      <g:set var="notLoanedOut" value="true" />
       <g:set var="formAction" value="makeItemRequest" />
       <g:set var="buttonTitle" value="place a hold on this item" />
     </g:if>
@@ -79,7 +80,7 @@
         <button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
           <img height="15" width="15" src="${resource(dir:'images/icons',file:"greenlight.png")}" />
         </button>
-        mark this item as delivered
+        <span class="library_item_option_text">mark this item as delivered</span>
       </g:form>
     </div>
   </g:if>
@@ -91,17 +92,38 @@
       <button aria-disabled="false" role="button" id="button" title="${buttonTitle}">
         <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
       </button>
-      ${buttonTitle}
+      <span class="library_item_option_text">${buttonTitle}</span>
     </g:form>
   </div>
   <g:if test="${viewingSelf}">
+    <g:if test="${notLoanedOut}">
+      <div class="library_item_option">
+        <g:form controller="item" action="updateItem" id="${user.id}">
+          <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}">
+          <button aria-disabled="false" role="button" id="show_edit" title="edit options">
+            <img height="15" width="15" src="${resource(dir:'images/icons',file:"yellowlight.png")}" />
+          </button>
+          <span class="library_item_option_text">edit this item</span>
+          <div class="library_item_edit" id="library_item_${item.id}_edit">
+            <label for="item_${item.id}_title">Title</label>
+            <g:textField name="item_${item.id}_title" />
+            <br />
+            <label for="item_${item.id}_author">Author</label>
+            <g:textField name="item_${item.id}_author" />
+
+
+          </div>
+          <button aria-disabled="false" role="button" id="button" title="update item">Update</button
+        </g:form>
+      </div>
+    </g:if>
     <div class="library_item_option">
       <g:form controller="item" action="deleteItem" id="${user.id}">
         <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" />
         <button aria-disabled="false" role="button" id="button" title="delete item">
           <img height="15" width="15" src="${resource(dir:'images/icons',file:"delete.png")}" />
         </button>
-        delete this item
+        <span class="library_item_option_text">delete this item</span>
       </g:form>
     </div>
   </g:if>
