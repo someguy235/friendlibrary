@@ -673,6 +673,27 @@ div#newItemTabs td, div#newItemListTabs td{
 .content{
 	background:#fff;
 }
+.edit_button{
+  margin-top:10px;
+  text-align: center;
+}
+.edit_field{
+  display:none;
+  /*position:relative;
+  left:50px;
+  top:-15px;
+  width:20%;*/
+}
+.edit_label{
+  width:10%;
+  margin: 10px 5px 0px 5px;
+  position:relative;
+  top:5px;
+  
+}
+.edit_line{
+  height:15px;
+}
 .flash{
 	background: #CFC233;
 	font-size: 14px;
@@ -730,6 +751,10 @@ div#newItemTabs td, div#newItemListTabs td{
 }
 .library_all_col_platform{
   width:65px;
+}
+.library_item_edit{
+  background-color:#CCC;
+  display: none;
 }
 .library_item_option{
   margin: 3px;

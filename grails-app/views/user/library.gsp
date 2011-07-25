@@ -8,6 +8,7 @@
     
 		<g:javascript>
       $.fx.speeds._default = 250;
+
 			$(function() {
         $( ".library_item_options" ).dialog({
           autoOpen: false,
@@ -20,6 +21,16 @@
           $( '#item_options-'+id+'' ).dialog( "open" );
           return false;
         });
+
+        $( ".edit_item_button" ).click(function() {
+          var id = $(this).attr("id");
+          id = id.substring(id.indexOf("edit_item_")+1);
+          return false;
+          
+
+        });
+
+        $('.option_button').qtip()
 
         $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
@@ -188,38 +199,45 @@
                   <g:each in="${category_list}" var="itemCategory">
                     <g:each in="${itemCategory.value}" var="item">
                       <tr>
-                        <td align="center">
+                        <td align="center" class="lib_table_options">
                           <g:render template="optionsPanel" model="['item':item,'viewingSelf':viewingSelf]"/>
                           
                         </td>
-                        <td align="center">
+                        <td align="center" class="lib_table_media">
                           <g:set var="mediaImage" value="${item.mediaType}.png" />
                           <img height="20" width="20" src="${resource(dir:'images/icons',file:mediaImage)}" alt="${item.mediaType}" title="${item.mediaType}"/>
                         </td>
-                        <td>${item.title}</td>
+                        <td class="lib_table_title">
+                          <div id="item_title_${item.id}">
+                            ${item.title}
+                          </div>
+                          <div class="edit_field" id="edit_title_${item.id}">
+                            <input type="text" name="item_${item.id}_title" value="${item.title}" size="50" />
+                          </div>
+                        </td>
                         <g:if test="${item.mediaType == 'album'}">
-                          <td>${item.artist}</td>
+                          <td class="lib_table_artist">${item.artist}</td>
                         </g:if>
                         <g:elseif test="${category == 'all'}">
-                          <td>&nbsp;</td>
+                          <td class="lib_table_artist">&nbsp;</td>
                         </g:elseif>
                         <g:if test="${item.mediaType == 'book'}">
-                          <td>${item.author}</td>
+                          <td class="lib_table_author">${item.author}</td>
                         </g:if>
                         <g:elseif test="${category == 'all'}">
-                          <td>&nbsp;</td>
+                          <td class="lib_table_author">&nbsp;</td>
                         </g:elseif>
                         <g:if test="${(item.mediaType == 'album')||(item.mediaType == 'movie')}">
-                          <td>${item.format}</td>
+                          <td class="lib_table_format">${item.format}</td>
                         </g:if>
                         <g:elseif test="${category == 'all'}">
-                          <td>&nbsp;</td>
+                          <td class="lib_table_format">&nbsp;</td>
                         </g:elseif>
                         <g:if test="${item.mediaType == 'game'}">
-                          <td>${item.platform}</td>
+                          <td class="lib_table_platform">${item.platform}</td>
                         </g:if>
                         <g:elseif test="${category == 'all'}">
-                          <td>&nbsp;</td>
+                          <td class="lib_table_platform">&nbsp;</td>
                         </g:elseif>
                       </tr>
                     </g:each>
