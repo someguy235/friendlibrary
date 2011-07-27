@@ -30,8 +30,6 @@
 
         });
 
-        $('.option_button').qtip()
-
         $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
         
