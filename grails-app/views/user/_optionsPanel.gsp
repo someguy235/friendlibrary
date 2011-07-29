@@ -68,9 +68,6 @@
 </g:else>
 <g:set var="buttonImage" value="${buttonColor}light.png" />
 
-
-
-
 <button class="option_button" id="option_button-${item.id}" title="options">
   <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
 </button>
@@ -79,7 +76,7 @@
   $('#option_button-${item.id}').qtip({
     content:{
       text:'\
-        <div id="item_options-${item.id}" class="library_item_options" title="${item.title}"> \
+        <div id="item_options-${item.id}" class="library_item_options"> \
           <div class="library_item_status">\
             ${item_status_message}\
           </div>\
@@ -112,24 +109,10 @@
               <div class="library_item_option"> \
                 <g:form controller="item" action="updateItem" id="${user.id}"> \
                   <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}"> \
-                  <button aria-disabled="false" role="button" class="edit_item_button" id="edit_item_${item.id}" title="edit options"> \
+                  <button onClick="testFunc(${item.id})" aria-disabled="false" role="application" class="edit_item_button" id="edit_item_${item.id}" title="edit options"> \
                     <img height="15" width="15" src="${resource(dir:'images/icons',file:"yellowlight.png")}" /> \
                   </button> \
                   <span class="library_item_option_text">edit this item</span> \
-                  <div class="clear"></div> \
-                  <div class="library_item_edit" id="library_item_${item.id}_edit"> \
-                    <div class="edit_line"> \
-                      <div class="edit_label"><label for="item_${item.id}_title">Title</label></div> \
-                      <div class="edit_field"><g:textField name="item_${item.id}_title" /></div> \
-                    </div> \
-                    <div class="edit_line"> \
-                      <div class="edit_label"><label for="item_${item.id}_author">Author</label></div> \
-                      <div class="edit_field"><g:textField name="item_${item.id}_author" /></div> \
-                    </div> \
-                    <div class="edit_button"> \
-                      <button aria-disabled="false" role="button" id="button" title="update item">Update</button> \
-                    </div> \
-                  </div> \
                   <div class="clear"></div> \
                 </g:form> \
               </div> \
@@ -153,4 +136,5 @@
       delay: 500
     }
   });
+
 </g:javascript>

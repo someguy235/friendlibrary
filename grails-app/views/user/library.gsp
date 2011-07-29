@@ -9,48 +9,45 @@
 		<g:javascript>
       $.fx.speeds._default = 250;
 
-			$(function() {
-        $( ".library_item_options" ).dialog({
-          autoOpen: false,
-          modal: true
-        });
+      //$(function() {
+      $(document).ready(function(){
+        
+        //$(".edit_item_button").click(function() {
+          //alert("hello");
+          //var id = $(this).attr("id");
+          //id = id.substring(id.indexOf("edit_item_")+1);
+          //$("#edit_title_${id}").show();
+          //alert(id);
+          //return false;
 
-        $( ".option_button" ).click(function() {
-          var id = $(this).attr("id");
-          id = id.substring(id.indexOf("-")+1);
-          $( '#item_options-'+id+'' ).dialog( "open" );
-          return false;
-        });
-
-        $( ".edit_item_button" ).click(function() {
-          var id = $(this).attr("id");
-          id = id.substring(id.indexOf("edit_item_")+1);
-          return false;
           
 
-        });
+        //});
+
+        function testFunc(){
+          alert("hello");
+        }
+
 
         $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
         
         $("#borrowedTabs").tabs({ selected: 0 });
-      	$("#borrowedTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#borrowedTabs-games-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#borrowedTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#borrowedTabs-movies-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#borrowedTabs-music-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-
         $("#libTabs").tabs({ selected: 0 });
-      	$("#libTabs-all-content").tablesorter( {sortList: [[1,0],[2,0]]} ); 
-      	$("#libTabs-games-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#libTabs-books-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#libTabs-movies-content").tablesorter( {sortList: [[1,0],[2,0]]} );
-      	$("#libTabs-music-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+
+        <g:each in="${itemCategories}" var="category">
+          $("#borrowedTabs-${category}-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+          $("#libTabs-${category}-content").tablesorter( {sortList: [[1,0],[2,0]]} );
+        </g:each>
+      	
     	});
 		</g:javascript>
 	</head>
 	<body>
-    
+    <g:if test="${flash.message}">
+			<div class="flash">${flash.message}</div>
+		</g:if>
+
 		<div > <!-- interface for adding items -->
 			<g:if test="${viewingSelf}">
         <g:render template="addItem" />
@@ -59,9 +56,6 @@
 		</div>
 		<div class="clear"></div>
 
-    <!--TODO: do this better -->
-    <g:set var="item_categories" value="${['all', 'games', 'books', 'movies', 'music']}" />
-
     <g:if test="${viewingSelf}">
       <p><h1>Borrowed Items</h1></p>
       <div id="borrowedItems" class="main">
@@ -69,7 +63,7 @@
 
           <!-- list for tab titles -->
           <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-            <g:each in="${item_categories}" var="category">
+            <g:each in="${itemCategories}" var="category">
               <g:set var="ul_classes" value="ui-state-default ui-corner-top" />
               <g:if test="${category == 'all'}">
                 <g:set var="ul_classes" value="ui-state-default ui-corner-top ui-tabs-selected ui-state-active" />
@@ -78,9 +72,9 @@
             </g:each>
           </ul>
 
-          <g:each in="${item_categories}" var="category">
-            <!-- create a hashmap of lists of items for this category
-                 each item type gets its own list, even if there is only one item type -->
+          <!-- create a hashmap of lists of items for this category
+            each item type gets its own list, even if there is only one item type -->
+          <g:each in="${itemCategories}" var="category">
             <g:if test="${category == 'all'}">
               <g:set var="category_list" value="${borrowedItems}" />
             </g:if>
@@ -134,16 +128,12 @@
 		<div class="clear"></div>
     <p><h1>Library for <g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></h1></p>
 		
-		<g:if test="${flash.message}">
-			<div class="flash">${flash.message}</div>
-		</g:if>
-
 		<div id="allItems" class="main">
 			<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="libTabs">
 
         <!-- list for tab titles -->
 				<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-          <g:each in="${item_categories}" var="category">
+          <g:each in="${itemCategories}" var="category">
             <g:set var="ul_classes" value="ui-state-default ui-corner-top" />
             <g:if test="${category == 'all'}">
               <g:set var="ul_classes" value="ui-state-default ui-corner-top ui-tabs-selected ui-state-active" />
@@ -152,9 +142,9 @@
           </g:each>
 				</ul>
 
-        <g:each in="${item_categories}" var="category">
-          <!-- create a hashmap of lists of items for this category
-               each item type gets its own list, even if there is only one item type -->
+        <!-- create a hashmap of lists of items for this category
+          each item type gets its own list, even if there is only one item type -->
+        <g:each in="${itemCategories}" var="category">
           <g:if test="${category == 'all'}">
             <g:set var="category_list" value="${allItems}" />
           </g:if>
@@ -199,7 +189,6 @@
                       <tr>
                         <td align="center" class="lib_table_options">
                           <g:render template="optionsPanel" model="['item':item,'viewingSelf':viewingSelf]"/>
-                          
                         </td>
                         <td align="center" class="lib_table_media">
                           <g:set var="mediaImage" value="${item.mediaType}.png" />
