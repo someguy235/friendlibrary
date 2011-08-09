@@ -684,6 +684,26 @@ div#newItemTabs td, div#newItemListTabs td{
   top:-15px;
   width:20%;*/
 }
+.edit_item_button{
+  cursor: pointer;
+  margin: 2px;
+  padding-top: 1px;
+  width: 34px;
+  height: 17px;
+  background: #999999;
+  position: relative;
+  border: 1px solid;
+  text-align: center;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#666666'); /* for IE */
+  background: -moz-linear-gradient(top, #fff, #ccc);
+  background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#666));
+  border-radius: 3px;
+}
+.edit_item_text{
+  position:relative;
+  top: -18px;
+  left: 43px;
+}
 .edit_label{
   width:10%;
   margin: 10px 5px 0px 5px;
@@ -757,14 +777,14 @@ div#newItemTabs td, div#newItemListTabs td{
   display: none;
 }
 .library_item_option{
-  margin: 3px;
+  height: 25px;
 }
 .library_item_option form {
 
 }
 .library_item_option_text{
   position:relative;
-  top:-3px;
+  top: -3px;
 }
 .library_item_options{
   text-align: left;

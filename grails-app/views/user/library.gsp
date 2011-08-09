@@ -23,11 +23,10 @@
           
 
         //});
-
-        function testFunc(){
-          alert("hello");
-        }
-
+        $(".edit_item_image").click(function(){
+          //$(this).css('background-color', '#fff');
+          alert("test");
+        });
 
         $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });

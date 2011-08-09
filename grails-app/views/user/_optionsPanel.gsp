@@ -107,15 +107,12 @@
           <g:if test="${viewingSelf}"> \
             <g:if test="${notLoanedOut}"> \
               <div class="library_item_option"> \
-                <g:form controller="item" action="updateItem" id="${user.id}"> \
-                  <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}"> \
-                  <button onClick="testFunc(${item.id})" aria-disabled="false" role="application" class="edit_item_button" id="edit_item_${item.id}" title="edit options"> \
-                    <img height="15" width="15" src="${resource(dir:'images/icons',file:"yellowlight.png")}" /> \
-                  </button> \
-                  <span class="library_item_option_text">edit this item</span> \
-                  <div class="clear"></div> \
-                </g:form> \
+                <div class="edit_item_button"> \
+                  <img class="edit_item_image" height="15" width="15" src="${resource(dir:'images/icons',file:"yellowlight.png")}" /> \
+                </div> \
+                <span class="edit_item_text">edit this item</span> \
               </div> \
+              <div class="clear"></div> \
             </g:if> \
             <div class="library_item_option"> \
               <g:form controller="item" action="deleteItem" id="${user.id}"> \
