@@ -9,25 +9,14 @@
 		<g:javascript>
       $.fx.speeds._default = 250;
 
-      //$(function() {
-      $(document).ready(function(){
-        
-        //$(".edit_item_button").click(function() {
-          //alert("hello");
-          //var id = $(this).attr("id");
-          //id = id.substring(id.indexOf("edit_item_")+1);
-          //$("#edit_title_${id}").show();
-          //alert(id);
-          //return false;
+      $(function() {
 
-          
-
-        //});
-        $(".edit_item_image").click(function(){
-          //$(this).css('background-color', '#fff');
-          alert("test");
+        $(".edit_panel").dialog({
+          autoOpen: false,
+          show: "blind",
+          hide: "blind"
         });
-
+        
         $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
         
@@ -40,13 +29,19 @@
         </g:each>
       	
     	});
+
+      function edit_panel(itemId){
+        $( '#edit_panel-'+itemId+'' ).dialog( "open" );
+        return false;
+      };
+      
 		</g:javascript>
 	</head>
 	<body>
     <g:if test="${flash.message}">
 			<div class="flash">${flash.message}</div>
 		</g:if>
-
+    
 		<div > <!-- interface for adding items -->
 			<g:if test="${viewingSelf}">
         <g:render template="addItem" />
@@ -188,6 +183,7 @@
                       <tr>
                         <td align="center" class="lib_table_options">
                           <g:render template="optionsPanel" model="['item':item,'viewingSelf':viewingSelf]"/>
+                          <g:render template="editPanel" model="['item':item,'viewingSelf':viewingSelf]"/>
                         </td>
                         <td align="center" class="lib_table_media">
                           <g:set var="mediaImage" value="${item.mediaType}.png" />

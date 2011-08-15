@@ -107,10 +107,10 @@
           <g:if test="${viewingSelf}"> \
             <g:if test="${notLoanedOut}"> \
               <div class="library_item_option"> \
-                <div class="edit_item_button"> \
-                  <img class="edit_item_image" height="15" width="15" src="${resource(dir:'images/icons',file:"yellowlight.png")}" /> \
-                </div> \
-                <span class="edit_item_text">edit this item</span> \
+                <button aria-disabled="false" role="button" onclick="edit_panel(${item.id});" id="button" class="edit_button" title="edit item"> \
+                  <img height="15" width="15" src="${resource(dir:'images/icons',file:"yellowlight.png")}" /> \
+                </button> \
+                <span class="library_item_option_text">edit this item</span> \
               </div> \
               <div class="clear"></div> \
             </g:if> \
