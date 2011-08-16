@@ -678,11 +678,10 @@ div#newItemTabs td, div#newItemListTabs td{
   text-align: center;*/
 }
 .edit_field{
-  display:none;
-  /*position:relative;
-  left:50px;
-  top:-15px;
-  width:20%;*/
+	width:74%;
+  text-align: left;
+  margin-left: 2px;
+	float:left;
 }
 .edit_item_button{
   cursor: pointer;
@@ -704,11 +703,7 @@ div#newItemTabs td, div#newItemListTabs td{
   top: -18px;
   left: 43px;
 }
-.editField{
-	width:65%;
-	float:right;
-}
-.editLabel{
+.edit_label{
 	padding-top:4px;
 	width:25%;
 	float:left;
@@ -718,6 +713,7 @@ div#newItemTabs td, div#newItemListTabs td{
   height:15px;
 }
 .edit_panel{
+  text-align: center;
 }
 .flash{
 	background: #CFC233;

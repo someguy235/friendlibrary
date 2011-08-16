@@ -110,6 +110,20 @@ class ItemService{
     }
   }
 
+  String editItem(params){
+    try{
+
+
+
+
+
+
+
+    }catch(Exception e){
+      return "failed to edit item: " + e
+    }
+  }
+
   HashMap getBorrowedItems(userId){
     def bMusic = Item.findAll("from Item as i where \
                              i.loanedTo.id = :id and \

@@ -51,6 +51,15 @@ class ItemController {
     redirect(controller: 'user', action: 'library', id:params.id)
   }
 
+  def editItem = {
+    try{
+      flash.message = itemService.editItem(params)
+    }catch(ItemException ie){
+      flash.message = id.messaage
+    }
+    redirect(controller: 'user', action: 'library', id:params.id)
+  }
+
 }
 
 

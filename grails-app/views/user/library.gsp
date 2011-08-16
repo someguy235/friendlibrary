@@ -193,9 +193,6 @@
                           <div id="item_title_${item.id}">
                             ${item.title}
                           </div>
-                          <div class="edit_field" id="edit_title_${item.id}">
-                            <input type="text" name="item_${item.id}_title" value="${item.title}" size="50" />
-                          </div>
                         </td>
                         <g:if test="${item.mediaType == 'album'}">
                           <td class="lib_table_artist">${item.artist}</td>
