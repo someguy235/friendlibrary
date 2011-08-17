@@ -112,15 +112,29 @@ class ItemService{
 
   String editItem(params){
     try{
+      def item = Item.get(params.requestedMedia)
+      
+      if(params.edit_title){
+        item.title = params.edit_title
+      }
+      if(params.edit_artist){
+        item.artist = params.edit_artist
+      }
+      if(params.edit_author){
+        item.author = params.edit_author
+      }
+      if(params.edit_format){
+        item.format = params.edit_format
+      }
+      if(params.edit_platform){
+        item.platform = params.edit_platform
+      }
 
-
-
-
-
-
-
+      item.save()
+      
+      return "edited ${item.title}"
     }catch(Exception e){
-      return "failed to edit item: " + e
+      return "failed to edit ${item.title}: " + e
     }
   }
 
