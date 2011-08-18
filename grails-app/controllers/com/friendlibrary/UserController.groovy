@@ -66,6 +66,15 @@ class UserController {
 
     def itemCategories = ['all', 'games', 'books', 'movies', 'music']
 
-    [ user : libUser, viewUser:viewUser, viewingSelf : viewingSelf, allItems:allItems, borrowedItems:borrowedItems, itemCategories:itemCategories ]
+    def gamePlatforms = Game.platforms()
+    println gamePlatforms
+    [ user : libUser,
+      viewUser:viewUser,
+      viewingSelf : viewingSelf,
+      allItems:allItems,
+      borrowedItems:borrowedItems,
+      itemCategories:itemCategories,
+      gamePlatforms:gamePlatforms
+    ]
   }
 }

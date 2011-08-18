@@ -44,7 +44,7 @@
     
 		<div > <!-- interface for adding items -->
 			<g:if test="${viewingSelf}">
-        <g:render template="addItem" />
+        <g:render template="addItem" model="['gamePlatforms':gamePlatforms]" />
         <g:render template="addItemList" />
 			</g:if>
 		</div>

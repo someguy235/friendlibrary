@@ -18,11 +18,11 @@
             <td><g:textField id="title" name="title"/></td>
           </tr>
           <tr>
-            <g:set var="platforms" value="${['PS3', 'XBox360', 'Wii']}" />
+            <g:set var="platforms" value="${gamePlatforms}" />
             <td><label for="platform">Platform&nbsp;</label></td>
             <td>
               <div class="ui-widget">
-                <g:select from="${platforms}" value="PS3" name="platform" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
+                <g:select from="${platforms}" name="platform" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
               </div>
             </td>
           </tr>

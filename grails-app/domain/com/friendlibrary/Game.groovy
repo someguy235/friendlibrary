@@ -13,9 +13,12 @@ class Game extends Item{
 
   String mediaType = "game"
 	String platform
+  static platforms(){
+    ["PS3", "XBox360", "Wii", "Other"]
+  }
 
   static constraints = {
     mediaType(nullable:false)
-    platform(nullable:false)
+    platform(nullable:false, inList: platforms())
   }
 }
