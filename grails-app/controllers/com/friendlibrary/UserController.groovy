@@ -64,17 +64,20 @@ class UserController {
 
     def boolean viewingSelf = (libUser == viewUser)
 
-    def itemCategories = ['all', 'games', 'books', 'movies', 'music']
-
+    def itemCategories = Item.categories()
     def gamePlatforms = Game.platforms()
-    println gamePlatforms
+    def movieFormats = Movie.formats()
+    def albumFormats = Album.formats()
+
     [ user : libUser,
       viewUser:viewUser,
       viewingSelf : viewingSelf,
       allItems:allItems,
       borrowedItems:borrowedItems,
       itemCategories:itemCategories,
-      gamePlatforms:gamePlatforms
+      gamePlatforms:gamePlatforms,
+      movieFormats:movieFormats,
+      albumFormats:albumFormats
     ]
   }
 }

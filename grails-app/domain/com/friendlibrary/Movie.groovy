@@ -13,9 +13,12 @@ class Movie extends Item{
 
 	String mediaType = "movie"
 	String format
+  static formats(){
+    ["DVD", "BluRay", "VHS", "File", "Other"]
+  }
 
   static constraints = {
     mediaType(nullable:false)
-    format(nullable:false)
+    format(nullable:false, inList: formats())
   }
 }

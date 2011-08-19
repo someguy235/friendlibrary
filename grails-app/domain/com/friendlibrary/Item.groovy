@@ -35,5 +35,9 @@ class Item {
   
 	static mapping = { sort title:"asc"	}
 
+  static categories(){
+    ['all', 'games', 'books', 'movies', 'music']
+  }
+
 	String toString(){ "${mediaType}: ${title} (${id})" }
 }

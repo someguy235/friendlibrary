@@ -12,6 +12,8 @@
     <g:if test="${item.mediaType == 'album'}">
       <div class="edit_label"><label for="edit_artist">Artist:</label></div>
       <div class="edit_field"><input type="text" name="edit_artist" value="${item.artist}" /></div>
+      <div class="edit_label"><label for="edit_format">Format:</label></div>
+      <div class="edit_field"><g:select from="${albumFormats}" name="edit_format" value="${item.format}" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select></div>
       <div class="clear"></div>
     </g:if>
     <g:if test="${item.mediaType == 'book'}">
@@ -19,14 +21,14 @@
       <div class="edit_field"><input type="text" name="edit_author" value="${item.author}" /></div>
       <div class="clear"></div>
     </g:if>
-    <g:if test="${(item.mediaType == 'album')||(item.mediaType == 'movie')}">
+    <g:if test="${item.mediaType == 'movie'}">
       <div class="edit_label"><label for="edit_format">Format:</label></div>
-      <div class="edit_field"><input type="text" name="edit_format" value="${item.format}" /></div>
+      <div class="edit_field"><g:select from="${movieFormats}" value="${item.format}" name="edit_format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select></div>
       <div class="clear"></div>
     </g:if>
     <g:if test="${item.mediaType == 'game'}">
       <div class="edit_label"><label for="edit_platform">Platform:</label></div>
-      <div class="edit_field"><input type="text" name="edit_platform" value="${item.platform}" /></div>
+      <div class="edit_field"><g:select from="${gamePlatforms}" name="edit_platform" value="${item.platform}" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select></div>
       <div class="clear"></div> 
     </g:if>
     <button aria-disabled="false" role="button" id="button" title="update item">

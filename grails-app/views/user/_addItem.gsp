@@ -18,11 +18,10 @@
             <td><g:textField id="title" name="title"/></td>
           </tr>
           <tr>
-            <g:set var="platforms" value="${gamePlatforms}" />
             <td><label for="platform">Platform&nbsp;</label></td>
             <td>
               <div class="ui-widget">
-                <g:select from="${platforms}" name="platform" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
+                <g:select from="${gamePlatforms}" name="platform" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
               </div>
             </td>
           </tr>
@@ -59,11 +58,10 @@
             <td><g:textField id="title" name="title"/></td>
           </tr>
           <tr>
-            <g:set var="formats" value="${['DVD', 'BlueRay', 'VHS', 'File']}" />
             <td><label for="format">Format&nbsp;</label></td>
             <td>
               <div class="ui-widget">
-                <g:select from="${formats}" value="DVD" name="format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
+                <g:select from="${movieFormats}" value="DVD" name="format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
               </div>
             </td>
           </tr>
@@ -87,7 +85,7 @@
             <td><g:textField id="artist" name="artist"/></td>
           </tr>
           <tr>
-            <g:set var="formats" value="${['File', 'CD']}" />
+            <g:set var="formats" value="${albumFormats}" />
             <td><label for="format">Format&nbsp;</label></td>
             <td>
               <div class="ui-widget">

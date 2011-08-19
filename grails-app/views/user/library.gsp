@@ -183,7 +183,8 @@
                       <tr>
                         <td align="center" class="lib_table_options">
                           <g:render template="optionsPanel" model="['item':item,'viewingSelf':viewingSelf]"/>
-                          <g:render template="editPanel" model="['item':item,'viewingSelf':viewingSelf]"/>
+                          <g:render template="editPanel" model="['item':item,'viewingSelf':viewingSelf, 'gamePlatforms':gamePlatforms,
+                                    'movieFormats':movieFormats, 'albumFormats':albumFormats]"/>
                         </td>
                         <td align="center" class="lib_table_media">
                           <g:set var="mediaImage" value="${item.mediaType}.png" />

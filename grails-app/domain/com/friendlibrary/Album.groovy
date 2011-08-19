@@ -15,11 +15,14 @@ class Album extends Item {
 	String artist
 	String genre
 	String format
+  static formats(){
+    ["File", "CD", "Other"]
+  }
 
 	static constraints = {
     mediaType(nullable:false)
     artist(nullable:false)
     genre(nullable:true)
-    format(nullable:false)
+    format(nullable:false, inList:formats())
 	}
 }
