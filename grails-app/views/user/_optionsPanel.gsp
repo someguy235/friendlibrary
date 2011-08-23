@@ -68,12 +68,12 @@
 </g:else>
 <g:set var="buttonImage" value="${buttonColor}light.png" />
 
-<button class="option_button" id="option_button-${item.id}" title="options">
+<button class="option_button" id="option_button_${itemCategory}_${item.id}" title="options">
   <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
 </button>
 
 <g:javascript>
-  $('#option_button-${item.id}').qtip({
+  $('#option_button_${itemCategory}_${item.id}').qtip({
     content:{
       text:'\
         <div id="item_options-${item.id}" class="library_item_options"> \
@@ -115,13 +115,10 @@
               <div class="clear"></div> \
             </g:if> \
             <div class="library_item_option"> \
-              <g:form controller="item" action="deleteItem" id="${user.id}"> \
-                <input type="hidden" id="requestedMedia" name="requestedMedia" value="${item.id}" /> \
-                <button aria-disabled="false" role="button" id="button" title="delete item"> \
+              <button aria-disabled="false" role="button" onclick="delete_panel(${item.id});" id="button" class="delete_button" title="delete item"> \
                   <img height="15" width="15" src="${resource(dir:'images/icons',file:"delete.png")}" /> \
-                </button> \
-                <span class="library_item_option_text">delete this item</span> \
-              </g:form> \
+              </button> \
+              <span class="library_item_option_text">delete this item</span> \
             </div> \
           </g:if> \
         </div> \

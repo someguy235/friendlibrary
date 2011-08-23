@@ -16,7 +16,13 @@
           show: "blind",
           hide: "blind"
         });
-        
+
+        $(".delete_panel").dialog({
+          autoOpen: false,
+          show: "blind",
+          hide: "blind"
+        });
+
         $("#newItemTabs").tabs({ selected: 0 });
         $("#newItemListTabs").tabs({ selected: 0 });
         
@@ -34,7 +40,17 @@
         $( '#edit_panel-'+itemId+'' ).dialog( "open" );
         return false;
       };
-      
+
+      function delete_panel(itemId){
+        $( '#delete_panel-'+itemId+'' ).dialog( "open" );
+        return false;
+      };
+
+      function close_delete_panel(itemId){
+        $( '#delete_panel-'+itemId+'' ).dialog("close");
+        return false;
+      };
+
 		</g:javascript>
 	</head>
 	<body>
@@ -182,9 +198,10 @@
                     <g:each in="${itemCategory.value}" var="item">
                       <tr>
                         <td align="center" class="lib_table_options">
-                          <g:render template="optionsPanel" model="['item':item,'viewingSelf':viewingSelf]"/>
+                          <g:render template="optionsPanel" model="['item':item,'viewingSelf':viewingSelf, 'itemCategory':itemCategory.key]"/>
                           <g:render template="editPanel" model="['item':item,'viewingSelf':viewingSelf, 'gamePlatforms':gamePlatforms,
                                     'movieFormats':movieFormats, 'albumFormats':albumFormats]"/>
+                          <g:render template="deletePanel" model="['item':item,'viewingSelf':viewingSelf]" />
                         </td>
                         <td align="center" class="lib_table_media">
                           <g:set var="mediaImage" value="${item.mediaType}.png" />

@@ -113,7 +113,7 @@ class ItemService{
   String editItem(params){
     try{
       def item = Item.get(params.requestedMedia)
-      
+
       if(params.edit_title){
         item.title = params.edit_title
       }
@@ -132,7 +132,7 @@ class ItemService{
 
       item.save()
       
-      return "edited ${item.title}"
+      return "edited \"${item.title}\""
     }catch(Exception e){
       return "failed to edit ${item.title}: " + e
     }
