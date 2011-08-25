@@ -801,6 +801,14 @@ div#newItemTabs td, div#newItemListTabs td{
 	background: #CF7491;
 	border: 1px dotted #b83400;
 }
+.message_count{
+  border-radius: 5px;
+  width:20px;
+  float:left;
+  margin-left:5px;
+  padding: 0px 5px 1px 5px;
+  background-color: #900;
+}
 .noItems{
 	padding:5px 0px 5px 0px;
 	width:100%;
@@ -861,6 +869,13 @@ div#newItemTabs td, div#newItemListTabs td{
 
 }
 .ui-dialog { width: 450px; }
+.welcome_bar{
+}
+.welcome_message{
+  float:left;
+  text-align: right;
+  width:55%;
+}
 
 
 

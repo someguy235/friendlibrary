@@ -27,8 +27,20 @@
       <g:isLoggedIn>
         <g:set var="loggedInUsername" value="${loggedInUserInfo(field:'username')}" />
         <g:set var="loggedInUserId" value="${loggedInUserInfo(field:'id')}" />
-                Welcome, ${loggedInUsername}
-        <br />
+        <div class="welcome_bar">
+          <div class="welcome_message">Welcome, ${loggedInUsername}</div>
+          <div class="message_count">
+            <g:set var="newMessages" value="${user.inMessages.size()}" />
+            <g:set var="newMessagesTitle" value="${newMessages} new messages" />
+            <g:if test="${newMessages != 1}">
+              <g:set var="newMessagesTitle" value="${newMessages} new messages" />
+            </g:if>
+            <g:link controller="user" action="profile" id="${loggedInUserId}" title="${newMessagesTitle}">
+              ${user.inMessages.size()}
+            </g:link>
+          </div>
+        </div>
+        <div class="clear"></div>
         <g:link controller="user" action="library" id="${loggedInUserId}">library</g:link> |
         <g:link controller="user" action="profile" id="${loggedInUserId}">profile</g:link> |
         <g:link controller="user" action="friends" id="${loggedInUsername}">friends</g:link> |
