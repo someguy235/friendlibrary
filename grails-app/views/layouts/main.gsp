@@ -27,10 +27,10 @@
       <g:isLoggedIn>
         <g:set var="loggedInUsername" value="${loggedInUserInfo(field:'username')}" />
         <g:set var="loggedInUserId" value="${loggedInUserInfo(field:'id')}" />
+        <g:set var="newMessages" value="${user.inMessages.size()}" />
         <div class="welcome_bar">
           <div class="welcome_message">Welcome, ${loggedInUsername}</div>
           <div class="message_count">
-            <g:set var="newMessages" value="${user.inMessages.size()}" />
             <g:set var="newMessagesTitle" value="${newMessages} new messages" />
             <g:if test="${newMessages != 1}">
               <g:set var="newMessagesTitle" value="${newMessages} new messages" />

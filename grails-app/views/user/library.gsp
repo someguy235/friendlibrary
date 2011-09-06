@@ -198,7 +198,7 @@
                     <g:each in="${itemCategory.value}" var="item">
                       <tr>
                         <td align="center" class="lib_table_options">
-                          <g:render template="optionsPanel" model="['item':item,'viewingSelf':viewingSelf, 'itemCategory':itemCategory.key]"/>
+                          <g:render template="optionsPanel" model="['item':item,'viewingSelf':viewingSelf, 'itemCategory':itemCategory.key ]"/>
                           <g:render template="editPanel" model="['item':item,'viewingSelf':viewingSelf, 'gamePlatforms':gamePlatforms,
                                     'movieFormats':movieFormats, 'albumFormats':albumFormats]"/>
                           <g:render template="deletePanel" model="['item':item,'viewingSelf':viewingSelf]" />

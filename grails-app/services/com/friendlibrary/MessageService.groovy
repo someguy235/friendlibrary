@@ -113,11 +113,8 @@ class MessageService {
   */
 	String makeItemRequest(params){
 		def requestedUser = User.get(params.requestedUser)
-		assert requestedUser != null
 		def requestingUser = User.get(params.requestingUser)
-		assert requestingUser != null
 		def requestedItem = Item.get(params.requestedMedia)
-		assert requestedItem != null
     def alreadyRequested = requestedItem.requestQueue.contains(requestingUser.id)
 
     //Self-requests mark the item as reserved
@@ -131,7 +128,7 @@ class MessageService {
         def requestMessage = new Message(
           sentFrom:requestingUser,
           sentTo:requestedUser,
-          body:"${requestingUser.username} has asked to borrow the ${requestedItem.mediaType} \"${requestedItem.title}\" ",
+          body:"${requestingUser.username} has asked to borrow the ${requestedItem.mediaType} \"${requestedItem.title}\" (${requestedItem.requestQueue}) ",
           type:"Item Request",
           item:requestedItem
         )
@@ -140,7 +137,9 @@ class MessageService {
         requestingUser.addToOutMessages(requestMessage)
         requestedItem.requestQueue.push(requestingUser.id)
         requestedItem.save(failOnError:true)
+        return requestedItem.requestQueue
         return "success"
+
       }
       else{
         return "You have already requested that item."

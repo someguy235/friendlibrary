@@ -70,6 +70,7 @@
 
 <button class="option_button" id="option_button_${itemCategory}_${item.id}" title="options">
   <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
+  ${item.requestQueue}
 </button>
 
 <g:javascript>
