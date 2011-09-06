@@ -31,7 +31,8 @@ class LoginController {
 
 	def index = {
 		if (isLoggedIn()) {
-			redirect uri: '/'
+      def viewUser = authenticateService.userDomain().id
+      redirect(controller: 'user', action: 'library', id:viewUser)
 		}
 		else {
 			redirect action: auth, params: params

@@ -5,7 +5,10 @@ class UserController {
   def authenticateService
   def itemService
 
-  def search = {}
+  def search = {
+    def viewUser = User.get(authenticateService.userDomain().id)
+
+  }
 
   def results = {
     if ((params.firstname != "")||(params.lastname != "")){
