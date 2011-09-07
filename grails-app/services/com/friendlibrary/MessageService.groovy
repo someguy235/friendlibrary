@@ -115,7 +115,7 @@ class MessageService {
 		def requestedUser = User.get(params.requestedUser)
 		def requestingUser = User.get(params.requestingUser)
 		def requestedItem = Item.get(params.requestedMedia)
-    def alreadyRequested = requestedItem.requestQueue.contains(requestingUser.id)
+    def alreadyRequested = requestedItem.requestQueue.contains(requestingUser)
 
     //Self-requests mark the item as reserved
     if(requestingUser == requestedUser){
@@ -135,7 +135,8 @@ class MessageService {
         requestMessage.save(failOnError:true)
         requestedUser.addToInMessages(requestMessage)
         requestingUser.addToOutMessages(requestMessage)
-        requestedItem.requestQueue.push(requestingUser.id)
+        //requestedItem.requestQueue.push(requestingUser)
+        requestedItem.addToRequestQueue(requestingUser)
         requestedItem.save(failOnError:true)
         return requestedItem.requestQueue
         return "success"

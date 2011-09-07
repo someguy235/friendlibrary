@@ -803,7 +803,7 @@ div#newItemTabs td, div#newItemListTabs td{
 }
 .message_count{
   border-radius: 5px;
-  width:20px;
+  min-width:20px;
   float:left;
   margin-left:5px;
   padding: 0px 5px 1px 5px;
