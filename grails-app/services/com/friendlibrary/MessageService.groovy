@@ -128,17 +128,15 @@ class MessageService {
         def requestMessage = new Message(
           sentFrom:requestingUser,
           sentTo:requestedUser,
-          body:"${requestingUser.username} has asked to borrow the ${requestedItem.mediaType} \"${requestedItem.title}\" (${requestedItem.requestQueue}) ",
+          body:"${requestingUser.username} has asked to borrow the ${requestedItem.mediaType} \"${requestedItem.title}\"",
           type:"Item Request",
           item:requestedItem
         )
         requestMessage.save(failOnError:true)
         requestedUser.addToInMessages(requestMessage)
         requestingUser.addToOutMessages(requestMessage)
-        //requestedItem.requestQueue.push(requestingUser)
-        requestedItem.addToRequestQueue(requestingUser)
+        requestedItem.requestQueue.push(requestingUser.id)
         requestedItem.save(failOnError:true)
-        return requestedItem.requestQueue
         return "success"
 
       }

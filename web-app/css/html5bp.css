@@ -802,12 +802,23 @@ div#newItemTabs td, div#newItemListTabs td{
 	border: 1px dotted #b83400;
 }
 .message_count{
-  border-radius: 5px;
-  min-width:20px;
+  font-size: .8em;
+  border-radius: 3px;
+  min-width:15px;
   float:left;
-  margin-left:5px;
+  margin-left:10px;
+  margin-top:2px;
   padding: 0px 5px 1px 5px;
+  text-align: center;
+}
+.message_count_0{
+  background-color: #333;
+}
+.message_count_n{
   background-color: #900;
+}
+.option_panel_username{
+  color:black;
 }
 .noItems{
 	padding:5px 0px 5px 0px;

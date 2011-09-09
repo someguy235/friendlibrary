@@ -20,7 +20,7 @@ class Item {
 	Boolean loanedOut = false
 	Integer rating
 	User loanedTo = null
-	//List requestQueue = []
+	List requestQueue = []
 	
   static constraints = {
     title(nullable:false)
@@ -31,7 +31,8 @@ class Item {
     requestQueue(nullable:false)
   }
 
-  static hasMany = [requestQueue:User]
+
+  static hasMany = [requestQueue:long]
   
 	static belongsTo = [ library : Library ]
   

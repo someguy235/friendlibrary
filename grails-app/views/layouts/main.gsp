@@ -30,7 +30,11 @@
         <g:set var="newMessages" value="${viewUser.inMessages.size()}" />
         <div class="welcome_bar">
           <div class="welcome_message">Welcome, ${loggedInUsername}</div>
-          <div class="message_count">
+          <g:set var="message_classes">message_count message_count_0</g:set>
+          <g:if test="${newMessages != 0}">
+            <g:set var="message_classes">message_count message_count_n</g:set>
+          </g:if>
+          <div class="${message_classes}">
             <g:set var="newMessagesTitle" value="${newMessages} new messages" />
             <g:if test="${newMessages != 1}">
               <g:set var="newMessagesTitle" value="${newMessages} new messages" />

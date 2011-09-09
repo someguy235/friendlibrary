@@ -7,7 +7,7 @@
   <g:set var="item_status_message" value="this item is loaned out" />
   <g:set var="buttonColor" value="red" />
   <g:if test="${viewingSelf}">
-    <g:set var="item_status_message" value="this item is loaned out to ${item.loanedTo.username}" />
+    <g:set var="item_status_message">loaned out to <span class="option_panel_username">${item.loanedTo.username}</span></g:set>
     <g:set var="formAction" value="requestItemReturn" />
     <g:set var="buttonTitle" value="request this item be returned" />
   </g:if>
@@ -35,7 +35,7 @@
   </g:else>
 </g:elseif>
 <g:elseif test="${item.requestQueue.size()}">
-  <g:set var="item_status_message" value="this item has been requested" />
+  <g:set var="requestingUsername">${com.friendlibrary.User.get(item.requestQueue[0]).username}</g:set>
   <g:set var="buttonColor" value="yellow" />
   <g:if test="${viewingSelf}">
     <g:set var="needConfirmItemRequestForm" value="true" />
@@ -44,12 +44,14 @@
   </g:if>
   <g:else>
     <g:if test="${item.requestQueue.contains(viewUser.id)}">
-      <g:set var="formAction" value="removeItemRequest" />
+     <g:set var="formAction" value="removeItemRequest" />
+      <g:set var="item_status_message">requested by <span class="option_panel_username">you</span></g:set>
       <g:set var="buttonTitle" value="remove your request for this item" />
     </g:if>
     <g:else>
       <g:set var="formAction" value="itemRequest" />
       <g:set var="buttonTitle" value="request this item when it is returned" />
+      <g:set var="item_status_message">requested by <span class="option_panel_username">${requestingUsername}</span></g:set>
     </g:else>
   </g:else>
 </g:elseif>
