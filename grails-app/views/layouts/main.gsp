@@ -17,8 +17,11 @@
       <div id="spinner" class="spinner" style="display:none;">
         <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
       </div>
-      <a href="/friendlibrary"><div id="header"></div></a>
-      <br />
+      <a href="/friendlibrary">
+        <div id="header">
+          <img src="${resource(dir:'images',file:'books_header.png')}" alt="banner header" />
+        </div>
+      </a>
       <g:layoutBody />
       
     </div>

@@ -6,6 +6,10 @@ import org.springframework.security.DisabledException
 import org.springframework.security.context.SecurityContextHolder as SCH
 import org.springframework.security.ui.AbstractProcessingFilter
 import org.springframework.security.ui.webapp.AuthenticationProcessingFilter
+import org.springframework.security.providers.UsernamePasswordAuthenticationToken as AuthToken
+
+import com.friendlibrary.User
+import com.friendlibrary.Role
 
 /**
  * Login Controller (Example).
@@ -29,13 +33,18 @@ class LoginController {
 
 	private final authenticationTrustResolver = new AuthenticationTrustResolverImpl()
 
+	def daoAuthenticationProvider
+	def emailerService
+
+	static Map allowedMethods = [save: 'POST', update: 'POST']
+
 	def index = {
 		if (isLoggedIn()) {
       def viewUser = authenticateService.userDomain().id
       redirect(controller: 'user', action: 'library', id:viewUser)
 		}
 		else {
-			redirect action: auth, params: params
+			redirect controller:'index', action: 'index', params: params
 		}
 	}
 
@@ -68,6 +77,93 @@ class LoginController {
 		}
 
 		render view: view, model: [postUrl: postUrl]
+	}
+
+  /**
+	 * Person save action.
+	 */
+	def save = {
+
+		// skip if already logged in
+		if (authenticateService.isLoggedIn()) {
+			redirect action: show
+			return
+		}
+
+		def person = new User()
+		person.properties = params
+
+		def config = authenticateService.securityConfig
+		def defaultRole = config.security.defaultRole
+
+		def role = Role.findByAuthority(defaultRole)
+		if (!role) {
+			person.passwd = ''
+			flash.message = 'Default Role not found.'
+			render view: 'index', model: [person: person]
+			return
+		}
+
+		if (params.captcha.toUpperCase() != session.captcha) {
+			person.passwd = ''
+			flash.message = 'Access code did not match.'
+			render view: 'index', model: [person: person]
+			return
+		}
+
+		if (params.passwd != params.repasswd) {
+			person.passwd = ''
+			flash.message = 'The passwords you entered do not match.'
+			render view: 'index', model: [person: person]
+			return
+		}
+
+		def pass = authenticateService.encodePassword(params.passwd)
+		person.passwd = pass
+		person.enabled = true
+		//person.description = ''
+		//person.library = new com.friendlibrary.Library()
+    //person.borrowed = new com.friendlibrary.Library()
+    person.addToLibraries(new com.friendlibrary.Library(name:"owned"))
+    person.addToLibraries(new com.friendlibrary.Library(name:"borrowed"))
+		if (person.save()) {
+
+			role.addToPeople(person)
+			if (config.security.useMail) {
+				String emailContent = """You have signed up for an account at:
+
+ ${request.scheme}://${request.serverName}:${request.serverPort}${request.contextPath}
+
+ Here are the details of your account:
+ -------------------------------------
+ LoginName: ${person.username}
+ Email: ${person.email}
+ Full Name: ${person.userFirstName} ${person.userLastName}
+ Password: ${params.passwd}
+"""
+
+				def email = [
+					to: [person.email], // 'to' expects a List, NOT a single email address
+					subject: "[${request.contextPath}] Account Signed Up",
+					text: emailContent // 'text' is the email body
+				]
+				emailerService.sendEmails([email])
+			}
+
+			person.save(flush: true)
+
+			def auth = new AuthToken(person.username, params.passwd)
+			def authtoken = daoAuthenticationProvider.authenticate(auth)
+			SCH.context.authentication = authtoken
+			redirect uri: '/'
+
+
+		}
+
+		else {
+			person.passwd = ''
+			render view: 'index', model: [person: person]
+		}
 	}
 
 	/**

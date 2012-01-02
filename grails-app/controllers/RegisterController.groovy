@@ -195,16 +195,7 @@ class RegisterController {
 			SCH.context.authentication = authtoken
 			redirect uri: '/'
 			
-			//person.library.items.add("wtf")
-			//System.out.println("wtf")
-			// = [
-				//"wtf"
-				//person.library.books.getMetaClass()
-				//person.library.games,
-				//person.library.albums,
-				//person.library.movies
-			//]
-			//person.library.save()
+			
 		}
 		
 		else {
