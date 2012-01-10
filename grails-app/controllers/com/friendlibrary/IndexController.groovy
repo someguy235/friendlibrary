@@ -40,31 +40,19 @@ class IndexController {
 	def scaffold = false
 	
   def index = {
+    def session = request.session
 		def viewUser = authenticateService.userDomain()
 		viewUser = User.get(viewUser?.id)
 
     nocache response
 
-//    if (viewUser){
     if(authenticateService.isLoggedIn()){
       redirect (controller:'user', action:'library', id:viewUser.id, params:params, viewUser:viewUser)
     }else{
-      String view
-      String postUrl
       def config = authenticateService.securityConfig.security
-      if (config.useOpenId) {
-        view = 'openIdAuth'
-        postUrl = "${request.contextPath}/login/openIdAuthenticate"
-      }
-      else if (config.useFacebook) {
-        view = 'facebookAuth'
-        postUrl = "${request.contextPath}${config.facebook.filterProcessesUrl}"
-      }
-      else {
-        view = 'index'
-        postUrl = "${request.contextPath}${config.filterProcessesUrl}"
-      }
-      render view:view, model :[postUrl:postUrl, viewUser:viewUser]
+      String postUrl = "${request.contextPath}${config.filterProcessesUrl}"
+      render view:'index', model :[postUrl:postUrl, viewUser:viewUser]
+      
     }
 	}
 
@@ -96,40 +84,38 @@ class IndexController {
 		if (params.captcha.toUpperCase() != session.captcha) {
 			person.passwd = ''
 			flash.message = 'Access code did not match.'
-			render view: 'index', model: [person: person]
+      println "params: "+ params.captcha
+      println "session: "+ session.captcha
+//			render view: 'index', model: [person: person]
+      render view: 'index'
 			return
 		}
 
 		if (params.passwd != params.repasswd) {
 			person.passwd = ''
 			flash.message = 'The passwords you entered do not match.'
-			render view: 'index', model: [person: person]
+//			render view: 'index', model: [person: person]
+      render view: 'index'
 			return
 		}
 
 		def pass = authenticateService.encodePassword(params.passwd)
 		person.passwd = pass
 		person.enabled = true
-		//person.description = ''
-		//person.library = new com.friendlibrary.Library()
-    //person.borrowed = new com.friendlibrary.Library()
-    person.addToLibraries(new com.friendlibrary.Library(name:"owned"))
-    person.addToLibraries(new com.friendlibrary.Library(name:"borrowed"))
+    person.library = new com.friendlibrary.Library()
 		if (person.save()) {
-
 			role.addToPeople(person)
 			if (config.security.useMail) {
-				String emailContent = """You have signed up for an account at:
-
- ${request.scheme}://${request.serverName}:${request.serverPort}${request.contextPath}
-
- Here are the details of your account:
- -------------------------------------
- LoginName: ${person.username}
- Email: ${person.email}
- Full Name: ${person.userFirstName} ${person.userLastName}
- Password: ${params.passwd}
-"""
+				String emailContent = """
+          You have signed up for an account at:
+          ${request.scheme}://${request.serverName}:${request.serverPort}${request.contextPath}
+          Here are the details of your account:
+          -------------------------------------
+          LoginName: ${person.username}
+          Email: ${person.email}
+          Full Name: ${person.userFirstName} ${person.userLastName}
+          Password: ${params.passwd}
+        """
 
 				def email = [
 					to: [person.email], // 'to' expects a List, NOT a single email address
@@ -147,11 +133,24 @@ class IndexController {
 			redirect uri: '/'
 
 
-		}
-
-		else {
+		}else {
 			person.passwd = ''
-			render view: 'index', model: [person: person]
+      println "person not saved"
+//			render view: 'index', model: [person: person]
+      render view: 'index'
+
+		}
+	}
+
+  def show = {
+
+		// get user id from session's domain class.
+		def user = authenticateService.userDomain()
+		if (user) {
+			render view: 'show', model: [person: User.get(user.id)]
+		}
+		else {
+			redirect action: index
 		}
 	}
 

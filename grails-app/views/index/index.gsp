@@ -9,7 +9,7 @@
     <div id='login'>
       <div class='inner'>
         <g:if test='${flash.message}'>
-        <div class='login_message'>${flash.message}</div>
+          <div class='flash'>${flash.message}</div>
         </g:if>
         <div class='fheader'>Please Login..</div>
         <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
