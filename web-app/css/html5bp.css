@@ -787,6 +787,10 @@ div#newItemTabs td, div#newItemListTabs td{
 .library_table_body tr td{
   vertical-align: middle;
 }
+.login{
+  margin: 5px 0px 5px 0px;
+
+}
 .main {
 	text-align: center;
   padding-top: 10px;

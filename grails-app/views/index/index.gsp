@@ -2,47 +2,60 @@
 	<head>
 		<title>Welcome to friendlibrary</title>
 		<meta name="layout" content="main" />
+  <g:javascript>
+    jQuery(document).ready(function(){
+      $('.accordion .head').click(function() {
+        $(this).next().toggle();
+        return false;
+      }).next().hide();
+      $(function() {
+        $( "#accordion" ).accordion();
+      });
+    });
+  </g:javascript>
 	</head>
   <body>
     <h1>welcome to friend library</h1>
+    <g:if test='${flash.message}'>
+      <div class='flash'>${flash.message}</div>
+    </g:if>
 
-    <div id='login'>
-      <div class='inner'>
-        <g:if test='${flash.message}'>
-          <div class='flash'>${flash.message}</div>
-        </g:if>
-        <div class='fheader'>Please Login..</div>
-        <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
-          <p>
-            <label for='j_username'>Login ID</label>
-            <input type='text' class='text_' name='j_username' id='j_username' value='${request.remoteUser}' />
-          </p>
-          <p>
-            <label for='j_password'>Password</label>
-            <input type='password' class='text_' name='j_password' id='j_password' />
-          </p>
-          <p>
-            <label for='remember_me'>Remember me</label>
-            <input type='checkbox' class='chk' name='_spring_security_remember_me' id='remember_me'
-            <g:if test='${hasCookie}'>checked='checked'</g:if> />
-          </p>
-          <p>
-            <input type='submit' value='Login' />
-          </p>
-        </form>
-      </div>
-    </div>
-
-    <div id="register">
-      <g:hasErrors bean="${person}">
-        <div class="errors">
-          <g:renderErrors bean="${person}" as="list" />
+    <div id="accordion">
+      <h2><a href="#">Log In</a></h2>
+      <div class="login">
+        <div class='highlight-box'>
+          <div class='fheader'>Please Login...</div>
+          <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
+            <p>
+              <label for='j_username'>Login ID</label>
+              <input type='text' class='text_' name='j_username' id='j_username' value='${request.remoteUser}' />
+            </p>
+            <p>
+              <label for='j_password'>Password</label>
+              <input type='password' class='text_' name='j_password' id='j_password' />
+            </p>
+            <p>
+              <label for='remember_me'>Remember me</label>
+              <input type='checkbox' class='chk' name='_spring_security_remember_me' id='remember_me'
+              <g:if test='${hasCookie}'>checked='checked'</g:if> />
+            </p>
+            <p>
+              <input type='submit' value='Login' />
+            </p>
+          </form>
         </div>
-      </g:hasErrors>
-      <br />
-      <g:form action="save">
-        <div class="dialog" >
-          <div class="highlight-box">
+      </div>
+
+      <h2><a href="#">Sign Up</a></h2>
+      <div class="login">
+        <div class="highlight-box">
+          <g:hasErrors bean="${person}">
+            <div class="errors">
+              <g:renderErrors bean="${person}" as="list" />
+            </div>
+          </g:hasErrors>
+          <br />
+          <g:form action="save">
             <table>
               <tbody>
                 <tr class='prop'>
@@ -96,15 +109,15 @@
                 </tr>
               </tbody>
             </table>
-          </div>
+            <br />
+            <div class="buttons">
+              <span class="formButton">
+                <input class='save' type="submit" value="Create"></input>
+              </span>
+            </div>
+          </g:form>
         </div>
-        <br />
-        <div class="buttons">
-          <span class="formButton">
-            <input class='save' type="submit" value="Create"></input>
-          </span>
-        </div>
-      </g:form>
-    </div>
+      </div><!--login (sign up)-->
+    </div><!--accordion-->
   </body>
 </html>

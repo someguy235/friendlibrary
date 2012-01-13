@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="${resource(dir:'css',file:'jquery.qtip.min.css')}" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'html5bp.css')}" />
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-    <g:javascript src="jquery/jquery-1.5.1.min.js"/>
-    <g:javascript src="jquery/jquery-ui-1.8.11.custom.min.js"/>
+    <g:javascript src="jquery/jquery-1.7.1.min.js"/>
+    <g:javascript src="jquery/jquery-ui-1.8.17.custom.min.js"/>
     <g:javascript src="jquery/jquery.qtip.min.js"/>
     <g:javascript src="jquery/jquery.tablesorter.min.js"/>
     <g:javascript library="application" />
