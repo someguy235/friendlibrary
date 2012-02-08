@@ -8,9 +8,13 @@
         $(this).next().toggle();
         return false;
       }).next().hide();
+
       $(function() {
-        $( "#accordion" ).accordion();
+        $( "#accordion" ).accordion({
+          autoHeight: false
+        });
       });
+
     });
   </g:javascript>
 	</head>
@@ -20,104 +24,76 @@
       <div class='flash'>${flash.message}</div>
     </g:if>
 
-    <div id="accordion">
-      <h2><a href="#">Log In</a></h2>
-      <div class="login">
-        <div class='highlight-box'>
-          <div class='fheader'>Please Login...</div>
-          <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
-            <p>
-              <label for='j_username'>Login ID</label>
-              <input type='text' class='text_' name='j_username' id='j_username' value='${request.remoteUser}' />
-            </p>
-            <p>
-              <label for='j_password'>Password</label>
-              <input type='password' class='text_' name='j_password' id='j_password' />
-            </p>
-            <p>
-              <label for='remember_me'>Remember me</label>
-              <input type='checkbox' class='chk' name='_spring_security_remember_me' id='remember_me'
-              <g:if test='${hasCookie}'>checked='checked'</g:if> />
-            </p>
-            <p>
-              <input type='submit' value='Login' />
-            </p>
-          </form>
+    <div class='highlight-box'>
+      <div class='fheader'>Login...</div>
+      <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
+        <p>
+          <!--<label for='j_username'>Username</label><br />-->
+          <input type='text' class='text_' name='j_username' id='j_username' value='${request.remoteUser}' placeholder="username"/>
+        </p>
+        <p>
+          <!--<label for='j_password'>Password</label><br />-->
+          <input type='password' class='text_' name='j_password' id='j_password' placeholder="password" />
+        </p>
+        <p>
+          <label for='remember_me'>Remember me</label>
+          <input type='checkbox' class='chk' name='_spring_security_remember_me' id='remember_me'
+          <g:if test='${hasCookie}'>checked='checked'</g:if>/>
+        </p>
+        <!--<p>
+          <input type='submit' value='Login' />
+        </p>-->
+        <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button">
+          <span class="ui-button-text">Login</span>
+        </button>
+      </form>
+    </div>
+    <div class="highlight-box">
+      <g:hasErrors bean="${person}">
+        <div class="errors">
+          <g:renderErrors bean="${person}" as="list" />
         </div>
-      </div>
-
-      <h2><a href="#">Sign Up</a></h2>
-      <div class="login">
-        <div class="highlight-box">
-          <g:hasErrors bean="${person}">
-            <div class="errors">
-              <g:renderErrors bean="${person}" as="list" />
-            </div>
-          </g:hasErrors>
-          <br />
-          <g:form action="save">
-            <table>
-              <tbody>
-                <tr class='prop'>
-                  <td valign='center' class='name'><label for='username'>Login Name:</label></td>
-                  <td valign='top' class='value ${hasErrors(bean:person,field:'username','errors')}'>
-                    <input type="text" name='username' value="${person?.username?.encodeAsHTML()}"/>
-                  </td>
-                </tr>
-
-                <tr class='prop'>
-                  <td valign='center' class='name'><label for='passwd'>Password:</label></td>
-                  <td valign='top' class='value ${hasErrors(bean:person,field:'passwd','errors')}'>
-                    <input type="password" name='passwd' value="${person?.passwd?.encodeAsHTML()}"/>
-                  </td>
-                </tr>
-
-                <tr class='prop'>
-                  <td valign='center' class='name'><label for='enabled'>Confirm Password:</label></td>
-                  <td valign='top' class='value ${hasErrors(bean:person,field:'passwd','errors')}'>
-                    <input type="password" name='repasswd' value="${person?.passwd?.encodeAsHTML()}"/>
-                  </td>
-                </tr>
-
-                <tr class='prop'>
-                  <td valign='center' class='name'><label for='email'>Email:</label></td>
-                  <td valign='top' class='value ${hasErrors(bean:person,field:'email','errors')}'>
-                    <input type="text" name='email' value="${person?.email?.encodeAsHTML()}"/>
-                  </td>
-                </tr>
-
-                <tr class='prop'>
-                  <td valign='center' class='name'><label for='userFirstName'>First Name:</label></td>
-                  <td valign='top' class='value ${hasErrors(bean:person,field:'userFirstName','errors')}'>
-                    <input type="text" name='userFirstName' value="${person?.userFirstName?.encodeAsHTML()}"/>
-                  </td>
-                </tr>
-
-                <tr class='prop'>
-                  <td valign='center' class='name'><label for='userLastName'>Last Name:</label></td>
-                  <td valign='top' class='value ${hasErrors(bean:person,field:'userLastName','errors')}'>
-                    <input type="text" name='userLastName' value="${person?.userLastName?.encodeAsHTML()}"/>
-                  </td>
-                </tr>
-
-                <tr class='prop'>
-                  <td valign='center' class='name'><label for='code' >Enter Code: </label></td>
-                  <td valign='top' class='name'>
-                    <input type="text" name="captcha" size="8"/>
-                    <img src="${createLink(controller:'captcha', action:'index')}" align="absmiddle"/>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <br />
-            <div class="buttons">
-              <span class="formButton">
-                <input class='save' type="submit" value="Create"></input>
-              </span>
-            </div>
-          </g:form>
-        </div>
-      </div><!--login (sign up)-->
-    </div><!--accordion-->
+      </g:hasErrors>
+      <div class='fheader'>Sign up...</div>
+      <g:form action="save">
+        <p>
+        <!--<label for='username'>Login Name:</label>-->
+        <input type="text" name='username' value="${person?.username?.encodeAsHTML()}" placeholder="username" />
+        </p>
+        <p>
+        <!--<label for='passwd'>Password:</label>-->
+        <input type="password" name='passwd' value="${person?.passwd?.encodeAsHTML()}" placeholder="password" />
+        </p>
+        <p>
+        <!--<label for='enabled'>Confirm Password:</label>-->
+        <input type="password" name='repasswd' value="${person?.passwd?.encodeAsHTML()}" placeholder="confirm password" />
+        </p>
+        <p>
+        <!--<label for='email'>Email:</label>-->
+        <input type="text" name='email' value="${person?.email?.encodeAsHTML()}" placeholder="email" />
+        </p>
+        <p>
+        <!--<label for='userFirstName'>First Name:</label>-->
+        <input type="text" name='userFirstName' value="${person?.userFirstName?.encodeAsHTML()}" placeholder="first name"/>
+        </p>
+        <p>
+        <!--<label for='userLastName'>Last Name:</label>-->
+        <input type="text" name='userLastName' value="${person?.userLastName?.encodeAsHTML()}" placeholder="last name"/>
+        </p>
+        <p>
+        <!--<label for='code' >Enter Code: </label>-->
+        <!--<input type="text" name="captcha" size="8" placeholder="code" />-->
+        <!--<img src="${createLink(controller:'captcha', action:'index')}" align="absmiddle"/>-->
+        </p>
+        <!--<div class="buttons">
+          <span class="formButton">
+            <input class='save' type="submit" value="Create"></input>
+          </span>
+        </div>-->
+        <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button">
+          <span class="ui-button-text">Create</span>
+        </button>
+      </g:form>
+    </div>
   </body>
 </html>

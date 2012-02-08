@@ -571,10 +571,10 @@ html {
 }
 body {
 	height: 100%;
-  background: #999999;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#cccccc'); /* for IE */
+  background: #fff;
+  /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#cccccc');
   background: -moz-linear-gradient(top, #666, #ccc);
-  background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#ccc));
+  background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#ccc));*/
   color: #4F4F4F;
   font: 11px verdana, arial, helvetica, sans-serif;
 	margin:0 auto;
@@ -586,6 +586,7 @@ a:link, a:visited, a:hover, a:active, a:focus {
   text-decoration: none;
   outline-style: none;
 }
+
 h1{
   text-align: center;
   color: #ba9556;
@@ -699,6 +700,9 @@ div#newItemTabs td, div#newItemListTabs td{
 .edit_panel, .delete_panel{
   text-align: center;
 }
+.fheader{
+  text-align: center;
+}
 .flash{
 	background: #CFC233;
 	font-size: 14px;
@@ -724,11 +728,15 @@ div#newItemTabs td, div#newItemListTabs td{
   padding-bottom: 5px;
 }
 .highlight-box{
-	background-color:#D4D1BF;
+	background-color:#39587A;
 	border: 1px solid #b83400;
-	margin-left:25%;
-	width:50%;
+/*	margin-left:25%;*/
+	width:25%;
 	padding: 5px;
+  font-size: 20px;
+  color:#97ADC5;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
 }
 .import_box{
   text-align: center;
