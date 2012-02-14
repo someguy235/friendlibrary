@@ -23,23 +23,17 @@
     <g:if test='${flash.message}'>
       <div class='flash'>${flash.message}</div>
     </g:if>
-
-    <div class='highlight-box'>
+    <div class="grid_3">&nbsp;</div>
+    <div class='highlight-box grid_3'>
       <div class='fheader'>Login...</div>
       <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
-        <p>
           <!--<label for='j_username'>Username</label><br />-->
           <input type='text' class='text_' name='j_username' id='j_username' value='${request.remoteUser}' placeholder="username"/>
-        </p>
-        <p>
           <!--<label for='j_password'>Password</label><br />-->
           <input type='password' class='text_' name='j_password' id='j_password' placeholder="password" />
-        </p>
-        <p>
           <label for='remember_me'>Remember me</label>
           <input type='checkbox' class='chk' name='_spring_security_remember_me' id='remember_me'
           <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-        </p>
         <!--<p>
           <input type='submit' value='Login' />
         </p>-->
@@ -48,7 +42,7 @@
         </button>
       </form>
     </div>
-    <div class="highlight-box">
+    <div class="highlight-box grid_3">
       <g:hasErrors bean="${person}">
         <div class="errors">
           <g:renderErrors bean="${person}" as="list" />

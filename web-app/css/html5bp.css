@@ -644,7 +644,10 @@ ul {
 
 #header{
   height: 64px;
-  background-color: #5686ba;
+  background-color: #000;
+  background-image:url('../images/books_header.png');
+  width:100%;
+  margin-bottom:1em;
 }
 #messageTabs{
   padding-top: 10px;
@@ -729,14 +732,14 @@ div#newItemTabs td, div#newItemListTabs td{
 }
 .highlight-box{
 	background-color:#39587A;
-	border: 1px solid #b83400;
-/*	margin-left:25%;*/
-	width:25%;
+/*	border: 1px solid #b83400;*/
 	padding: 5px;
+  margin-top:10px;
   font-size: 20px;
   color:#97ADC5;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  text-align:center;
 }
 .import_box{
   text-align: center;
@@ -797,6 +800,9 @@ div#newItemTabs td, div#newItemListTabs td{
 }
 .login{
   margin: 5px 0px 5px 0px;
+}
+.login-box{
+/*  float:left;*/
 
 }
 .main {
