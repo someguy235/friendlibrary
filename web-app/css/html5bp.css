@@ -566,11 +566,11 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
  */
 
 html {
-	background: #ccc;
-	height: 100%;
+/*	background: #ccc;*/
+/*	height: 100%;*/
 }
 body {
-	height: 100%;
+/*	height: 100%;*/
   background: #fff;
   /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#cccccc');
   background: -moz-linear-gradient(top, #666, #ccc);
@@ -596,7 +596,7 @@ h1{
   background: -moz-linear-gradient(top, #39587A, #5686BA);
   background: -webkit-gradient(linear, left top, left bottom, from(#39587A), to(#5686BA));
   padding: 5px 0px 5px 0px;
-  margin: 0px 0px 0px 0px;
+  margin: 10px 0px 0px 0px;
 }
 h2 {
   color:#2878AE;
@@ -743,9 +743,10 @@ div#newItemTabs td, div#newItemListTabs td{
 }
 .import_box{
   text-align: center;
-  height:200px;
-  margin-left: 10px;
-  margin-right: 10px;
+/*  height:200px;*/
+  margin: 10px 10px 10px 0px;
+/*  margin-left: 10px;*/
+/*  margin-right: 10px;*/
 }
 .library_all_col_available{
   width:64px;
@@ -773,7 +774,7 @@ div#newItemTabs td, div#newItemListTabs td{
   display: none;
 }
 .library_item_option{
-  height: 25px;
+/*  height: 25px;*/
 }
 .library_item_option form {
 
@@ -785,10 +786,12 @@ div#newItemTabs td, div#newItemListTabs td{
 .library_item_options{
   text-align: left;
   margin: 3px;
+
 }
 .library_item_status{
   font-size: 11pt;
-  color: #5686ba;
+/*  color: #5686ba;*/
+  color:#39587A;
   text-align: center;
   margin: 5px;
 }

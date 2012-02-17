@@ -31,8 +31,9 @@
       <div class="edit_field"><g:select from="${gamePlatforms}" name="edit_platform" value="${item.platform}" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select></div>
       <div class="clear"></div> 
     </g:if>
-    <button aria-disabled="false" role="button" id="button" title="update item">
-      Update
+    <br />
+    <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button">
+      <span class="ui-button-text">Update</span>
     </button>
   </g:form>
 </div>

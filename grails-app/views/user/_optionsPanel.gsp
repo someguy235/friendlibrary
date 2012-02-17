@@ -9,7 +9,7 @@
   <g:if test="${viewingSelf}">
     <g:set var="item_status_message">loaned out to <span class="option_panel_username">${item.loanedTo.username}</span></g:set>
     <g:set var="formAction" value="requestItemReturn" />
-    <g:set var="buttonTitle" value="request this item be returned" />
+    <g:set var="buttonTitle" value="request return" />
   </g:if>
   <g:else>
     <g:if test="${item.loanedTo.id == viewUser.id}">
@@ -18,7 +18,7 @@
     </g:if>
     <g:else>
       <g:set var="formAction" value="makeItemRequest" />
-      <g:set var="buttonTitle" value="request this item when it is returned" />
+      <g:set var="buttonTitle" value="request when returned" />
     </g:else>
   </g:else>
 </g:if>
@@ -27,11 +27,11 @@
   <g:set var="buttonColor" value="yellow" />
   <g:if test="${viewingSelf}">
     <g:set var="formAction" value="removeItemRequest" />
-    <g:set var="buttonTitle" value="remove reserved status from this item" />
+    <g:set var="buttonTitle" value="remove reserved status" />
   </g:if>
   <g:else>
     <g:set var="formAction" value="makeItemRequest" />
-    <g:set var="buttonTitle" value="request this item when it is available" />
+    <g:set var="buttonTitle" value="request when available" />
   </g:else>
 </g:elseif>
 <g:elseif test="${item.requestQueue.size()}">
@@ -40,17 +40,17 @@
   <g:if test="${viewingSelf}">
     <g:set var="needConfirmItemRequestForm" value="true" />
     <g:set var="formAction" value="removeAllItemRequests" />
-    <g:set var="buttonTitle" value="remove all requests from this item" />
+    <g:set var="buttonTitle" value="remove all requests" />
   </g:if>
   <g:else>
     <g:if test="${item.requestQueue.contains(viewUser.id)}">
      <g:set var="formAction" value="removeItemRequest" />
       <g:set var="item_status_message">requested by <span class="option_panel_username">you</span></g:set>
-      <g:set var="buttonTitle" value="remove your request for this item" />
+      <g:set var="buttonTitle" value="remove your request" />
     </g:if>
     <g:else>
       <g:set var="formAction" value="itemRequest" />
-      <g:set var="buttonTitle" value="request this item when it is returned" />
+      <g:set var="buttonTitle" value="request when returned" />
       <g:set var="item_status_message">requested by <span class="option_panel_username">${requestingUsername}</span></g:set>
     </g:else>
   </g:else>
@@ -61,11 +61,11 @@
   <g:if test="${viewingSelf}">
     <g:set var="notLoanedOut" value="true" />
     <g:set var="formAction" value="makeItemRequest" />
-    <g:set var="buttonTitle" value="place a hold on this item" />
+    <g:set var="buttonTitle" value="place a hold" />
   </g:if>
   <g:else>
     <g:set var="formAction" value="makeItemRequest" />
-    <g:set var="buttonTitle" value="request this item" />
+    <g:set var="buttonTitle" value="ask to borrow" />
   </g:else>
 </g:else>
 <g:set var="buttonImage" value="${buttonColor}light.png" />
@@ -91,7 +91,7 @@
                 <button aria-disabled="false" role="button" id="button" title="${buttonTitle}"> \
                   <img height="15" width="15" src="${resource(dir:'images/icons',file:"greenlight.png")}" /> \
                 </button> \
-                <span class="library_item_option_text">mark this item as delivered</span> \
+                <span class="library_item_option_text">mark as delivered</span> \
               </g:form> \
             </div> \
           </g:if> \
@@ -112,7 +112,7 @@
                 <button aria-disabled="false" role="button" onclick="edit_panel(${item.id});" id="button" class="edit_button" title="edit item"> \
                   <img height="15" width="15" src="${resource(dir:'images/icons',file:"yellowlight.png")}" /> \
                 </button> \
-                <span class="library_item_option_text">edit this item</span> \
+                <span class="library_item_option_text">edit</span> \
               </div> \
               <div class="clear"></div> \
             </g:if> \
@@ -120,16 +120,22 @@
               <button aria-disabled="false" role="button" onclick="delete_panel(${item.id});" id="button" class="delete_button" title="delete item"> \
                   <img height="15" width="15" src="${resource(dir:'images/icons',file:"delete.png")}" /> \
               </button> \
-              <span class="library_item_option_text">delete this item</span> \
+              <span class="library_item_option_text">delete</span> \
             </div> \
           </g:if> \
         </div> \
       '
     },
+    show:{
+      solo: true
+    },
     hide:{
       fixed: true,
       when: 'mouseout',
       delay: 500
+    },
+    style:{
+      classes: 'ui-tooltip-shadow ui-tooltip-cluetip'
     }
   });
 

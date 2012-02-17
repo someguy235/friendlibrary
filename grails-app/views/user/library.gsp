@@ -60,6 +60,7 @@
     
 		<div > <!-- interface for adding items -->
 			<g:if test="${viewingSelf}">
+        <h1>Add Items</h1>
         <g:render template="addItem" model="['gamePlatforms':gamePlatforms]" />
         <g:render template="addItemList" />
 			</g:if>
@@ -67,7 +68,7 @@
 		<div class="clear"></div>
 
     <g:if test="${viewingSelf}">
-      <p><h1>Borrowed Items</h1></p>
+      <h1>Borrowed Items</h1>
       <div id="borrowedItems" class="main">
         <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="borrowedTabs">
 
@@ -136,7 +137,7 @@
 		</g:if>
 
 		<div class="clear"></div>
-    <p><h1>Library for <g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></h1></p>
+    <h1>Library for <g:link controller="user" action="profile" id="${user.id}">${user.username}</g:link></h1>
 		
 		<div id="allItems" class="main">
 			<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="libTabs">
