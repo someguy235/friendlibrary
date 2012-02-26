@@ -121,7 +121,7 @@ class MessageService {
     if(requestingUser == requestedUser){
       requestedItem.reserved = true
       requestedItem.library.available[requestedItem.mediaType + "s"] -= 1
-      return "${requestedItem.title} item is now reserved"
+      return "${requestedItem.title} is now reserved"
     }
     else{
       if(!alreadyRequested){

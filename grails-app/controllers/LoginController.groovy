@@ -55,28 +55,29 @@ class LoginController {
 
 		nocache response
 
-		if (isLoggedIn()) {
+//		if (isLoggedIn()) {
 			redirect uri: '/'
 			return
-		}
-
-		String view
-		String postUrl
-		def config = authenticateService.securityConfig.security
-		if (config.useOpenId) {
-			view = 'openIdAuth'
-			postUrl = "${request.contextPath}/login/openIdAuthenticate"
-		}
-		else if (config.useFacebook) {
-			view = 'facebookAuth'
-			postUrl = "${request.contextPath}${config.facebook.filterProcessesUrl}"
-		}
-		else {
-			view = 'auth'
-			postUrl = "${request.contextPath}${config.filterProcessesUrl}"
-		}
-
-		render view: view, model: [postUrl: postUrl]
+//		}
+//
+//		String view
+//		String postUrl
+//		def config = authenticateService.securityConfig.security
+//		if (config.useOpenId) {
+//			view = 'openIdAuth'
+//			postUrl = "${request.contextPath}/login/openIdAuthenticate"
+//		}
+//		else if (config.useFacebook) {
+//			view = 'facebookAuth'
+//			postUrl = "${request.contextPath}${config.facebook.filterProcessesUrl}"
+//		}
+//		else {
+//      view = '/'
+////			view = 'auth'
+//			postUrl = "${request.contextPath}${config.filterProcessesUrl}"
+//		}
+//
+//		render view: view //, model: [postUrl: postUrl]
 	}
 
   /**

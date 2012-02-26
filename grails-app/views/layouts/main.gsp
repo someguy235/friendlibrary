@@ -57,7 +57,7 @@
         Welcome, guest
         <br />
         <g:link controller="login">log in</g:link> |
-        <g:link controller="register">sign up</g:link>
+        <g:link controller="login">sign up</g:link>
       </g:isNotLoggedIn>
     </div>
     <br />

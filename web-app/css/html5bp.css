@@ -591,6 +591,7 @@ h1{
   text-align: center;
   color: #ba9556;
   background: #476F9A;
+  font-family: "Arial", sans-serif;
   font-size: 20px;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#39587A', endColorstr='#5686BA'); /* for IE */
   background: -moz-linear-gradient(top, #39587A, #5686BA);
@@ -601,14 +602,13 @@ h1{
 h2 {
   color:#2878AE;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 1.5em;
   margin: .8em 0 .3em 0;
 }
 h3 {
   color: #000;
   font-weight: normal;
-  font-size: 14px;
-  margin: .8em 0 .3em 0;
+  font-size: 1.5em;
 }
 img {
   outline-style: none;
@@ -703,9 +703,7 @@ div#newItemTabs td, div#newItemListTabs td{
 .edit_panel, .delete_panel{
   text-align: center;
 }
-.fheader{
-  text-align: center;
-}
+
 .flash{
 	background: #CFC233;
 	font-size: 14px;
@@ -731,15 +729,37 @@ div#newItemTabs td, div#newItemListTabs td{
   padding-bottom: 5px;
 }
 .highlight-box{
-	background-color:#39587A;
-/*	border: 1px solid #b83400;*/
-	padding: 5px;
-  margin-top:10px;
-  font-size: 20px;
-  color:#97ADC5;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  text-align:center;
+  background-color: #ccc;
+	padding: 1em;
+  margin-top: 2em;
+  color:#666;
+  font-family: "Arial", sans-serif;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 2px 2px 5px #333;
+  -webkit-box-shadow: 2px 2px 5px #333;
+  box-shadow: 2px 2px 5px #333;
+}
+.highlight-box h3{
+  text-align: center;
+  margin-bottom: .5em;
+}
+.highlight-box input{
+  width:100%;
+  margin-bottom: .5em;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+.highlight-box input:focus{
+  -moz-box-shadow: 0 0 6px #2878AE;
+  -webkit-box-shadow: 0 0 6px #2878AE;
+  box-shadow: 0 0 6px #2878AE;
+}
+.login_button{
+  margin-top: .5em;
+  text-align: center;
 }
 .import_box{
   text-align: center;
@@ -774,7 +794,7 @@ div#newItemTabs td, div#newItemListTabs td{
   display: none;
 }
 .library_item_option{
-/*  height: 25px;*/
+  font-size:1.1em;
 }
 .library_item_option form {
 
@@ -784,13 +804,13 @@ div#newItemTabs td, div#newItemListTabs td{
   top: -3px;
 }
 .library_item_options{
+  font-family: "Trebuchet MS", sans-serif;
   text-align: left;
   margin: 3px;
 
 }
 .library_item_status{
-  font-size: 11pt;
-/*  color: #5686ba;*/
+  font-size: 1.5em;
   color:#39587A;
   text-align: center;
   margin: 5px;
@@ -801,13 +821,7 @@ div#newItemTabs td, div#newItemListTabs td{
 .library_table_body tr td{
   vertical-align: middle;
 }
-.login{
-  margin: 5px 0px 5px 0px;
-}
-.login-box{
-/*  float:left;*/
 
-}
 .main {
 	text-align: center;
   padding-top: 10px;
