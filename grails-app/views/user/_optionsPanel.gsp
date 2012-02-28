@@ -4,7 +4,6 @@
 <!-- options panel -->
 <g:set var="needConfirmItemRequestForm" value="false" />
 <g:if test="${item.loanedOut == true}">
-  <g:set var="item_status_message" value="this item is loaned out" />
   <g:set var="buttonColor" value="red" />
   <g:if test="${viewingSelf}">
     <g:set var="item_status_message">loaned out to <span class="option_panel_username">${item.loanedTo.username}</span></g:set>
@@ -13,10 +12,12 @@
   </g:if>
   <g:else>
     <g:if test="${item.loanedTo.id == viewUser.id}">
-      <g:set var="formAction" value="" />
-      <g:set var="buttonTitle" value="you have this item" />
+      <g:set var="item_status_message" value="you have this item" />
+      <g:set var="formAction" value="confirmReturnRequest" />
+      <g:set var="buttonTitle" value="mark this item returned" />
     </g:if>
     <g:else>
+      <g:set var="item_status_message" value="this item is loaned out" />
       <g:set var="formAction" value="makeItemRequest" />
       <g:set var="buttonTitle" value="request when returned" />
     </g:else>

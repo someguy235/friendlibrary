@@ -36,15 +36,17 @@
           <g:if test="${newMessages != 0}">
             <g:set var="message_classes">message_count message_count_n</g:set>
           </g:if>
-          <div class="${message_classes}">
+          <g:set var="newMessagesTitle" value="${newMessages} new messages" />
+          <g:if test="${newMessages != 1}">
             <g:set var="newMessagesTitle" value="${newMessages} new messages" />
-            <g:if test="${newMessages != 1}">
-              <g:set var="newMessagesTitle" value="${newMessages} new messages" />
-            </g:if>
-            <g:link controller="user" action="profile" id="${loggedInUserId}" title="${newMessagesTitle}">
+          </g:if>
+          
+          <g:link controller="user" action="profile" id="${loggedInUserId}" title="${newMessagesTitle}">
+            <div class="${message_classes}">
               ${viewUser.inMessages.size()}
-            </g:link>
-          </div>
+            </div>
+          </g:link>
+
         </div>
         <div class="clear"></div>
         <g:link controller="user" action="library" id="${loggedInUserId}">library</g:link> |

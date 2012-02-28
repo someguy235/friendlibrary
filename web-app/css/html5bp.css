@@ -838,11 +838,13 @@ div#newItemTabs td, div#newItemListTabs td{
 }
 .message_count{
   font-size: .8em;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
-  min-width:15px;
-  float:left;
-  margin-left:10px;
-  margin-top:2px;
+  min-width: 1em;
+  float: left;
+  margin-left: .666em;
+  margin-top: .15em;
   padding: 0px 5px 1px 5px;
   text-align: center;
 }
