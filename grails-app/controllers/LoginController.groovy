@@ -54,9 +54,9 @@ class LoginController {
 	def auth = {
 
 		nocache response
-
+      log.info("reached login controller")
 //		if (isLoggedIn()) {
-			redirect uri: '/'
+			redirect uri: '/index/index'
 			return
 //		}
 //

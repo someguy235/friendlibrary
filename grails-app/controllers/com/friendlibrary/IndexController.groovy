@@ -40,6 +40,10 @@ class IndexController {
 	def scaffold = false
 	
   def index = {
+    def catalinaBase = System.properties.getProperty('catalina.base')
+    log.info(catalinaBase)
+    log.info("reached index controller")
+    
     def session = request.session
 		def viewUser = authenticateService.userDomain()
 		viewUser = User.get(viewUser?.id)
@@ -47,8 +51,10 @@ class IndexController {
     nocache response
 
     if(authenticateService.isLoggedIn()){
+      log.info("reached is logged in")
       redirect (controller:'user', action:'library', id:viewUser.id, params:params, viewUser:viewUser)
     }else{
+      log.info("reached is not logged in")
       def config = authenticateService.securityConfig.security
       String postUrl = "${request.contextPath}${config.filterProcessesUrl}"
       render view:'index', model :[postUrl:postUrl, viewUser:viewUser]
