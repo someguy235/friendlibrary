@@ -652,6 +652,21 @@ ul {
 #messageTabs{
   padding-top: 10px;
 }
+#welcome_box{
+  background-color: #dddddd;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 2em 1em;
+  font-size:1.2em;
+  border-radius: .5em;
+}
+#welcome_box i{
+  font-style: italic;
+}
+#welcome_title{
+  color: #39587A;
+  font-size: 2.4em;
+}
 div#newItemTabs td, div#newItemListTabs td{
   vertical-align: middle;
 }

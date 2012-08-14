@@ -19,8 +19,17 @@
   </g:javascript>
 	</head>
   <body>
-    <h1>welcome to friend library</h1>
-
+    <div id="welcome_box" class="grid_12">
+      <p><span id="welcome_title">Welcome to Friendly Library!</span></p>
+      <br />
+      <p>Who did you lend <i>The Hunger Games</i> to? Does anyone I know have a copy of <i>This is Spinal Tap</i>? 
+      Friendly Library helps you coordinate borrowing and lending books, movies, and games. Never lose track
+      of who has your stuff, and easily search for the things you want to borrow among all your friends.</p>
+      <br />
+      <p>To get started, log in or sign up, or take the tour.</p>
+      
+    </div>
+    
     <g:if test='${flash.message}'>
       <div class='flash'>${flash.message}</div>
     </g:if>
@@ -75,6 +84,7 @@
         </div>
       </g:form>
     </div>
+    <div class="grid_3">&nbsp;</div>
 
   </body>
 </html>
