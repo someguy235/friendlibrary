@@ -6,7 +6,7 @@ class ItemException extends RuntimeException{
 }
 
 class ItemController {
-  def authenticateService
+//  def authenticateService
   def itemService
   //def scaffold = true
 		

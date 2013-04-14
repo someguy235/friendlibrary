@@ -1,49 +1,68 @@
 class BootStrap {
-  // include this line to encode password for ACEGI
-  def authenticateService
+
+  def springSecurityService
 	
   def init = { servletContext ->
     //create admin user
     if (!com.friendlibrary.User.findByUsername("admin")){
-      def password = authenticateService.encodePassword("password")
+      def password = springSecurityService.encodePassword("password")
+      password = "password"
       def superadmin = new com.friendlibrary.User(
         username:"admin",
         email:"email@example.com",
         userFirstName:"Ad",
         userLastName:"ministrator",
-        passwd:password,
+        password:password,
         enabled:true,
         library:new com.friendlibrary.Library()
-      ).save(failOnError:true)
-
-
-      password = authenticateService.encodePassword("catfood")
+      ).save(flush: true, failOnError:true)
+      
+      //password = springSecurityService.encodePassword("catfood")
+      password = "catfood"
       def buster = new com.friendlibrary.User(
         username:"buster",
         email:"buster@example.com",
         userFirstName:"Buster",
         userLastName:"Cat",
-        passwd:password,
+        password:password,
         enabled:true,
         library:new com.friendlibrary.Library()
-      ).save(failOnError:true)
-
+      ).save(flush: true, failOnError:true)
+      
+//      def id = com.friendlibrary.User.findByUsername("buster").id
+//      println id
+//      def user = com.friendlibrary.User.get(id)
+//      println user
+//      def lib = user.library
+//      println lib
       //create admin role
-      def sudo = new com.friendlibrary.Role(authority:"ROLE_ADMIN",description:"Site Administrator")
+      def sudo = new com.friendlibrary.Role(authority:"ROLE_ADMIN",description:"Site Administrator").save()
       // now add the User to the role
       if (null != superadmin){
-        sudo.addToPeople(superadmin)
-        sudo.save()
+        //def roleUser = com.friendlibrary.Role.findByAuthority('ROLE_ADMIN')
+        com.friendlibrary.UserRole.create(superadmin, sudo)
+        //sudo.addToPeople(superadmin)
+        //sudo.save()
       }
-
+        
       def role_user = new com.friendlibrary.Role(authority:"ROLE_USER",description:"User").save()
-      def defaultRole = role_user
+      //def defaultRole = role_user
       if (null != buster){
-        role_user.addToPeople(buster)
-        role_user.save()
+        com.friendlibrary.UserRole.create(buster, role_user)
+        //role_user.addToPeople(buster)
+        //role_user.save()
       }
+      
     }
+//    def id = com.friendlibrary.User.findByUsername("buster").id
+//    println id
+//    def user = com.friendlibrary.User.get(id)
+//    println user
+//    def lib = user.library
+//    println lib
+//    println(com.friendlibrary.User.findByUsername("buster").id)
   }
   
-  def destroy = { }
-} 
+  def destroy = {
+  }
+}

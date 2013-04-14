@@ -4,9 +4,7 @@
 			Library for ${user.username}
 		</title>
 
-    <meta name="layout" content="main"/>
-    
-		<g:javascript>
+    <g:javascript>
       $.fx.speeds._default = 250;
 
       $(function() {
@@ -52,6 +50,7 @@
       };
 
 		</g:javascript>
+    <meta name="layout" content="main"/>
 	</head>
 	<body>
     <g:if test="${flash.message}">

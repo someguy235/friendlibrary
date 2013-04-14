@@ -1,8 +1,13 @@
 package com.friendlibrary
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+
 class UserController {
   def scaffold = true
-  def authenticateService
+  //def authenticateService
+  def authenticationTrustResolver
+
+  def springSecurityService
   def itemService
 
   def search = {
@@ -26,9 +31,9 @@ class UserController {
   }
 		
   def profile = {
+    def viewUser = User.get(springSecurityService.currentUser.id)
+
     def user = User.get(params.id)
-    def viewUser = authenticateService.userDomain()
-    viewUser = User.get(viewUser.id)
     def boolean viewingSelf = (user == viewUser)
     def boolean isFriend = true
     def boolean isFriendRequested = false
@@ -45,8 +50,7 @@ class UserController {
       }
     }
 
-				
-    [
+    return [ 
       user : user,
       viewUser : viewUser,
       viewingSelf : viewingSelf,
@@ -57,22 +61,19 @@ class UserController {
   }
 
   def library = {
+    def viewUser = User.get(springSecurityService.currentUser.id)
     def libUser = User.get(params.id)
-    def viewUser = authenticateService.userDomain()
-    viewUser = User.get(viewUser.id)
+    def boolean viewingSelf = (libUser == viewUser)
     def userLib = libUser.library
-    
     def allItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
     def borrowedItems = itemService.getBorrowedItems(params.id.toLong())
-
-    def boolean viewingSelf = (libUser == viewUser)
-
     def itemCategories = Item.categories()
     def gamePlatforms = Game.platforms()
     def movieFormats = Movie.formats()
     def albumFormats = Album.formats()
 
-    [ user : libUser,
+    return [ 
+      user : libUser,
       viewUser:viewUser,
       viewingSelf : viewingSelf,
       allItems:allItems,
@@ -82,5 +83,6 @@ class UserController {
       movieFormats:movieFormats,
       albumFormats:albumFormats
     ]
+      
   }
 }
