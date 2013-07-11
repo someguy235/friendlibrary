@@ -9,5 +9,18 @@ class UrlMappings {
 
 		"/"(controller:"home", action:"index")
 		"500"(view:'/error')
+
+    /*
+    "/service/$controller/$id?"{
+      action = [GET: "list", POST: "save"]
+
+      constraints {
+        
+      }
+    }
+    */
+    // web service stuff
+//    "library/$id?.json"(resource:"library")
+
 	}
 }

@@ -1,6 +1,5 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-
 <div class="import_box grid_6"> <!-- add single item -->
   <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" id="newItemTabs">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
@@ -74,7 +73,7 @@
 
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-music">
-      <g:form controller="item" action="addItem" id="${user.id}">
+      <g:formRemote name="myForm" url="[controller:'item', action:'addItem', params:[user:user.id]]" onSuccess="alert(JSON.stringify(data))">
         <table>
           <tr>
             <td><label for="title">Title&nbsp;</label></td>
@@ -85,19 +84,20 @@
             <td><g:textField id="artist" name="artist"/></td>
           </tr>
           <tr>
-            <g:set var="formats" value="${albumFormats}" />
             <td><label for="format">Format&nbsp;</label></td>
             <td>
               <div class="ui-widget">
-                <g:select from="${formats}" value="File" name="format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
+                <select ng-model="albumFormats.format" ng-options="a for a in albumFormats"></select>
               </div>
             </td>
           </tr>
         </table>
         <br />
         <input type="hidden" id="mediaType" name="mediaType" value="album" />
-        <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-      </g:form>
+        <g:submitButton name="Update" value="Update" />
+<!--        <input type="submit" />-->
+<!--        <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>-->
+      </g:formRemote>
     </div>
 
   </div>

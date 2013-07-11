@@ -1,6 +1,8 @@
 package com.friendlibrary
 
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import grails.plugins.springsecurity.Secured
+import grails.converters.JSON
 
 class UserController {
   def scaffold = true
@@ -30,6 +32,7 @@ class UserController {
     }
   }
 		
+  @Secured(['IS_AUTHENTICATED_REMEMBERED'])
   def profile = {
     def viewUser = User.get(springSecurityService.currentUser.id)
 
@@ -60,29 +63,44 @@ class UserController {
     ]
   }
 
+  @Secured(['IS_AUTHENTICATED_REMEMBERED'])
   def library = {
+    println "library params"+ params
+//    println(params.id)
     def viewUser = User.get(springSecurityService.currentUser.id)
     def libUser = User.get(params.id)
     def boolean viewingSelf = (libUser == viewUser)
     def userLib = libUser.library
-    def allItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
-    def borrowedItems = itemService.getBorrowedItems(params.id.toLong())
-    def itemCategories = Item.categories()
-    def gamePlatforms = Game.platforms()
-    def movieFormats = Movie.formats()
-    def albumFormats = Album.formats()
+    //def libraryItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
+    def libraryItems = itemService.getLibraryItems(params.id.toLong()) as JSON
+    def borrowedItems = itemService.getBorrowedItems(params.id.toLong()) as JSON
+    def itemCategories = Item.categories() as JSON
+    def gamePlatforms = Game.platforms() as JSON
+    def movieFormats = Movie.formats() as JSON
+    def albumFormats = Album.formats() as JSON
 
-    return [ 
-      user : libUser,
-      viewUser:viewUser,
-      viewingSelf : viewingSelf,
-      allItems:allItems,
-      borrowedItems:borrowedItems,
-      itemCategories:itemCategories,
-      gamePlatforms:gamePlatforms,
-      movieFormats:movieFormats,
-      albumFormats:albumFormats
-    ]
-      
+    withFormat{
+      html { 
+        return [ 
+          user : libUser,
+          viewUser : viewUser,
+          viewingSelf : viewingSelf,
+          libraryItems : libraryItems,
+          borrowedItems : borrowedItems,
+          itemCategories : itemCategories,
+          gamePlatforms : gamePlatforms,
+          movieFormats : movieFormats,
+          albumFormats : albumFormats
+        ]
+      }
+      json { 
+        def items = [
+          'username': libUser.username,
+          'libraryItems' : libraryItems,
+          'borrowedItems': borrowedItems
+        ] 
+        render items as JSON
+      }
+    }   
   }
 }

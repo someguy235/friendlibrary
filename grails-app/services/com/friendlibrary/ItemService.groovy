@@ -1,5 +1,7 @@
 package com.friendlibrary
 
+import grails.converters.JSON
+
 //class ItemException extends RuntimeException{
 //	String message
 //	Item item
@@ -13,7 +15,7 @@ class ItemService{
   // Add a single item to a user's library
   //
   String addItem(params){
-    def user = User.get(params.id)
+    def user = User.get(params.user.toLong())
     def library = user?.library
     
     def existingItem = Item.find("from Item as i where \
@@ -138,6 +140,13 @@ class ItemService{
     }
   }
 
+  HashMap getLibraryItems(userId){
+    def libUser = User.get(userId)
+    def userLib = libUser.library
+      
+    def libraryItems = ['music':userLib.albums, 'books':userLib.books, 'games':userLib.games, 'movies':userLib.movies]
+  }
+  
   HashMap getBorrowedItems(userId){
     def bMusic = Item.findAll("from Item as i where \
                              i.loanedTo.id = :id and \
