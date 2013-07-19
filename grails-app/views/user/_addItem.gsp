@@ -10,93 +10,54 @@
     </ul>
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom" id="newItemTabs-game">
-      <g:form controller="item" action="addItem" id="${user.id}">
+      <form ng-submit="addItem('game')">
         <table>
-          <tr>
-            <td><label for="title">Title&nbsp;</label></td>
-            <td><g:textField id="title" name="title"/></td>
+          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField ng-model="gameTitle" id="title" name="title"/></td></tr>
+          <tr><td><label for="platform">Platform&nbsp;</label></td>
+            <td><div class="ui-widget"><select ng-model="gamePlatforms.platform" ng-options="g for g in gamePlatforms"></select></div></td>
           </tr>
-          <tr>
-            <td><label for="platform">Platform&nbsp;</label></td>
-            <td>
-              <div class="ui-widget">
-                <g:select from="${gamePlatforms}" name="platform" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <br />
-        <input type="hidden" id="mediaType" name="mediaType" value="game" />
+        </table><br />
         <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-      </g:form>
+      </form>
     </div>
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-book">
-      <g:form controller="item" action="addItem" id="${user.id}">
+      <g:formRemote name="addItemForm-book" url="[controller:'item', action:'addItem', params:[user:user.id]]" onSuccess="alert(JSON.stringify(data))">
         <table>
-          <tr>
-            <td><label for="title">Title&nbsp;</label></td>
-            <td><g:textField id="title" name="title"/></td>
-          </tr>
-          <tr>
-            <td><label for="author">Author&nbsp;</label></td>
-            <td><g:textField id="author" name="author"/></td>
-          </tr>
-        </table>
-        <br />
+          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField id="title" name="title"/></td></tr>
+          <tr><td><label for="author">Author&nbsp;</label></td><td><g:textField id="author" name="author"/></td></tr>
+        </table><br />
         <input type="hidden" id="mediaType" name="mediaType" value="book" />
         <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-      </g:form>
+      </g:formRemote>
     </div>
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-movie">
-      <g:form controller="item" action="addItem" id="${user.id}">
+      <g:formRemote name="addItemForm-movie" url="[controller:'item', action:'addItem', params:[user:user.id]]" onSuccess="alert(JSON.stringify(data))">
         <table>
-          <tr>
-            <td><label for="title">Title&nbsp;</label></td>
-            <td><g:textField id="title" name="title"/></td>
+          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField id="title" name="title"/></td></tr>
+          <tr><td><label for="format">Format&nbsp;</label></td>
+            <td><div class="ui-widget"><select ng-model="movieFormats.format" ng-options="a for a in movieFormats"></select></div></td>
           </tr>
-          <tr>
-            <td><label for="format">Format&nbsp;</label></td>
-            <td>
-              <div class="ui-widget">
-                <g:select from="${movieFormats}" value="DVD" name="format" class="ui-button ui-widget-content ui-state-default ui-corner-all"></g:select>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <br />
+        </table><br />
         <input type="hidden" id="mediaType" name="mediaType" value="movie" />
         <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-      </g:form>
+      </g:formRemote>
     </div>
 
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-music">
-      <g:formRemote name="myForm" url="[controller:'item', action:'addItem', params:[user:user.id]]" onSuccess="alert(JSON.stringify(data))">
+      <g:formRemote name="addItemForm-music" url="[controller:'item', action:'addItem', params:[user:user.id]]" onSuccess="alert(JSON.stringify(data))">
         <table>
-          <tr>
-            <td><label for="title">Title&nbsp;</label></td>
-            <td><g:textField id="title" name="title"/></td>
+          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField id="title" name="title"/></td></tr>
+          <tr><td><label for="artist">Artist&nbsp;</label></td><td><g:textField id="artist" name="artist"/></td></tr>
+          <tr><td><label for="format">Format&nbsp;</label></td>
+            <td><div class="ui-widget"><select ng-model="albumFormats.format" ng-options="a for a in albumFormats"></select></div></td>
           </tr>
-          <tr>
-            <td><label for="artist">Artist&nbsp;</label></td>
-            <td><g:textField id="artist" name="artist"/></td>
-          </tr>
-          <tr>
-            <td><label for="format">Format&nbsp;</label></td>
-            <td>
-              <div class="ui-widget">
-                <select ng-model="albumFormats.format" ng-options="a for a in albumFormats"></select>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <br />
+        </table><br />
         <input type="hidden" id="mediaType" name="mediaType" value="album" />
-        <g:submitButton name="Update" value="Update" />
-<!--        <input type="submit" />-->
-<!--        <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>-->
+        
+        <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
       </g:formRemote>
     </div>
 

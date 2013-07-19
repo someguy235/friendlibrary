@@ -65,7 +65,7 @@ class UserController {
 
   @Secured(['IS_AUTHENTICATED_REMEMBERED'])
   def library = {
-    println "library params"+ params
+    //println "library params"+ params
 //    println(params.id)
     def viewUser = User.get(springSecurityService.currentUser.id)
     def libUser = User.get(params.id)

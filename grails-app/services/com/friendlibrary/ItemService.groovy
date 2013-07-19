@@ -15,6 +15,7 @@ class ItemService{
   // Add a single item to a user's library
   //
   String addItem(params){
+    println "addItem Service: "+ params
     def user = User.get(params.user.toLong())
     def library = user?.library
     
@@ -52,7 +53,7 @@ class ItemService{
     
     item.save(failOnError:true)
     if(library.save(failOnError:true)){
-      return "item added"
+      def m = params.title +" added"
     }else{
       throw new ItemException(message: "Invalid or empty item", item:item)
     }

@@ -27,7 +27,7 @@ class ItemController {
   }
 		
   def addItem = {
-    println "addItem params: "+ params
+    def params = JSON.parse(request.reader.text)
     try{
       flash.message = itemService.addItem(params)
     }catch(ItemException ie){
