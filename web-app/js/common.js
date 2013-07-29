@@ -68,7 +68,11 @@ friendlyModule.controller( "LibraryController", function($scope, libraryService)
   $scope.$watch('libraryService.libraryItems', function(newVal, oldVal, scope){
     if(newVal){
       $scope.libraryItems = newVal;
-//      console.log("libraryItems: "+ JSON.stringify($scope.libraryItems))
+      $scope.libraryItems['all'] = new Array();
+      $(itemCategories).each(function(i, cat){
+        $scope.libraryItems['all'] = $scope.libraryItems['all'].concat($scope.libraryItems[cat]);
+      })
+      console.log($scope.libraryItems);
     }
   })
 })
