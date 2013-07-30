@@ -9,13 +9,15 @@
       var movieFormats = ${movieFormats};
       var albumFormats = ${albumFormats};
       var userId = ${user.id};
+      var viewingSelf = ${viewingSelf};
+      var viewUser = ${viewUser};
     </r:script>
     <meta name="layout" content="main"/>
 	</head>
 	<body>
     <div id="friendlyApp">
       <div ng-show="${(flash.message != null)}" class="flash">${flash.message}</div>
-      <div ng-show="${viewingSelf}" ng-controller="AddItemsController">  <!--interface for adding items -->
+      <div ng-show="{{viewingSelf}}" ng-controller="AddItemsController">  <!--interface for adding items -->
         <h1>Add Items</h1>
         <g:render template="addItem"/>
         <g:render template="addItemList" />
@@ -48,13 +50,14 @@
                   <th ng-show="category == 'all'" class="library_all_col_platform">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
                   <th ng-show="category == 'music'" class="library_all_col_artist">Artist &nbsp;&nbsp;&nbsp;&nbsp;</th>
                   <th ng-show="category == 'books'" class="library_all_col_author">Author &nbsp;&nbsp;&nbsp;&nbsp;</th>  
-                  <th ng-show="category == 'albums'" class="library_all_col_format">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                  <th ng-show="category == 'music'" class="library_all_col_format">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
+                  <th ng-show="category == 'movies'" class="library_all_col_format">Format &nbsp;&nbsp;&nbsp;&nbsp;</th>
                   <th ng-show="category == 'games'" class="library_all_col_platform">Platform &nbsp;&nbsp;&nbsp;&nbsp;</th>
                 </tr>
               </thead>
               <tbody class="library_table_body">
                 <tr ng-repeat="item in libraryItems[category]">
-                  <td>
+                  <td ng-controller="ItemOptionsController" align="center" class="lib_table_options">
                     <g:render template="optionsPanel"/>
                   </td>
                   <td align="center" class="lib_table_media">

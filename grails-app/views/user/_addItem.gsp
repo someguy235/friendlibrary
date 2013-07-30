@@ -22,35 +22,34 @@
     </div>
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-book">
-      <g:formRemote name="addItemForm-book" url="[controller:'item', action:'addItem', params:[user:user.id]]" onSuccess="alert(JSON.stringify(data))">
+      <form ng-submit="addItem('book')">
         <table>
-          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField id="title" name="title"/></td></tr>
-          <tr><td><label for="author">Author&nbsp;</label></td><td><g:textField id="author" name="author"/></td></tr>
+          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField ng-model="bookTitle" id="title" name="title"/></td></tr>
+          <tr><td><label for="author">Author&nbsp;</label></td><td><g:textField ng-model="bookAuthor" id="author" name="author"/></td></tr>
         </table><br />
-        <input type="hidden" id="mediaType" name="mediaType" value="book" />
         <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-      </g:formRemote>
+      </form>
     </div>
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-movie">
-      <g:formRemote name="addItemForm-movie" url="[controller:'item', action:'addItem', params:[user:user.id]]" onSuccess="alert(JSON.stringify(data))">
+      <form ng-submit="addItem('movie')">  
         <table>
-          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField id="title" name="title"/></td></tr>
+          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField ng-model="movieTitle" id="title" name="title"/></td></tr>
           <tr><td><label for="format">Format&nbsp;</label></td>
             <td><div class="ui-widget"><select ng-model="movieFormats.format" ng-options="a for a in movieFormats"></select></div></td>
           </tr>
         </table><br />
         <input type="hidden" id="mediaType" name="mediaType" value="movie" />
         <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-      </g:formRemote>
+      </form>
     </div>
 
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide" id="newItemTabs-music">
-      <g:formRemote name="addItemForm-music" url="[controller:'item', action:'addItem', params:[user:user.id]]" onSuccess="alert(JSON.stringify(data))">
+      <form ng-submit="addItem('album')">
         <table>
-          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField id="title" name="title"/></td></tr>
-          <tr><td><label for="artist">Artist&nbsp;</label></td><td><g:textField id="artist" name="artist"/></td></tr>
+          <tr><td><label for="title">Title&nbsp;</label></td><td><g:textField ng-model="albumTitle" id="title" name="title"/></td></tr>
+          <tr><td><label for="artist">Artist&nbsp;</label></td><td><g:textField ng-model="albumArtist" id="artist" name="artist"/></td></tr>
           <tr><td><label for="format">Format&nbsp;</label></td>
             <td><div class="ui-widget"><select ng-model="albumFormats.format" ng-options="a for a in albumFormats"></select></div></td>
           </tr>
@@ -58,7 +57,7 @@
         <input type="hidden" id="mediaType" name="mediaType" value="album" />
         
         <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button"><span class="ui-button-text">Add Item</span></button>
-      </g:formRemote>
+      <form>
     </div>
 
   </div>

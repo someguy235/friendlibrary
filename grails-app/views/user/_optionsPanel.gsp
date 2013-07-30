@@ -3,6 +3,7 @@
 
 <!-- options panel -->
 <g:set var="needConfirmItemRequestForm" value="false" />
+
 <g:if test="{{item.loanedOut == true}}">
   <g:set var="buttonColor" value="red" />
   <g:if test="${viewingSelf}">
@@ -23,6 +24,7 @@
     </g:else>
   </g:else>
 </g:if>
+
 <g:elseif test="${item.reserved == true}">
   <g:set var="item_status_message" value="this item is reserved" />
   <g:set var="buttonColor" value="yellow" />
@@ -71,7 +73,7 @@
 </g:else>
 <g:set var="buttonImage" value="${buttonColor}light.png" />
 
-<button class="option_button" id="option_button_${itemCategory}_{{item.id}}" title="options">
+<button class="option_button" id="option_button_{{category}}_{{item.id}}" title="options">
   <img height="15" width="15" src="${resource(dir:'images/icons',file:buttonImage)}" />
 </button>
 
