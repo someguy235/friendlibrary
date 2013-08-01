@@ -61,6 +61,10 @@ friendlyModule.factory('libraryService', function() {
   return service
 })
 
+friendlyModule.controller("FlashController", function($scope){
+  $scope.flashMessage = flashMessage;
+})
+
 friendlyModule.controller( "LibraryController", function($scope, libraryService){
   $scope.itemCategories = itemCategories //students //${itemCategories}
   $scope.libraryService = libraryService
@@ -72,13 +76,14 @@ friendlyModule.controller( "LibraryController", function($scope, libraryService)
       $(itemCategories).each(function(i, cat){
         $scope.libraryItems['all'] = $scope.libraryItems['all'].concat($scope.libraryItems[cat]);
       })
-      console.log($scope.libraryItems);
+//      console.log($scope.libraryItems);
     }
   })
 })
 
 friendlyModule.controller("AddItemsController", function($scope, $http, libraryService){
   $scope.userId = userId
+  $scope.viewingSelf = viewingSelf;
   $scope.gamePlatforms = gamePlatforms
   $scope.gamePlatforms.platform = $scope.gamePlatforms[0]
   $scope.movieFormats = movieFormats
@@ -120,8 +125,8 @@ friendlyModule.controller("ItemOptionsController", function($scope, $http, libra
   $scope.formAction = null;
   $scope.buttonTitle = null;
   
-  console.log($scope.item);
-  if(item.loanedOut){
+  //console.log($scope.item);
+  if($scope.item.loanedOut){
     $scope.buttonColor = 'red';
     if(viewingSelf){
       $scope.itemStatusMessage = "loaned out to <span class='option_panel_username'>"+ $scope.item.loanedTo.username +"</span>";
@@ -179,6 +184,7 @@ friendlyModule.controller("ItemOptionsController", function($scope, $http, libra
     }
   }
   $scope.buttonImage = $scope.buttonColor + "light.png";
+//  console.log("button image: "+ $scope.buttonImage);
 })
 
 angular.bootstrap(friendlyApp, ["friendlyApp"]);

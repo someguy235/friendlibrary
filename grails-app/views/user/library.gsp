@@ -10,17 +10,24 @@
       var albumFormats = ${albumFormats};
       var userId = ${user.id};
       var viewingSelf = ${viewingSelf};
-      var viewUser = ${viewUser};
+      var viewUser = "${viewUser}";
+      //TODO: fix this
+      var flashMessage;
+      
     </r:script>
     <meta name="layout" content="main"/>
 	</head>
 	<body>
     <div id="friendlyApp">
-      <div ng-show="${(flash.message != null)}" class="flash">${flash.message}</div>
-      <div ng-show="{{viewingSelf}}" ng-controller="AddItemsController">  <!--interface for adding items -->
-        <h1>Add Items</h1>
-        <g:render template="addItem"/>
-        <g:render template="addItemList" />
+      <div ng-controller="FlashController">
+<!--        <div ng-show="{(flashMessage != null)}" class="flash">{{flashMessage}}</div>-->
+      </div>
+      <div ng-controller="AddItemsController">
+        <div ng-show="viewingSelf">  <!--interface for adding items -->
+          <h1>Add Items</h1>
+          <g:render template="addItem"/>
+          <g:render template="addItemList" />
+        </div>
       </div>
       <div class="clear"></div>
       
@@ -58,10 +65,13 @@
               <tbody class="library_table_body">
                 <tr ng-repeat="item in libraryItems[category]">
                   <td ng-controller="ItemOptionsController" align="center" class="lib_table_options">
-                    <g:render template="optionsPanel"/>
+                    <button class="option_button" id="option_button_{{category}}_{{item.id}}" title="options">
+                      <img height="15" width="15" ng-src="/friendlibrary/images/icons/{{buttonImage}}" />
+                    </button>
+
                   </td>
                   <td align="center" class="lib_table_media">
-                    <img height="20" width="20" src="/friendlibrary/images/icons/{{item.mediaType}}.png" alt="{{item.mediaType}}" title="{{item.mediaType}}"/>
+                    <img height="20" width="20" ng-src="/friendlibrary/images/icons/{{item.mediaType}}.png" alt="{{item.mediaType}}" title="{{item.mediaType}}"/>
                   </td>
                   <td class="lib_table_title">
                     <div id="item_title_{{item.id}}">{{item.title}}</div>
