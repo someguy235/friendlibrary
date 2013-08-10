@@ -33,16 +33,11 @@ class ItemController {
     }catch(ItemException ie){
       flash.message = ie.message
     }
-    //redirect(controller: 'user', action: 'library', id:params.id)
-    //forward (controller: 'user', action: 'library', id: (params.id +".json") )  
-    //forward (url: "/user/library/"+ params.id +".json")
-    //def username = 
     def items = [
           'username': User.get(params.user).username,
           'library' : itemService.getLibraryItems(params.user.toLong()),
           'borrowed': itemService.getBorrowedItems(params.user.toLong())
         ] 
-    //println items
     render items as JSON
   }
 
@@ -65,12 +60,18 @@ class ItemController {
   }
 
   def editItem = {
+    def params = JSON.parse(request.reader.text)
     try{
       flash.message = itemService.editItem(params)
     }catch(ItemException ie){
-      flash.message = id.messaage
+      flash.message = ie.messaage
     }
-    redirect(controller: 'user', action: 'library', id:params.id)
+    def items = [
+          'username': User.get(params.user).username,
+          'library' : itemService.getLibraryItems(params.user.toLong()),
+          'borrowed': itemService.getBorrowedItems(params.user.toLong())
+        ] 
+    render items as JSON
   }
 
 }

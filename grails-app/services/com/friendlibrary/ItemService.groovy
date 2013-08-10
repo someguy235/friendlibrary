@@ -114,23 +114,25 @@ class ItemService{
   }
 
   String editItem(params){
-    try{
-      def item = Item.get(params.requestedMedia)
+    println "editItem Service: "+ params
 
-      if(params.edit_title){
-        item.title = params.edit_title
+    try{
+      def item = Item.get(params.itemId)
+
+      if(params.title){
+        item.title = params.title
       }
-      if(params.edit_artist){
-        item.artist = params.edit_artist
+      if(params.artist){
+        item.artist = params.artist
       }
-      if(params.edit_author){
-        item.author = params.edit_author
+      if(params.author){
+        item.author = params.author
       }
-      if(params.edit_format){
-        item.format = params.edit_format
+      if(params.format){
+        item.format = params.format
       }
-      if(params.edit_platform){
-        item.platform = params.edit_platform
+      if(params.platform){
+        item.platform = params.platform
       }
 
       item.save()

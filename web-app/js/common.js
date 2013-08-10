@@ -7,50 +7,42 @@ setTimeout(function(){$(".flash").hide(100)}, 3000);
 
 $.fx.speeds._default = 250;
 
-$(function() {
-
-  $(".edit_panel").dialog({
-    autoOpen: false,
-    show: "blind",
-    hide: "blind"
-  });
-
-  $(".delete_panel").dialog({
-    autoOpen: false,
-    show: "blind",
-    hide: "blind"
-  });
-
-  $("#newItemTabs").tabs({ selected: 0 });
-  $("#newItemListTabs").tabs({ selected: 0 });
-
-  $("#borrowedTabs").tabs({ selected: 0 });
-  $("#libTabs").tabs({ selected: 0 });
-
+/*
 //  <g:each in="${itemCategories}" var="category">
 //    $("#borrowedTabs-${category}-content").tablesorter( {sortList: [[1,0],[2,0]]} );
 //    $("#libTabs-${category}-content").tablesorter( {sortList: [[1,0],[2,0]]} );
 //  </g:each>
+*/
 
-});
+function options_panel(itemId){
+  $("#options_panel-"+itemId+'').dialog({
+    show: "blind",
+    hide: "blind"
+  });
+  return false;
+}
 
 function edit_panel(itemId){
-  $( '#edit_panel-'+itemId+'' ).dialog( "open" );
+  $( '#edit_panel-'+itemId+'' ).dialog({
+    show: "blind",
+    hide: "blind"
+  });
   return false;
 };
 
 function delete_panel(itemId){
-  $( '#delete_panel-'+itemId+'' ).dialog( "open" );
+  $( '#delete_panel-'+itemId+'' ).dialog({
+    show: "blind",
+    hide: "blind"
+  });
   return false;
 };
 
 function close_delete_panel(itemId){
+  //TODO: this doesn't work
   $( '#delete_panel-'+itemId+'' ).dialog("close");
   return false;
 };
-
-
-
 
 var friendlyModule = angular.module('friendlyApp', []);
 
@@ -60,6 +52,7 @@ friendlyModule.factory('libraryService', function() {
   }
   return service
 })
+
 
 friendlyModule.controller("FlashController", function($scope){
   $scope.flashMessage = flashMessage;
@@ -76,7 +69,6 @@ friendlyModule.controller( "LibraryController", function($scope, libraryService)
       $(itemCategories).each(function(i, cat){
         $scope.libraryItems['all'] = $scope.libraryItems['all'].concat($scope.libraryItems[cat]);
       })
-//      console.log($scope.libraryItems);
     }
   })
 })
@@ -118,12 +110,22 @@ friendlyModule.controller("AddItemsController", function($scope, $http, libraryS
 
 friendlyModule.controller("ItemOptionsController", function($scope, $http, libraryService){
   $scope.viewingSelf = viewingSelf;
-  $scope.viewUser = viewUser;
+  $scope.viewUserId = viewUserId;
   $scope.needConfirmItemRequestForm = false;
   $scope.buttonColor = null;
   $scope.itemStatusMessage = null;
   $scope.formAction = null;
   $scope.buttonTitle = null;
+
+  $scope.userId = userId
+  $scope.gamePlatforms = gamePlatforms
+  $scope.gamePlatforms.platform = $scope.gamePlatforms[0]
+  $scope.movieFormats = movieFormats
+  $scope.movieFormats.format = $scope.movieFormats[0]
+  $scope.albumFormats = albumFormats
+  $scope.albumFormats.format = $scope.albumFormats[0]
+
+  $scope.templates = {'options_panel': '/friendlibrary/fragments/optionsPanel.html'};
   
   //console.log($scope.item);
   if($scope.item.loanedOut){
@@ -133,7 +135,7 @@ friendlyModule.controller("ItemOptionsController", function($scope, $http, libra
       $scope.formAction = "requestItemReturn";
       $scope.buttonTitle = "request return";
     }else{
-      if($scope.item.loanedTo.id == viewUser.id){
+      if($scope.item.loanedTo.id == viewUserId){
         $scope.itemStatusMessage = "you have this item";
         $scope.formAction = "confirmReturnRequest";
         $scope.buttonTitle = "mark this item returned";
@@ -161,7 +163,7 @@ friendlyModule.controller("ItemOptionsController", function($scope, $http, libra
       $scope.formAction = "removeAllItemRequests";
       $scope.buttonTitle = "remove all requests";
     }else{
-      if(item.requestQueue.contains(viewUser.id)){
+      if(item.requestQueue.contains(viewUserId)){
         $scope.formAction = "removeItemRequest";
         $scope.itemStatusMessage = "requested by <span class='option_panel_username'>you</span>";
         $scope.buttonTitle = "remove your request";
@@ -184,7 +186,41 @@ friendlyModule.controller("ItemOptionsController", function($scope, $http, libra
     }
   }
   $scope.buttonImage = $scope.buttonColor + "light.png";
-//  console.log("button image: "+ $scope.buttonImage);
+  
+  $scope.editItem = function(itemId, itemType){
+    console.log("id: "+ itemId);
+    console.log("edit: "+ itemType);
+    $scope.params = {
+      'game':{'platform': $scope.gamePlatforms.platform, 'title': $scope.mediaTitle},
+      'book':{'title': $scope.mediaTitle, 'author': $scope.bookAuthor},
+      'movie':{'format': $scope.movieFormats.format, 'title': $scope.mediaTitle},
+      'album':{'format': $scope.albumFormats.format, 'title': $scope.mediaTitle, 'artist': $scope.albumArtist}
+    }
+
+    var postData = $scope.params[itemType]
+    postData.user = $scope.userId
+    postData.itemType = itemType
+    postData.itemId = itemId
+    
+    $http({
+      url: '/friendlibrary/item/editItem/',
+      method: "POST",
+      data: JSON.stringify(postData),
+      headers: {'Content-Type': 'application/json'}
+    }).success(function (data, status, headers, config) {
+      console.log(data);
+      libraryService.libraryItems = data.library;
+    }).error(function (data, status, headers, config) {
+
+    });
+  }
+
 })
 
 angular.bootstrap(friendlyApp, ["friendlyApp"]);
+
+$("#newItemTabs").tabs({ selected: 0 });
+$("#newItemListTabs").tabs({ selected: 0 });
+
+$("#borrowedTabs").tabs({ selected: 0 });
+$("#libTabs").tabs({ selected: 0 });
