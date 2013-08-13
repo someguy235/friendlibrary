@@ -13,36 +13,44 @@ $.fx.speeds._default = 250;
 //    $("#libTabs-${category}-content").tablesorter( {sortList: [[1,0],[2,0]]} );
 //  </g:each>
 */
-
+var optionsDialog;
 function options_panel(itemId){
-  $("#options_panel-"+itemId+'').dialog({
+  optionsDialog = $("#options_panel-"+ itemId).dialog({
     show: "blind",
     hide: "blind"
   });
   return false;
 }
+function close_options_panel(itemId){
+  $(optionsDialog).dialog("close");
+  return false;
+}
 
+var editDialog;
 function edit_panel(itemId){
-  $( '#edit_panel-'+itemId+'' ).dialog({
+  editDialog = $( '#edit_panel-'+itemId+'' ).dialog({
     show: "blind",
     hide: "blind"
   });
   return false;
-};
+}
+function close_edit_panel(itemId){
+  $(editDialog).dialog("close");
+  return false;
+}
 
+var deleteDialog;
 function delete_panel(itemId){
-  $( '#delete_panel-'+itemId+'' ).dialog({
+  deleteDialog = $( '#delete_panel-'+ itemId ).dialog({
     show: "blind",
     hide: "blind"
   });
   return false;
-};
-
+}
 function close_delete_panel(itemId){
-  //TODO: this doesn't work
-  $( '#delete_panel-'+itemId+'' ).dialog("close");
+  $(deleteDialog).dialog("close");
   return false;
-};
+}
 
 var friendlyModule = angular.module('friendlyApp', []);
 

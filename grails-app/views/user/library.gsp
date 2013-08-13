@@ -100,7 +100,7 @@
                       <g:if test="{{viewingSelf}}"> 
                         <g:if test="{{notLoanedOut}}"> 
                           <div class="library_item_option"> 
-                            <button aria-disabled="false" role="button" onclick="edit_panel({{item.id}});" id="button" class="edit_button" title="edit item"> 
+                            <button aria-disabled="false" role="button" onclick="edit_panel({{item.id}}); close_options_panel({{item.id}});" id="button" class="edit_button" title="edit item"> 
                               <img height="15" width="15" ng-src="/friendlibrary/images/icons/yellowlight.png" /> 
                             </button> 
                             <span class="library_item_option_text">edit</span> 
@@ -108,7 +108,7 @@
                           <div class="clear"></div> 
                         </g:if> 
                         <div class="library_item_option"> 
-                          <button aria-disabled="false" role="button" onclick="delete_panel({{item.id}});" id="button" class="delete_button" title="delete item"> 
+                          <button onclick="delete_panel({{item.id}}); close_options_panel({{item.id}});" aria-disabled="false" role="button" id="button" class="delete_button" title="delete item"> 
                               <img height="15" width="15" ng-src="/friendlibrary/images/icons/delete.png" /> 
                           </button> 
                           <span class="library_item_option_text">delete</span> 
@@ -148,7 +148,7 @@
                           <div class="clear"></div> 
                         </div>
                         <br />
-                        <button aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button">
+                        <button onclick="close_edit_panel({{item.id}});" aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="button">
                           <span class="ui-button-text">Update</span>
                         </button>
                       </form>
@@ -156,14 +156,14 @@
                     <div class="clear"></div>
                     
                     <div class="delete_panel" id="delete_panel-{{item.id}}" title="Delete: {{item.title}}?" style="display:none;">
-                      <g:form controller="item" action="deleteItem" id="{{user.id}}">
+                      <form ng-submit="deleteItem('{{item.id}}')" onsubmit="return false;">
                         <input type="hidden" id="requestedMedia" name="requestedMedia" value="{{item.id}}" />
                         <img height="20" width="20" ng-src="/friendlibrary/images/icons/{{item.mediaType}}.png" alt="{{item.mediaType}}" title="{{item.mediaType}}"/>
                         <div class="clear"></div>
-                        <button aria-disabled="false" role="button" class="delete_item_button" id="button" title="Yes, get rid of it!">
+                        <button onclick="close_delete_panel({{item.id}});" aria-disabled="false" role="button" class="delete_item_button" id="button" title="Yes, get rid of it!">
                           Yes, get rid of it!
                         </button>
-                      </g:form>
+                      </form>
                       <button aria-disabled="false" role="button" class="delete_item_button" id="button" onclick="close_delete_panel({{item.id}});" title="No, just kidding.">
                         No, just kidding.
                       </button>
